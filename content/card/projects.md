@@ -1,6 +1,6 @@
 ---
 style: 'background: #f7f9fb;'
-title: Projects
+title: Art
 weight: 2
 ---
 
