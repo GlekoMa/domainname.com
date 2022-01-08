@@ -19,24 +19,24 @@ outputs:
 # some menu items were added via the `menu` option in YAML in posts
 menu:
   header:
-    - name: 搜索
+    - name: Search
       url: "#"
       identifier: menu-search
     - name: Subscribe
       url: "index.xml"
   footer:
-    - name: 联系
+    - name: Contact
       url: "https://github.com/GlekoMa"
       weight: 1
-    - name: 分类
+    - name: Categories
       url: "/categories/"
       weight: 2
       pre: "optional"
-    - name: 标签
+    - name: Tags
       url: "/tags/"
       weight: 3
       pre: "optional"
-    - name: 回返
+    - name: Back to top
       url: "#"
 
 params:

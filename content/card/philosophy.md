@@ -1,6 +1,6 @@
 ---
 style: 'background: darkslategray; color: white;'
-title: Philosophy
+title: 哲学
 weight: 1
 ---
 
