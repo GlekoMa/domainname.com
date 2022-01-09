@@ -13,6 +13,6 @@ tags:
 
 <center>
 <a href="static/image/fog.png">
-  <img src="static/image/fog.png" style="zoom: 200%;" align="middle" alt="浓浓的大雾" />
+  <img src="static/image/fog.png" style="zoom: 70%;" align="middle" alt="浓浓的大雾" />
 </a>
 </center>
