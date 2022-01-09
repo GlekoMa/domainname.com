@@ -9,8 +9,16 @@ tags:
   - Nature
 ---
 
+点击可以播放音乐：
+
+<audio id="audio" controls="" preload="none">
+      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=472045266.mp3">
+</audio>
+
 去年也是大约这个时间，考试还剩最后一门，那天我凌晨即起，早有大雾，我闲逛到九州桥上，拍下了这张照片：
 
-<div align="center">
-  <img src="https://github.com/GlekoMa/domainname.com/static/image/fog.png" width="70%"/>
-</div>
+![fog](images/fog.png)
+
+明天加油！最后的查询语句做完一定要仔细检查两遍！
+
+考完见😁！
