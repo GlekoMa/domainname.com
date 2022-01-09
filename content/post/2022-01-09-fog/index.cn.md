@@ -11,8 +11,6 @@ tags:
 
 去年也是大约这个时间，考试还剩最后一门，那天我凌晨即起，早有大雾，我闲逛到九州桥上，拍下了这张照片：
 
-<center>
-<a href="static/image/fog.png">
-  <img src="static/image/fog.png" style="zoom: 70%;" align="middle" alt="浓浓的大雾" />
-</a>
-</center>
+<div align="center">
+  <img src="https://github.com/GlekoMa/domainname.com/static/image/fog.png" width="70%"/>
+</div>
