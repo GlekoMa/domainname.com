@@ -29,10 +29,11 @@ tags:
 
 **视频测试：**
 
-<div class="embed-left">
+<div class="embed-right">
 <iframe 
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
-    autostart="true" 
+    allow="autoplay; fullscreen"    
+    allowfullscreen
     width="100%" 
     height="100%" 
     scrolling="no" 
@@ -45,3 +46,8 @@ tags:
              allow-scripts"
 ></iframe>
 </div>
+One application is to embed videos in an article, when the video needs a narrative. For example, you can embed a video on the right side, and provide a narrative in the body of the article, which will be on the left side of the video.
+
+By default, the of the embedded element is 600px (the actual width could be smaller), out of which 200px will be in the margin, meaning that there will be at least 400px left for the narrative in the article body.max-width
+
+When the screen width is smaller than 1200px, the embedded elements will be floated back into the article as normal block-level elements.
