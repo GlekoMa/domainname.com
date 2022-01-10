@@ -31,10 +31,10 @@ tags:
 <iframe 
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
     allowfullscreen="allowfullscreen" 
-    width="100%" 
+    allow="autoplay"
+    width="90%" 
     scrolling="no" 
     frameborder="0" 
-    allow="autoplay; fullscreen"
     sandbox="allow-top-navigation 
     allow-same-origin 
     allow-forms 
@@ -42,3 +42,14 @@ tags:
 ></iframe>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+.
