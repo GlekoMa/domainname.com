@@ -29,11 +29,11 @@ tags:
 
 **视频测试：**
 
-<div class="embed-right">
+<div class="embed-middle">
 <iframe 
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
-    allowfullscreen="true" 
-    autoplay="autoplay" 
+    allow="autoplay; fullscreen" 
+    allowfullscreen 
     width="100%" 
     height="100%"
     scrolling="no" 
