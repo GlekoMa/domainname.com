@@ -29,17 +29,16 @@ tags:
 
 **视频测试：**
 
-<div class="embed-middle">
+<div class="embed-left">
 <iframe 
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
-    allow="autoplay; fullscreen" 
-    allowfullscreen 
+    autostart="true" 
     width="100%" 
-    height="100%"
+    height="100%" 
     scrolling="no" 
     frameborder="0" 
     allowtransparency="true" 
-    style="background-color=transparent"
+    style="background-color=transparent" 
     sandbox="allow-top-navigation 
              allow-same-origin 
              allow-forms 
