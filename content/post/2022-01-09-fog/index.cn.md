@@ -28,5 +28,5 @@ tags:
 **视频测试：**
 
 <div class="embed-right">
-<iframe src="//player.bilibili.com/player.html?aid=757975901&bvid=BV1x64y127pm&cid=335706748&page=1" width="640" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<iframe src="//player.bilibili.com/player.html?aid=375588815&bvid=BV1so4y1m7U5&cid=339262048&page=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
 </div>
