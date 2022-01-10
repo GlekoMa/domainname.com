@@ -32,13 +32,14 @@ tags:
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
     allowfullscreen="allowfullscreen" 
     allow="autoplay"
-    width="90%" 
+    width="100%" 
+    align="left"
     scrolling="no" 
     frameborder="0" 
     sandbox="allow-top-navigation 
-    allow-same-origin 
-    allow-forms 
-    allow-scripts"
+             allow-same-origin 
+             allow-forms 
+             allow-scripts"
 ></iframe>
 </div>
 
