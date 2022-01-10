@@ -30,11 +30,14 @@ tags:
 <div class="embed-right">
 <iframe 
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
-    allowfullscreen="allowfullscreen" 
+    allowfullscreen="true" 
+    allowautoplay="true"
     width="100%" 
-    align="middle" 
+    height="100%"
     scrolling="no" 
     frameborder="0" 
+    allowtransparency="true" 
+    style="background-color=transparent"
     sandbox="allow-top-navigation 
              allow-same-origin 
              allow-forms 
