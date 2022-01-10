@@ -34,7 +34,7 @@ tags:
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
     allow="autoplay; fullscreen"    
     allowfullscreen
-    width="640" height="400"
+    width="200%" 
     scrolling="no" 
     frameborder="0" 
     allowtransparency="true" 
