@@ -34,7 +34,7 @@ tags:
     width="100%" 
     scrolling="no" 
     frameborder="0" 
-    allow="autoplay 
+    allow="autoplay; fullscreen"
     sandbox="allow-top-navigation 
     allow-same-origin 
     allow-forms 
