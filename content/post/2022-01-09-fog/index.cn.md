@@ -22,3 +22,11 @@ tags:
 明天加油！最后的查询语句做完**一定要仔细检查两遍！**
 
 考完见😁！
+
+
+
+**视频测试：**
+
+<div class="embed-right">
+<iframe src="//player.bilibili.com/player.html?aid=757975901&bvid=BV1x64y127pm&cid=335706748&page=1" width="640" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
