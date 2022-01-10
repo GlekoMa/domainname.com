@@ -11,7 +11,10 @@ tags:
 
 点击可以播放音乐：
 
-<audio id="audio" controls="" preload="none">
+<audio id="audio" 
+       controls="" 
+       autoplay="autoplay" 
+       preload="none">
       <source id="mp3" src="https://music.163.com/song/media/outer/url?id=472045266.mp3">
 </audio>
 
