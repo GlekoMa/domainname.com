@@ -13,7 +13,6 @@ tags:
 
 <audio id="audio" 
        controls="" 
-       autoplay="autoplay" 
        preload="none">
       <source id="mp3" src="https://music.163.com/song/media/outer/url?id=472045266.mp3">
 </audio>
@@ -34,7 +33,7 @@ tags:
 <iframe 
   src="//player.bilibili.com/player.html?aid=203291798&bvid=BV13h411f79D&cid=270735676&page=1&high_quality=1&danmaku=0" 
     allowfullscreen="true" 
-    allowautoplay="true"
+    autoplay="autoplay" 
     width="100%" 
     height="100%"
     scrolling="no" 
