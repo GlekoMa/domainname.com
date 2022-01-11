@@ -1,0 +1,78 @@
+---
+title: 抽样技术
+author: 马佳璇
+date: '2022-01-11'
+slug: Sampling Technique
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index.zh_files/header-attrs/header-attrs.js"></script>
+
+
+<p>《抽样技术》（第五版）/金勇进、杜子芳、蒋妍 编著</p>
+<p>实践题 个人答案</p>
+<p>第一章 绪论</p>
+<pre class="r"><code>x &lt;- runif(100000,60,100)</code></pre>
+<pre class="r"><code>y &lt;- sample(x,size = 30)
+mean(y)</code></pre>
+<pre><code>## [1] 78.75042</code></pre>
+<pre class="r"><code>(z &lt;- replicate(100,mean(sample(x,size = 30))))</code></pre>
+<pre><code>##   [1] 81.85871 79.65601 83.29543 79.09477 82.36333 78.09588 77.14959 80.14607
+##   [9] 81.26928 80.47630 80.78936 79.57375 79.87940 82.80245 79.22904 75.03253
+##  [17] 79.01597 79.12020 79.34886 78.81268 78.85466 83.65562 75.33246 78.66923
+##  [25] 80.07591 78.05565 79.69155 74.59553 81.12387 82.75469 76.49189 80.75533
+##  [33] 82.79509 79.11945 78.67043 78.20055 83.37694 79.70351 76.54855 83.19837
+##  [41] 83.22256 82.15340 78.55432 80.22215 77.66417 77.63770 78.84263 80.40975
+##  [49] 79.53466 82.67317 78.91033 79.22989 83.27792 80.42738 79.82187 82.13290
+##  [57] 81.36654 79.53271 77.74822 82.13034 79.27706 84.14733 82.80156 77.86436
+##  [65] 81.69768 81.81296 80.75115 76.05847 80.87773 83.69870 80.28199 79.68133
+##  [73] 81.55084 80.51635 78.66121 79.39285 81.99184 79.77255 79.77501 82.31210
+##  [81] 80.29640 77.34694 79.32576 82.20387 78.54482 76.04679 75.03336 80.08936
+##  [89] 82.27487 81.61706 79.58657 79.44489 78.41554 80.22471 82.28450 79.60546
+##  [97] 77.39312 79.49443 77.41976 81.50087</code></pre>
+<pre class="r"><code>data &lt;- data.frame(
+  x = 1:100,
+  y = z
+)</code></pre>
+<pre class="r"><code>library(ggplot2)
+ggplot(data = data,mapping = aes(x = x,y = y)) + 
+  geom_line()</code></pre>
+<p><img src="{{< blogdown/postref >}}index.zh_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>(s &lt;- list(
+  d_mean = mean(data$y),
+  d_sd = sd(data$y)
+))</code></pre>
+<pre><code>## $d_mean
+## [1] 79.95244
+## 
+## $d_sd
+## [1] 2.123407</code></pre>
+<pre class="r"><code>#写一个函数吧！
+func &lt;- function(n){
+  z &lt;- replicate(100,mean(sample(x,size = n)))
+  data &lt;- data.frame(
+    x = 1:100,
+    y = z
+  )
+  list(
+    d_mean = mean(data$y),
+    d_sd = sd(data$y)
+  )
+}
+func(n = 300)</code></pre>
+<pre><code>## $d_mean
+## [1] 79.97701
+## 
+## $d_sd
+## [1] 0.6379348</code></pre>
+<pre class="r"><code>func(n = 1000)</code></pre>
+<pre><code>## $d_mean
+## [1] 80.03828
+## 
+## $d_sd
+## [1] 0.3578753</code></pre>
+<p>标准差是抽样误差的一种表现形式；在其他条件相同的情况下，样本量越大，抽样误差越小。</p>
+<p>以上均为课本原话，与试验结果相符</p>
+<p>第二章 简单随机抽样</p>
+<p><a href="http://www.crup.com.cn/DownResource/DownFile?id=165cef6b-b3c4-480e-ab96-d9dcce34e868">《企业案例数据》数据集</a></p>
