@@ -5,7 +5,7 @@ date: '2022-01-11'
 slug: Sampling Technique
 categories: []
 tags: []
-description:抽样技术(持续更新中...)
+description: 抽样技术(持续更新中...)
 ---
 
 《抽样技术》（第五版）/金勇进、杜子芳、蒋妍 编著
