@@ -3,10 +3,6 @@ title: 从今天的大雾所想到的
 author: Gleko Ma
 date: '2022-01-09'
 slug: fog
-categories:
-  - Essay
-tags:
-  - Nature
 ---
 
   去年也是大约此时，考试还剩最后一门。

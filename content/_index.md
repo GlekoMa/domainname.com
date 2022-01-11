@@ -9,7 +9,7 @@ title: Home
 
 <div class="quote-right">
 
-> 穷且益坚，不坠青云之志。
+> 三十功名尘与土，八千里路云和月。
 
 </div>
 
