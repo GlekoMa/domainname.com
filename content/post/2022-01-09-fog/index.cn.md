@@ -1,6 +1,6 @@
 ---
 title: 从今天的大雾所想到的
-author: Gleko Ma
+author: 马佳璇
 date: '2022-01-09'
 slug: fog
 ---

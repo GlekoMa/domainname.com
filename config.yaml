@@ -24,9 +24,6 @@ menu:
       identifier: menu-search
       weight: 3
   footer:
-    - name: Contact
-      url: "https://github.com/GlekoMa"
-      weight: 1
     - name: Back to top
       url: "#"
 
