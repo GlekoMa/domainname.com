@@ -1,6 +1,6 @@
 ---
-title: 抽样技术
-author: 马佳璇
+title: "抽样技术"
+author: "马佳璇"
 date: '2022-01-11'
 slug: Sampling Technique
 categories: []
