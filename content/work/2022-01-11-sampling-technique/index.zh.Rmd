@@ -68,4 +68,4 @@ func(n = 1000)
 
 [《企业案例数据》数据集](http://www.crup.com.cn/DownResource/DownFile?id=165cef6b-b3c4-480e-ab96-d9dcce34e868)
 
-![Go sleep](http://wx4.sinaimg.cn/large/006GJQvhly1fz3hyfp428g308k06gh65.gif)
+![go to sleep](images/go to sleep.gif)

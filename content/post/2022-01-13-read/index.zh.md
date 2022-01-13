@@ -1,11 +1,11 @@
 ---
-title: 读
+title: R相关（不定期更新）
 author: ''
 date: '2022-01-13'
 slug: read
 categories: []
 tags: []
-description: 推荐阅读（不定期更新）
+description: 了解社区动态和最新文章...
 ---
 
 讨论：[hugodown 是个啥新玩意?](https://d.cosx.org/d/421573-hugodown)
