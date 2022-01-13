@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 
-我要学R啦
+我要学R啦!
 
 ```{r}
 data = data.frame(
