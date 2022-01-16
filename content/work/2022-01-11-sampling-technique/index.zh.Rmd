@@ -1,0 +1,71 @@
+---
+title: "抽样技术"
+author: "马佳璇"
+date: '2022-01-11'
+slug: Sampling Technique
+categories: []
+tags: []
+description: 抽样技术(持续更新中...)
+---
+
+_《抽样技术》（第五版）/金勇进、杜子芳、蒋妍 编著_
+
+_实践题 个人答案_
+
+**第一章 绪论**
+```{r}
+x <- runif(100000,60,100)
+```
+
+```{r}
+y <- sample(x,size = 30)
+mean(y)
+```
+
+```{r}
+(z <- replicate(100,mean(sample(x,size = 30))))
+data <- data.frame(
+  x = 1:100,
+  y = z
+)
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = data,mapping = aes(x = x,y = y)) + 
+  geom_line()
+(s <- list(
+  d_mean = mean(data$y),
+  d_sd = sd(data$y)
+))
+```
+
+```{r}
+#写一个函数吧！
+func <- function(n){
+  z <- replicate(100,mean(sample(x,size = n)))
+  data <- data.frame(
+    x = 1:100,
+    y = z
+  )
+  list(
+    d_mean = mean(data$y),
+    d_sd = sd(data$y)
+  )
+}
+func(n = 300)
+```
+
+```{r}
+func(n = 1000)
+```
+
+标准差是抽样误差的一种表现形式；在其他条件相同的情况下，样本量越大，抽样误差越小。
+
+以上均为课本原话，与试验结果相符
+
+**第二章 简单随机抽样**
+
+[《企业案例数据》数据集](http://www.crup.com.cn/DownResource/DownFile?id=165cef6b-b3c4-480e-ab96-d9dcce34e868)
+
+![go to sleep](images/go to sleep.gif)
