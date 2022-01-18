@@ -52,7 +52,7 @@ _示例：_
 代码如下：
 ```
 <iframe 
-  src="//player.bilibili.com/player.html?aid=21202933&bvid=BV1TW411371E&cid=34820238&page=1&high_quality=1&danmaku=0"
+  src="//player.bilibili.com/player.html?aid=883818925&bvid=BV1ZK4y1s7ir&cid=211762878&page=1&high_quality=1&danmaku=0"
   width="100%" height="475"
   scrolling="no" 
   border="0" 
