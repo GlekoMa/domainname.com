@@ -292,7 +292,7 @@
               return;
             }
             input.disabled = false;
-            input.placeholder = 'Type to search';
+            input.placeholder = '输入题目或内容搜索';
             input.focus();
             fuse = new Fuse(request.response, {
               keys: ['title', 'content'],
