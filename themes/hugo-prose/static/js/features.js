@@ -229,7 +229,7 @@
       }
       if (!s) {
         s = document.createElement('div');
-        s.innerHTML = '<input type="search" class="search-input" disabled placeholder="Loading search index...">';
+        s.innerHTML = '<input type="search" class="search-input" disabled placeholder="">';
         var input = s.firstElementChild;
         insertBefore(a, s);
         var c = d.createElement('div');  // container for search results
@@ -288,11 +288,11 @@
           request.addEventListener('load', function(e) {
             var res = request.response;
             if (!res || res.length === 0) {
-              input.placeholder = 'Failed to load search index';
+              input.placeholder = '';
               return;
             }
             input.disabled = false;
-            input.placeholder = '输入题目或内容搜索';
+            input.placeholder = '';
             input.focus();
             fuse = new Fuse(request.response, {
               keys: ['title', 'content'],
