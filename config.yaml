@@ -2,7 +2,7 @@ baseurl: "https://stulink.netlify.app/"
 languageCode: "en-us"
 defaultContentLanguage: "en"
 # defaultContentLanguage: "zh"
-title: "Study Group"
+title: "Study Link"
 theme: "hugo-prose"
 googleAnalytics: ""
 disqusShortname: ""
@@ -19,12 +19,12 @@ outputs:
 # some menu items were added via the `menu` option in YAML in posts
 menu:
   header:
-    - name: Search
+    - name: 搜索
       url: "#"
       identifier: menu-search
       weight: 3
   footer:
-    - name: Back to top
+    - name: 回返
       url: "#"
 
 params:

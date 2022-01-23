@@ -8,7 +8,7 @@ tags: []
 description: 建站相关的一些个人经验。
 ---
 
-_推荐阅读_：[用 R 语言的 blogdown+hugo+netlify+github 建博客](https://cosx.org/2018/01/build-blog-with-blogdown-hugo-netlify-github/)
+_推荐_：[用 R 语言的 blogdown+hugo+netlify+github 建博客](https://cosx.org/2018/01/build-blog-with-blogdown-hugo-netlify-github/)
 
 > **工具**：   
 > 1.[R blogdown](https://bookdown.org/yihui/blogdown/)   
@@ -21,7 +21,7 @@ _推荐阅读_：[用 R 语言的 blogdown+hugo+netlify+github 建博客](https:
 
 ## 如何插入图片
 
-RStudio界面最上边，help的下面，有一个Addins（意为插件）按钮，Insert Image即可。
+RStudio界面左上，help选项下方，点击Addins（意为插件）按钮，Insert Image即可。
 
 _示例：_
 
@@ -38,7 +38,7 @@ _示例：_
 </audio>
 ```
 
-如果属性中添加了autoplay="true"，顾名思义，自动播放。
+如在属性中添加autoplay="true"，音频将会自动播放。
 
 _示例：_
 
@@ -80,4 +80,3 @@ _示例：_
   framespacing="0" 
   allowfullscreen="true"
 > </iframe>
-
