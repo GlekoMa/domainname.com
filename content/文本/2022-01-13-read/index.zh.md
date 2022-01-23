@@ -5,7 +5,7 @@ date: '2022-01-13'
 slug: read
 categories: []
 tags: []
-description: 了解社区动态和最新文章...
+description: 了解社区讨论和相关文章...
 ---
 
 讨论：[hugodown 是个啥新玩意?](https://d.cosx.org/d/421573-hugodown)

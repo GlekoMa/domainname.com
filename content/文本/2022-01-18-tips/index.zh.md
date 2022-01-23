@@ -34,7 +34,7 @@ _示例：_
 <audio id="audio" 
        controls="" 
        preload="none">
-      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=472045266.mp3">
+      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=77169.mp3">
 </audio>
 ```
 
@@ -45,7 +45,7 @@ _示例：_
 <audio id="audio" 
        controls="" 
        preload="none">
-      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=472045266.mp3">
+      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=77169.mp3">
 
 ## 如何插入视频
 
