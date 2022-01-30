@@ -12,4 +12,4 @@ description: 了解社区讨论和相关文章...
 
 文章：[从另一个视角看 R 语言的方言 Tidyverse](https://cosx.org/2020/10/alternative-view-tidyverse-r/)
 
-文章：[从另一种视角看R语言的Tidyverse方言](https://d.cosx.org/d/421880-rtidyverse)
+讨论：[从另一种视角看R语言的Tidyverse方言](https://d.cosx.org/d/421880-rtidyverse)

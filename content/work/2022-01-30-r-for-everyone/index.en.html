@@ -1,0 +1,35 @@
+---
+title: 《R for Everyone》小记
+author: 马佳璇
+date: '2022-01-30'
+slug: r-for-everyone
+categories: []
+tags: []
+description: R语言：实用数据分析和可视化技术（原书第2版）(https://book.douban.com/subject/34891734/)...
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多<strong>提示</strong>性质的东西，故只称作“小记”。</p>
+<p>“小记”分为<em>一般提示</em>和仅针对此书的<em>特殊提示</em>。</p>
+<div id="一般提示" class="section level2">
+<h2>一般提示</h2>
+<ol style="list-style-type: decimal">
+<li>在启动或退出时，建议不要恢复或保存.RData文件。 P17<br />
+（这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。）</li>
+</ol>
+</div>
+<div id="特殊提示" class="section level2">
+<h2>特殊提示</h2>
+<ol style="list-style-type: decimal">
+<li>书中“4.8 管道”一节中有代码如下：</li>
+</ol>
+<pre class="r"><code>library(magrittr)
+x &lt;- 1:10
+mean(x)</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<pre class="r"><code>x %&gt;% mean</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<p>(这里的x %&gt;% mean也可以写成x %&gt;% mean()。事实上，R 4.1版本后，原生支持管道，但管道符写法与magrittr包不同，写作 |&gt; ，实现原理和用法也略有不同，比如，使用 |&gt; 必须写成x |&gt; mean()而不能写成x |&gt; mean，统计之都有与此相关的<a href="https://d.cosx.org/d/422269-r-410">讨论贴</a>)</p>
+</div>
