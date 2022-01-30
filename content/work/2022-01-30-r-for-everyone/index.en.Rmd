@@ -1,5 +1,5 @@
 ---
-title: 《R for Everyone》小记
+title: 《R for Everyone》小注
 author: 马佳璇
 date: '2022-01-30'
 slug: r-for-everyone
@@ -8,16 +8,22 @@ tags: []
 description: R语言：实用数据分析和可视化技术（原书第2版）(https://book.douban.com/subject/34891734/)...
 ---
 
-笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多**提示**性质的东西，故只称作“小记”。
+笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多注释性质的东西，故只称作“小注”。
 
-“小记”分为*一般提示*和仅针对此书的*特殊提示*。
+“小注”分为*一般注释*和特针对此书的*特殊注释*。
 
-## 一般提示
-1.在启动或退出时，建议不要恢复或保存.RData文件。 P17  
-（这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。）
+## 一般注释
+### 在启动或退出时，建议不要恢复或保存.RData文件。 P17  
+这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。
 
-## 特殊提示
-1.书中“4.8 管道”一节中有代码如下：
+## 特殊注释
+### 书中第二章讲了一些RStudio中的快捷键，作为补充（Windows）：  
+
+- Alt + - ：快速输入“ <- ”
+- Ctrl + Shift + M ：快速输入“ %>% ”（或“ |> ”，可以在RStudio中设置）
+- Ctrl + Alt + R ：运行当前脚本所有内容
+
+### 书中“4.8 管道”一节中有代码如下：  P40
 ```{r}
 library(magrittr)
 x <- 1:10
@@ -27,4 +33,81 @@ mean(x)
 ```{r}
 x %>% mean
 ```
-(这里的x %>% mean也可以写成x %>% mean()。事实上，R 4.1版本后，原生支持管道，但管道符写法与magrittr包不同，写作 |> ，实现原理和用法也略有不同，比如，使用 |> 必须写成x |> mean()而不能写成x |> mean，统计之都有与此相关的[讨论贴](https://d.cosx.org/d/422269-r-410))
+这里的x %>% mean也可以写成x %>% mean()。事实上，R 4.1版本后，原生支持管道，但管道符写法与magrittr包不同，写作 |> ，实现原理和用法也略有不同，比如，使用 |> 必须写成x |> mean()而不能写成x |> mean，统计之都有与此相关的[讨论贴](https://d.cosx.org/d/422269-r-410)
+
+### 书中“5.1 数据框”一节中有代码如下：  P46
+```
+x <- 10:1
+y <- -4:5
+q <- c("Hockey","Football","Baseball","Curling","Rugby",
+       "Lacrosse","Basketball","Tennis","Cricket","Soccer")
+theDF <- data.frame(First=x,Second=y,Sport=q)
+#省略···
+class(theDF[,"Sport"])
+```
+书中给出的结果为  
+```
+[1] "factor"
+```
+但实际运行结果应为
+```
+[1] "character"
+```
+这是因为书中使用的R版本为3.4.0，而R自[4.0.0版本]{https://stat.ethz.ch/pipermail/r-announce/2020/000653.html}以后，更新为默认使用stringAsFactors = FALSE，即不再默认将数据框（data.frame）中的列向量转换为factor（因子）向量，所以实际运行结果会与书中有所差异。  
+R 4.0.0于2020年4月24日发布，也就是说所有早于这个时间出版的书目都会存在相关问题。因此阅读一些相关资料时应当时刻注意到这个差异。
+
+### 书中“5.2 列表”中有如下叙述：  P53
+
+_“偶尔对列表或向量或数据框增加元素都还好，但是，如果反复这样做计算代价就太高了。所以最好创建指定长度的列表，然后通过合适的索引增加元素。”_
+
+如果没看懂这段描述的话，学完循环相关章节后，阅读下面两段代码：  
+
+事先指定了变量output的长度：
+```{r eval=FALSE, include=FALSE}
+#system.time函数可以计算一段代码的运行时间
+system.time({
+ output <- rep(NA, 10000000)
+ for (i in 1:10000000) {
+ output[i] <- i + 1
+ }
+})
+```
+未事先指定output的长度：
+```{r eval=FALSE, include=FALSE}
+system.time({
+ output <- NA
+ for (i in 1:10000000) {
+ output[i] <- i + 1
+ }
+})
+```
+可以看出前者的运行速度大约是后者的3.6倍。原因是在后者中，R不得不每次循环都扩充一次output变量的长度。即每次循环，R都需要在计算机内存中复制原长度的output变量，同时腾出一块容量更大的区域，用来存储新长度的output变量，最后把原位置的output变量清除。在后一段代码中，这一系列创建、复制、粘贴、删除的繁琐操作共进行了10000000次！而前者的写法就很好地避免了这个问题！
+
+### 书中“6.2 读取Excel数据”一节中有代码如下：  P61
+```
+download.file(url='http://www.jaredlander.com/data/ExcelExample.xlsx',
+              destfile='data/ExcelExample.xlsx',method='curl')
+```
+可能执行结果会报错：
+```
+Error in download.file(url = "http://www.jaredlander.com/data/ExcelExample.xlsx",  : 
+  'curl' call had nonzero exit status
+```
+报错原因在于保存路径不对，因为本地的R工作目录可能与作者的不同，工作目录可以用getwd()查看，很可能本地工作目录下面没有创建data文件夹，于是报错。手动创建一个data文件夹即可。
+
+但事情没有这么简单，即使不再报错，从网页写到本地的也可能（或者说一定）只是一个1KB的xlsx文件，也就是说无法使用，即这次写入其实是失败了。具体原因我不清楚，经查找[资料](https://stackoverflow.com/questions/59697422/why-method-curl-is-not-working-in-download-file-in-r/59697717#59697717?newreg=636c77acc9b043e5a2b0f3fe04ae9b17),可以改为这样写（即可成功）：
+```
+download.file(url='http://www.jaredlander.com/data/ExcelExample.xlsx',
+              destfile='data/ExcelExample.xlsx',mode='wb')
+```
+
+
+
+## 参考书目
+
+1. Garrett Grolemund.[Hands-On Programming with R](https://rstudio-education.github.io/hopr/) (作者将其免费发布在网上。其中文版是我的启蒙书籍。)
+
+## One more thing
+_注：《R for Everyone》中没有给出练习题目，故应自行寻找巩固知识的办法。_
+
+> 子曰：“学而不思则罔，思而不学则殆。”    ——《论语·为政》

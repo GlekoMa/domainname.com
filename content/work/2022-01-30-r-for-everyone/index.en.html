@@ -1,5 +1,5 @@
 ---
-title: 《R for Everyone》小记
+title: 《R for Everyone》小注
 author: 马佳璇
 date: '2022-01-30'
 slug: r-for-everyone
@@ -11,21 +11,82 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 <script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
 
 
-<p>笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多<strong>提示</strong>性质的东西，故只称作“小记”。</p>
-<p>“小记”分为<em>一般提示</em>和仅针对此书的<em>特殊提示</em>。</p>
-<div id="一般提示" class="section level2">
-<h2>一般提示</h2>
-<p>1.在启动或退出时，建议不要恢复或保存.RData文件。 P17<br />
-（这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。）</p>
+<p>笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多注释性质的东西，故只称作“小注”。</p>
+<p>“小注”分为<em>一般注释</em>和特针对此书的<em>特殊注释</em>。</p>
+<div id="一般注释" class="section level2">
+<h2>一般注释</h2>
+<div id="在启动或退出时建议不要恢复或保存.rdata文件-p17" class="section level3">
+<h3>在启动或退出时，建议不要恢复或保存.RData文件。 P17</h3>
+<p>这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。</p>
 </div>
-<div id="特殊提示" class="section level2">
-<h2>特殊提示</h2>
-<p>1.书中“4.8 管道”一节中有代码如下：</p>
+</div>
+<div id="特殊注释" class="section level2">
+<h2>特殊注释</h2>
+<div id="书中第二章讲了一些rstudio中的快捷键作为补充windows" class="section level3">
+<h3>书中第二章讲了一些RStudio中的快捷键，作为补充（Windows）：</h3>
+<ul>
+<li>Alt + - ：快速输入“ &lt;- ”</li>
+<li>Ctrl + Shift + M ：快速输入“ %&gt;% ”（或“ |&gt; ”，可以在RStudio中设置）</li>
+<li>Ctrl + Alt + R ：运行当前脚本所有内容</li>
+</ul>
+</div>
+<div id="书中4.8-管道一节中有代码如下-p40" class="section level3">
+<h3>书中“4.8 管道”一节中有代码如下： P40</h3>
 <pre class="r"><code>library(magrittr)
 x &lt;- 1:10
 mean(x)</code></pre>
 <pre><code>## [1] 5.5</code></pre>
 <pre class="r"><code>x %&gt;% mean</code></pre>
 <pre><code>## [1] 5.5</code></pre>
-<p>(这里的x %&gt;% mean也可以写成x %&gt;% mean()。事实上，R 4.1版本后，原生支持管道，但管道符写法与magrittr包不同，写作 |&gt; ，实现原理和用法也略有不同，比如，使用 |&gt; 必须写成x |&gt; mean()而不能写成x |&gt; mean，统计之都有与此相关的<a href="https://d.cosx.org/d/422269-r-410">讨论贴</a>)</p>
+<p>这里的x %&gt;% mean也可以写成x %&gt;% mean()。事实上，R 4.1版本后，原生支持管道，但管道符写法与magrittr包不同，写作 |&gt; ，实现原理和用法也略有不同，比如，使用 |&gt; 必须写成x |&gt; mean()而不能写成x |&gt; mean，统计之都有与此相关的<a href="https://d.cosx.org/d/422269-r-410">讨论贴</a></p>
+</div>
+<div id="书中5.1-数据框一节中有代码如下-p46" class="section level3">
+<h3>书中“5.1 数据框”一节中有代码如下： P46</h3>
+<pre><code>x &lt;- 10:1
+y &lt;- -4:5
+q &lt;- c(&quot;Hockey&quot;,&quot;Football&quot;,&quot;Baseball&quot;,&quot;Curling&quot;,&quot;Rugby&quot;,
+       &quot;Lacrosse&quot;,&quot;Basketball&quot;,&quot;Tennis&quot;,&quot;Cricket&quot;,&quot;Soccer&quot;)
+theDF &lt;- data.frame(First=x,Second=y,Sport=q)
+#省略···
+class(theDF[,&quot;Sport&quot;])</code></pre>
+<p>书中给出的结果为</p>
+<pre><code>[1] &quot;factor&quot;</code></pre>
+<p>但实际运行结果应为</p>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<p>这是因为书中使用的R版本为3.4.0，而R自[4.0.0版本]{<a href="https://stat.ethz.ch/pipermail/r-announce/2020/000653.html%7D以后，更新为默认使用stringAsFactors" class="uri">https://stat.ethz.ch/pipermail/r-announce/2020/000653.html}以后，更新为默认使用stringAsFactors</a> = FALSE，即不再默认将数据框（data.frame）中的列向量转换为factor（因子）向量，所以实际运行结果会与书中有所差异。<br />
+R 4.0.0于2020年4月24日发布，也就是说所有早于这个时间出版的书目都会存在相关问题。因此阅读一些相关资料时应当时刻注意到这个差异。</p>
+</div>
+<div id="书中5.2-列表中有如下叙述-p53" class="section level3">
+<h3>书中“5.2 列表”中有如下叙述： P53</h3>
+<p><em>“偶尔对列表或向量或数据框增加元素都还好，但是，如果反复这样做计算代价就太高了。所以最好创建指定长度的列表，然后通过合适的索引增加元素。”</em></p>
+<p>如果没看懂这段描述的话，学完循环相关章节后，阅读下面两段代码：</p>
+<p>事先指定了变量output的长度：</p>
+<p>未事先指定output的长度：</p>
+<p>可以看出前者的运行速度大约是后者的3.6倍。原因是在后者中，R不得不每次循环都扩充一次output变量的长度。即每次循环，R都需要在计算机内存中复制原长度的output变量，同时腾出一块容量更大的区域，用来存储新长度的output变量，最后把原位置的output变量清除。在后一段代码中，这一系列创建、复制、粘贴、删除的繁琐操作共进行了10000000次！而前者的写法就很好地避免了这个问题！</p>
+</div>
+<div id="书中6.2-读取excel数据一节中有代码如下-p61" class="section level3">
+<h3>书中“6.2 读取Excel数据”一节中有代码如下： P61</h3>
+<pre><code>download.file(url=&#39;http://www.jaredlander.com/data/ExcelExample.xlsx&#39;,
+              destfile=&#39;data/ExcelExample.xlsx&#39;,method=&#39;curl&#39;)</code></pre>
+<p>可能执行结果会报错：</p>
+<pre><code>Error in download.file(url = &quot;http://www.jaredlander.com/data/ExcelExample.xlsx&quot;,  : 
+  &#39;curl&#39; call had nonzero exit status</code></pre>
+<p>报错原因在于保存路径不对，因为本地的R工作目录可能与作者的不同，工作目录可以用getwd()查看，很可能本地工作目录下面没有创建data文件夹，于是报错。手动创建一个data文件夹即可。</p>
+<p>但事情没有这么简单，即使不再报错，从网页写到本地的也可能（或者说一定）只是一个1KB的xlsx文件，也就是说无法使用，即这次写入其实是失败了。具体原因我不清楚，经查找<a href="https://stackoverflow.com/questions/59697422/why-method-curl-is-not-working-in-download-file-in-r/59697717#59697717?newreg=636c77acc9b043e5a2b0f3fe04ae9b17">资料</a>,可以改为这样写（即可成功）：</p>
+<pre><code>download.file(url=&#39;http://www.jaredlander.com/data/ExcelExample.xlsx&#39;,
+              destfile=&#39;data/ExcelExample.xlsx&#39;,mode=&#39;wb&#39;)</code></pre>
+</div>
+</div>
+<div id="参考书目" class="section level2">
+<h2>参考书目</h2>
+<ol style="list-style-type: decimal">
+<li>Garrett Grolemund.<a href="https://rstudio-education.github.io/hopr/">Hands-On Programming with R</a> (作者将其免费发布在网上。其中文版是我的启蒙书籍。)</li>
+</ol>
+</div>
+<div id="one-more-thing" class="section level2">
+<h2>One more thing</h2>
+<p><em>注：《R for Everyone》中没有给出练习题目，故应自行寻找巩固知识的办法。</em></p>
+<blockquote>
+<p>子曰：“学而不思则罔，思而不学则殆。” ——《论语·为政》</p>
+</blockquote>
 </div>
