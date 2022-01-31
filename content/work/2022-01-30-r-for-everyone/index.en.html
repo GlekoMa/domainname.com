@@ -30,6 +30,7 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 <li>Alt + - ：快速输入“ &lt;- ”</li>
 <li>Ctrl + Shift + M ：快速输入“ %&gt;% ”（或“ |&gt; ”，可以在RStudio中设置）</li>
 <li>Ctrl + Alt + R ：运行当前脚本所有内容</li>
+<li>Shift + Enter ：在控制台中换行</li>
 </ul>
 </div>
 <div id="p40-4.8-管道" class="section level3">
@@ -81,6 +82,30 @@ R 4.0.0于2020年4月24日发布，也就是说所有早于这个时间出版的
 <p>但事情没有这么简单，即使不再报错，从网页写到本地的也可能（或者说一定）只是一个1KB的xlsx文件，也就是说无法使用，即这次写入其实是失败了。具体原因我不清楚，经查找<a href="https://stackoverflow.com/questions/59697422/why-method-curl-is-not-working-in-download-file-in-r/59697717#59697717?newreg=636c77acc9b043e5a2b0f3fe04ae9b17">资料</a>,可以改为这样写（即可成功）：</p>
 <pre><code>download.file(url=&#39;http://www.jaredlander.com/data/ExcelExample.xlsx&#39;,
               destfile=&#39;data/ExcelExample.xlsx&#39;,mode=&#39;wb&#39;)</code></pre>
+</div>
+<div id="p172-16.3-提取文本" class="section level3">
+<h3>P172 “16.3 提取文本”</h3>
+<p>本节有代码如下：</p>
+<pre><code>library(XML)
+load(&quot;dadta/presidents.rdata&quot;)
+theURL &lt;- &quot;http://www.loc.gov//rr/print/list/057_chron.html&quot;
+presidents &lt;- readHTMLTable(theURL,which=3,as.data.frame=TRUE,
+                           skip.rows=1,header=TRUE,stringsAsFactors=FALSE)</code></pre>
+<p>运行上一段代码后，大概率（或者说一定）会报错：</p>
+<pre><code>Error: failed to load HTTP resource</code></pre>
+<p>进入这个网址，会发现其设置了验证程序以防止爬取数据。</p>
+<p>解决办法：人工复制这个网页的html源代码，保存为本地html文件，然后从本地爬取。</p>
+<p>这里另外介绍第二种爬取方法：使用rvest包。可以直接爬取出正确的表。</p>
+<pre><code>library(rvest)
+#假设文件被保存为bb.html
+theURL &lt;- &quot;bb.html&quot;
+presidents2 &lt;- (read_html(theURL) %&gt;% 
+    html_elements(&quot;table&quot;) %&gt;% 
+    html_table())[[4]]
+#read_html() 爬取页面源代码
+#html_elements() 提取网页中指定元素的部分
+#html_table() 根据源代码生成数据框或列表（就此题目来说，若上一步处理了使用html_elements函数，则生成列表；若上一步使用了html_element函数，则生成数据框。详请自行查看函数用法。）</code></pre>
+<p><em>Tip：XML包很经典，Hadley Wickham参考它开发了xml2包（2015年的blog），两个包孰优孰劣，因为我尚未探究，所以不得而知。</em></p>
 </div>
 </div>
 <div id="参考书目" class="section level2">
