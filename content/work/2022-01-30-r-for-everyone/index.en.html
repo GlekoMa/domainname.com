@@ -15,23 +15,26 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 <p>“小注”分为<em>一般注释</em>和特针对此书的<em>特殊注释</em>。</p>
 <div id="一般注释" class="section level2">
 <h2>一般注释</h2>
-<div id="在启动或退出时建议不要恢复或保存.rdata文件-p17" class="section level3">
-<h3>在启动或退出时，建议不要恢复或保存.RData文件。 P17</h3>
-<p>这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。</p>
+<div id="p17-2.2-rstudio" class="section level3">
+<h3>P17 “2.2 RStudio”</h3>
+<p>在启动或退出时，建议不要恢复或保存.RData文件。<br />
+这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。</p>
 </div>
 </div>
 <div id="特殊注释" class="section level2">
 <h2>特殊注释</h2>
-<div id="书中第二章讲了一些rstudio中的快捷键作为补充windows" class="section level3">
-<h3>书中第二章讲了一些RStudio中的快捷键，作为补充（Windows）：</h3>
+<div id="p14-2.2-rstudio" class="section level3">
+<h3>P14 “2.2 RStudio”</h3>
+<p>本节中讲了一些RStudio里的快捷键，补充如下（Windows）：</p>
 <ul>
 <li>Alt + - ：快速输入“ &lt;- ”</li>
 <li>Ctrl + Shift + M ：快速输入“ %&gt;% ”（或“ |&gt; ”，可以在RStudio中设置）</li>
 <li>Ctrl + Alt + R ：运行当前脚本所有内容</li>
 </ul>
 </div>
-<div id="书中4.8-管道一节中有代码如下-p40" class="section level3">
-<h3>书中“4.8 管道”一节中有代码如下： P40</h3>
+<div id="p40-4.8-管道" class="section level3">
+<h3>P40 “4.8 管道”</h3>
+<p>本节中有代码如下：</p>
 <pre class="r"><code>library(magrittr)
 x &lt;- 1:10
 mean(x)</code></pre>
@@ -40,8 +43,9 @@ mean(x)</code></pre>
 <pre><code>## [1] 5.5</code></pre>
 <p>这里的x %&gt;% mean也可以写成x %&gt;% mean()。事实上，R 4.1版本后，原生支持管道，但管道符写法与magrittr包不同，写作 |&gt; ，实现原理和用法也略有不同，比如，使用 |&gt; 必须写成x |&gt; mean()而不能写成x |&gt; mean，统计之都有与此相关的<a href="https://d.cosx.org/d/422269-r-410">讨论贴</a></p>
 </div>
-<div id="书中5.1-数据框一节中有代码如下-p46" class="section level3">
-<h3>书中“5.1 数据框”一节中有代码如下： P46</h3>
+<div id="p46-5.1-数据框" class="section level3">
+<h3>P46 “5.1 数据框”</h3>
+<p>本节中有代码如下：</p>
 <pre><code>x &lt;- 10:1
 y &lt;- -4:5
 q &lt;- c(&quot;Hockey&quot;,&quot;Football&quot;,&quot;Baseball&quot;,&quot;Curling&quot;,&quot;Rugby&quot;,
@@ -56,16 +60,18 @@ class(theDF[,&quot;Sport&quot;])</code></pre>
 <p>这是因为书中使用的R版本为3.4.0，而R自[4.0.0版本]{<a href="https://stat.ethz.ch/pipermail/r-announce/2020/000653.html%7D以后，更新为默认使用stringAsFactors" class="uri">https://stat.ethz.ch/pipermail/r-announce/2020/000653.html}以后，更新为默认使用stringAsFactors</a> = FALSE，即不再默认将数据框（data.frame）中的列向量转换为factor（因子）向量，所以实际运行结果会与书中有所差异。<br />
 R 4.0.0于2020年4月24日发布，也就是说所有早于这个时间出版的书目都会存在相关问题。因此阅读一些相关资料时应当时刻注意到这个差异。</p>
 </div>
-<div id="书中5.2-列表中有如下叙述-p53" class="section level3">
-<h3>书中“5.2 列表”中有如下叙述： P53</h3>
+<div id="p53-5.2-列表" class="section level3">
+<h3>P53 “5.2 列表”</h3>
+<p>本节有如下叙述：</p>
 <p><em>“偶尔对列表或向量或数据框增加元素都还好，但是，如果反复这样做计算代价就太高了。所以最好创建指定长度的列表，然后通过合适的索引增加元素。”</em></p>
 <p>如果没看懂这段描述的话，学完循环相关章节后，阅读下面两段代码：</p>
 <p>事先指定了变量output的长度：</p>
 <p>未事先指定output的长度：</p>
 <p>可以看出前者的运行速度大约是后者的3.6倍。原因是在后者中，R不得不每次循环都扩充一次output变量的长度。即每次循环，R都需要在计算机内存中复制原长度的output变量，同时腾出一块容量更大的区域，用来存储新长度的output变量，最后把原位置的output变量清除。在后一段代码中，这一系列创建、复制、粘贴、删除的繁琐操作共进行了10000000次！而前者的写法就很好地避免了这个问题！</p>
 </div>
-<div id="书中6.2-读取excel数据一节中有代码如下-p61" class="section level3">
-<h3>书中“6.2 读取Excel数据”一节中有代码如下： P61</h3>
+<div id="p61-6.2-读取excel数据" class="section level3">
+<h3>P61 “6.2 读取Excel数据”</h3>
+<p>本节中有代码如下：</p>
 <pre><code>download.file(url=&#39;http://www.jaredlander.com/data/ExcelExample.xlsx&#39;,
               destfile=&#39;data/ExcelExample.xlsx&#39;,method=&#39;curl&#39;)</code></pre>
 <p>可能执行结果会报错：</p>
