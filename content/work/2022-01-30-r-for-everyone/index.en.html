@@ -57,7 +57,7 @@ class(theDF[,&quot;Sport&quot;])</code></pre>
 <pre><code>[1] &quot;factor&quot;</code></pre>
 <p>但实际运行结果应为</p>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>这是因为书中使用的R版本为3.4.0，而R自[4.0.0版本]{<a href="https://stat.ethz.ch/pipermail/r-announce/2020/000653.html%7D以后，更新为默认使用stringAsFactors" class="uri">https://stat.ethz.ch/pipermail/r-announce/2020/000653.html}以后，更新为默认使用stringAsFactors</a> = FALSE，即不再默认将数据框（data.frame）中的列向量转换为factor（因子）向量，所以实际运行结果会与书中有所差异。<br />
+<p>这是因为书中使用的R版本为3.4.0，而R自<a href="https://stat.ethz.ch/pipermail/r-announce/2020/000653.html">4.0.0版本</a>以后，更新为默认使用stringAsFactors = FALSE，即不再默认将数据框（data.frame）中的列向量转换为factor（因子）向量，所以实际运行结果会与书中有所差异。<br />
 R 4.0.0于2020年4月24日发布，也就是说所有早于这个时间出版的书目都会存在相关问题。因此阅读一些相关资料时应当时刻注意到这个差异。</p>
 </div>
 <div id="p53-5.2-列表" class="section level3">
