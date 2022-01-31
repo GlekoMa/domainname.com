@@ -26,6 +26,7 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 - Alt + - ：快速输入“ <- ”
 - Ctrl + Shift + M ：快速输入“ %>% ”（或“ |> ”，可以在RStudio中设置）
 - Ctrl + Alt + R ：运行当前脚本所有内容
+- Shift + Enter ：在控制台中换行
 
 ### P40 “4.8 管道”  
 
@@ -113,6 +114,37 @@ download.file(url='http://www.jaredlander.com/data/ExcelExample.xlsx',
               destfile='data/ExcelExample.xlsx',mode='wb')
 ```
 
+### P172 “16.3 提取文本”
+
+本节有代码如下：
+```
+library(XML)
+load("dadta/presidents.rdata")
+theURL <- "http://www.loc.gov//rr/print/list/057_chron.html"
+presidents <- readHTMLTable(theURL,which=3,as.data.frame=TRUE,
+                           skip.rows=1,header=TRUE,stringsAsFactors=FALSE)
+```
+运行上一段代码后，大概率（或者说一定）会报错：
+```
+Error: failed to load HTTP resource
+```
+进入这个网址，会发现其设置了验证程序以防止爬取数据。  
+
+解决办法：人工复制这个网页的html源代码，保存为本地html文件，然后从本地爬取。  
+
+这里另外介绍第二种爬取方法：使用rvest包。可以直接爬取出正确的表。
+```
+library(rvest)
+#假设文件被保存为bb.html
+theURL <- "bb.html"
+presidents2 <- (read_html(theURL) %>% 
+    html_elements("table") %>% 
+    html_table())[[4]]
+#read_html() 爬取页面源代码
+#html_elements() 提取网页中指定元素的部分
+#html_table() 根据源代码生成数据框或列表（就此题目来说，若上一步处理了使用html_elements函数，则生成列表；若上一步使用了html_element函数，则生成数据框。详请自行查看函数用法。）
+```
+_Tip：XML包很经典，Hadley Wickham参考它开发了xml2包（2015年的blog），两个包孰优孰劣，因为我尚未探究，所以不得而知。_
 
 
 ## 参考书目
