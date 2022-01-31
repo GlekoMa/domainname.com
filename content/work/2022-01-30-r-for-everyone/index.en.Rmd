@@ -74,7 +74,7 @@ _“偶尔对列表或向量或数据框增加元素都还好，但是，如果�
 如果没看懂这段描述的话，学完循环相关章节后，阅读下面两段代码：  
 
 事先指定了变量output的长度：
-```{r eval=FALSE, include=FALSE}
+```{r}
 #system.time函数可以计算一段代码的运行时间
 system.time({
  output <- rep(NA, 10000000)
@@ -84,7 +84,7 @@ system.time({
 })
 ```
 未事先指定output的长度：
-```{r eval=FALSE, include=FALSE}
+```{r}
 system.time({
  output <- NA
  for (i in 1:10000000) {
