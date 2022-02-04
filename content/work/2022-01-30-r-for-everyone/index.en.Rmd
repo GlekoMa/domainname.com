@@ -14,9 +14,11 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 
 ## 一般注释
 ### P17 “2.2 RStudio”  
-
 在启动或退出时，建议不要恢复或保存.RData文件。   
 这点其他R书籍可能没有顾及到，但设置成“Never”确实能方便许多。
+
+### P61 “6.2 读取Excel数据”  
+书中只提到读取Excel文件可以使用readxl包；如果想写入Excel文件的话，可以使用openxlsx包。
 
 ## 特殊注释
 ### P14 “2.2 RStudio”  
@@ -27,6 +29,10 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 - Ctrl + Shift + M ：快速输入“ %>% ”（或“ |> ”，可以在RStudio中设置）
 - Ctrl + Alt + R ：运行当前脚本所有内容
 - Shift + Enter ：在控制台中换行
+- Ctrl + Shift +N ：新建脚本
+- Ctrl + S ：保存脚本
+- Ctrl + W ：关闭当前脚本
+- Ctrl + Shift + W ：关闭所有脚本
 
 ### P40 “4.8 管道”  
 
@@ -101,7 +107,7 @@ system.time({
 download.file(url='http://www.jaredlander.com/data/ExcelExample.xlsx',
               destfile='data/ExcelExample.xlsx',method='curl')
 ```
-可能执行结果会报错：
+运行应该会报错：
 ```
 Error in download.file(url = "http://www.jaredlander.com/data/ExcelExample.xlsx",  : 
   'curl' call had nonzero exit status
@@ -114,8 +120,79 @@ download.file(url='http://www.jaredlander.com/data/ExcelExample.xlsx',
               destfile='data/ExcelExample.xlsx',mode='wb')
 ```
 
-### P172 “16.3 提取文本”
+### P68 “6.7 读取网页数据*”
+本节有代码如下：
+```
+library(XML)
+theURL <- "http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool/"
+bowlPool <- readHTMLTable(theURL,which=1,header=FALSE,stringsAsFactors=FALSE)
+```
+运行应该会报错：
+```
+Error: failed to load external entity "http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool/"
+```
+原因我尚未探究，web方面的我比较欠缺，暂只留待以后解决。  
+不过若换用课本紧接提到的rvest包，则就可以成功提取：
+```
+library(rvest)
+theURL <- "http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool/"
+bowlPool <- read_html(theURL) %>% 
+                 html_element("table") %>% 
+                 html_table()
+#read_html() 爬取页面源代码
+#html_element() 提取网页中指定元素的部分
+#html_table() 根据提取的元素生成数据框或列表
+```
+课本后面提取特定元素使用的函数是html_nodes（现在还可以使用），官网现在已经没有
+这个函数的介绍了，其新的替代函数是html_elements。html_element和html_elements有所
+不同，加“s”最终返回的会是一个列表。  
+_Tip：XML包很经典，Hadley Wickham参考它开发了xml2包（2015年的blog），两个包孰优孰劣，因为我尚未探究，所以不得而知。_
 
+### P82 “7.2 ggplot2”
+本节有代码如下：
+```
+econ2000 <- economics[which(economics$year >= 2000),]
+```
+去掉which也可以：
+```{r}
+library(ggplot2)
+library(lubridate)
+economics$year <- year(economics$date)
+econ2000 <- economics[which(economics$year >= 2000),]
+re_econ2000 <- economics[economics$year >= 2000,]
+all(econ2000 == re_econ2000)
+```
+（或者说使用which可以提高运行效率？暂按。）
+
+### P109 “11.3 plyr包”
+本节有代码如下：  
+<1>
+```{r}
+library(plyr)
+system.time(
+    replicate(1000,dlply(baseball,"id",nrow))
+)
+#我擅自增加了replicate函数
+#因为只运行一次的话几乎运行时长很短，几乎看不出差别
+```
+<2>
+```{r}
+library(plyr)
+iBaseball <- idata.frame(baseball)
+system.time(replicate(100,dlply(iBaseball,"id",nrow)))
+```
+课本中两者的运行时间分别为0.31和0.19，而这里的运行结果是88.89和94.59，为何两个结果不一致，不清楚。不过也许不重要，作者后面也提到将数据集转换为idata.frame格式能不能提高效率还得挑数据集。😵   
+现在测试使用data.table的效率：
+```{r}
+library(data.table)
+bBaseball = data.table(baseball)
+system.time(replicate(1000,bBaseball[,list(nrow=length(year)),by=id]))
+#这里使用的是length，原因是nrow在这儿用不了。
+#事实上如果把上面的两段代码换成length，运行时间几乎与使用nrow相同。
+```
+仅用时两秒！😮
+
+### P172 “16.3 提取文本”
 本节有代码如下：
 ```
 library(XML)
@@ -124,7 +201,7 @@ theURL <- "http://www.loc.gov//rr/print/list/057_chron.html"
 presidents <- readHTMLTable(theURL,which=3,as.data.frame=TRUE,
                            skip.rows=1,header=TRUE,stringsAsFactors=FALSE)
 ```
-运行上一段代码后，大概率（或者说一定）会报错：
+运行应该会报错：
 ```
 Error: failed to load HTTP resource
 ```
@@ -132,7 +209,7 @@ Error: failed to load HTTP resource
 
 解决办法：人工复制这个网页的html源代码，保存为本地html文件，然后从本地爬取。  
 
-这里另外介绍第二种爬取方法：使用rvest包。可以直接爬取出正确的表。
+第二种爬取办法：保存到本地后，使用之前书上介绍过的rvest包。可以直接爬取出正确的表：
 ```
 library(rvest)
 #假设文件被保存为bb.html
@@ -140,12 +217,7 @@ theURL <- "bb.html"
 presidents2 <- (read_html(theURL) %>% 
     html_elements("table") %>% 
     html_table())[[4]]
-#read_html() 爬取页面源代码
-#html_elements() 提取网页中指定元素的部分
-#html_table() 根据源代码生成数据框或列表（就此题目来说，若上一步处理了使用html_elements函数，则生成列表；若上一步使用了html_element函数，则生成数据框。详请自行查看函数用法。）
 ```
-_Tip：XML包很经典，Hadley Wickham参考它开发了xml2包（2015年的blog），两个包孰优孰劣，因为我尚未探究，所以不得而知。_
-
 
 ## 参考书目
 
