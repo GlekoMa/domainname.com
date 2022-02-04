@@ -83,7 +83,7 @@ system.time({
  }
 })</code></pre>
 <pre><code>## 用户 系统 流逝 
-##  0.5  0.0  0.5</code></pre>
+## 0.49 0.01 0.50</code></pre>
 <p>未事先指定output的长度：</p>
 <pre class="r"><code>system.time({
  output &lt;- NA
@@ -92,7 +92,7 @@ system.time({
  }
 })</code></pre>
 <pre><code>## 用户 系统 流逝 
-## 2.33 0.18 2.53</code></pre>
+## 2.43 0.14 2.59</code></pre>
 <p>可以看出前者的运行速度大约是后者的3.6倍。原因是在后者中，R不得不每次循环都扩充一次output变量的长度。即每次循环，R都需要在计算机内存中复制原长度的output变量，同时腾出一块容量更大的区域，用来存储新长度的output变量，最后把原位置的output变量清除。在后一段代码中，这一系列创建、复制、粘贴、删除的繁琐操作共进行了10000000次！而前者的写法就很好地避免了这个问题！</p>
 </div>
 <div id="p61-6.2-读取excel数据-1" class="section level3">
@@ -137,13 +137,8 @@ bowlPool &lt;- read_html(theURL) %&gt;%
 <pre><code>econ2000 &lt;- economics[which(economics$year &gt;= 2000),]</code></pre>
 <p>去掉which也可以：</p>
 <pre class="r"><code>library(ggplot2)
-library(lubridate)</code></pre>
-<pre><code>## 
-## 载入程辑包：&#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<pre class="r"><code>economics$year &lt;- year(economics$date)
+library(lubridate)
+economics$year &lt;- year(economics$date)
 econ2000 &lt;- economics[which(economics$year &gt;= 2000),]
 re_econ2000 &lt;- economics[economics$year &gt;= 2000,]
 all(econ2000 == re_econ2000)</code></pre>
@@ -159,7 +154,7 @@ system.time(
     replicate(1000,dlply(baseball,&quot;id&quot;,nrow))
 )</code></pre>
 <pre><code>##  用户  系统  流逝 
-## 91.69  0.11 93.78</code></pre>
+## 89.18  0.09 89.81</code></pre>
 <pre class="r"><code>#我擅自增加了replicate函数
 #因为只运行一次的话几乎运行时长很短，几乎看不出差别</code></pre>
 <p>&lt;2&gt;</p>
@@ -167,23 +162,38 @@ system.time(
 iBaseball &lt;- idata.frame(baseball)
 system.time(replicate(100,dlply(iBaseball,&quot;id&quot;,nrow)))</code></pre>
 <pre><code>## 用户 系统 流逝 
-## 9.14 0.00 9.41</code></pre>
+## 9.11 0.00 9.18</code></pre>
 <p>课本中两者的运行时间分别为0.31和0.19，而这里的运行结果是88.89和94.59，为何两个结果不一致，不清楚。不过也许不重要，作者后面也提到将数据集转换为idata.frame格式能不能提高效率还得挑数据集。😵<br />
+&lt;3&gt;<br />
 现在测试使用data.table的效率：</p>
-<pre class="r"><code>library(data.table)</code></pre>
-<pre><code>## 
-## 载入程辑包：&#39;data.table&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
-## 
-##     hour, isoweek, mday, minute, month, quarter, second, wday, week,
-##     yday, year</code></pre>
-<pre class="r"><code>bBaseball = data.table(baseball)
-system.time(replicate(1000,bBaseball[,list(nrow=length(year)),by=id]))</code></pre>
+<pre class="r"><code>library(data.table)
+data(baseball,package = &quot;plyr&quot;)
+bBaseball = data.table(baseball)
+system.time(
+  replicate(1000,
+            bBaseball[,list(nrow=length(year)),by=id]
+            )
+)</code></pre>
 <pre><code>## 用户 系统 流逝 
-## 2.25 0.21 2.37</code></pre>
+## 2.06 0.26 2.23</code></pre>
 <pre class="r"><code>#这里使用的是length，原因是nrow在这儿用不了。
 #事实上如果把上面的两段代码换成length，运行时间几乎与使用nrow相同。</code></pre>
-<p>仅用时两秒！😮</p>
+<p>仅用时两秒！😮<br />
+&lt;4&gt;
+再测试使用dplyr包的效率：</p>
+<pre class="r"><code>library(dplyr)
+data(baseball,package = &quot;plyr&quot;)
+dBaseball = tibble(baseball)
+system.time(
+  replicate(1000,
+            dBaseball %&gt;% 
+              group_by(id) %&gt;% 
+              summarize(nrow=nrow(year))
+            )
+)</code></pre>
+<pre><code>##  用户  系统  流逝 
+## 10.00  0.00 10.06</code></pre>
+<p>用时十秒。</p>
 </div>
 <div id="p172-16.3-提取文本" class="section level3">
 <h3>P172 “16.3 提取文本”</h3>

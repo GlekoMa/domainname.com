@@ -154,7 +154,7 @@ _Tip：XML包很经典，Hadley Wickham参考它开发了xml2包（2015年的blo
 econ2000 <- economics[which(economics$year >= 2000),]
 ```
 去掉which也可以：
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 library(lubridate)
 economics$year <- year(economics$date)
@@ -181,16 +181,37 @@ library(plyr)
 iBaseball <- idata.frame(baseball)
 system.time(replicate(100,dlply(iBaseball,"id",nrow)))
 ```
-课本中两者的运行时间分别为0.31和0.19，而这里的运行结果是88.89和94.59，为何两个结果不一致，不清楚。不过也许不重要，作者后面也提到将数据集转换为idata.frame格式能不能提高效率还得挑数据集。😵   
+课本中两者的运行时间分别为0.31和0.19，而这里的运行结果是88.89和94.59，为何两个结果不一致，不清楚。不过也许不重要，作者后面也提到将数据集转换为idata.frame格式能不能提高效率还得挑数据集。😵     
+<3>   
 现在测试使用data.table的效率：
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(data.table)
+data(baseball,package = "plyr")
 bBaseball = data.table(baseball)
-system.time(replicate(1000,bBaseball[,list(nrow=length(year)),by=id]))
+system.time(
+  replicate(1000,
+            bBaseball[,list(nrow=length(year)),by=id]
+            )
+)
 #这里使用的是length，原因是nrow在这儿用不了。
 #事实上如果把上面的两段代码换成length，运行时间几乎与使用nrow相同。
 ```
-仅用时两秒！😮
+仅用时两秒！😮   
+<4>
+再测试使用dplyr包的效率：
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+data(baseball,package = "plyr")
+dBaseball = tibble(baseball)
+system.time(
+  replicate(1000,
+            dBaseball %>% 
+              group_by(id) %>% 
+              summarize(nrow=nrow(year))
+            )
+)
+```
+用时十秒。
 
 ### P172 “16.3 提取文本”
 本节有代码如下：
