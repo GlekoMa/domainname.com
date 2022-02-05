@@ -1,5 +1,5 @@
 ---
-title: 《R for Everyone》小注
+title: 《R for Everyone》小注 Part.1
 author: 马佳璇
 date: '2022-01-30'
 slug: r-for-everyone
@@ -7,6 +7,16 @@ categories: []
 tags: []
 description: R语言：实用数据分析和可视化技术（原书第2版）(https://book.douban.com/subject/34891734/)...
 ---
+|  
+[<img src="https://simpleicons.org/icons/r.svg" style="max-width:15%;min-width:40px;float:right;" alt="R repo" />](https://www.r-project.org/)
+
+> Part.1范围为第1-16章，17-26章与理论结合很紧密，留待Part.2探讨，27-30章则放在Part.3。书是1月30日开始读的，2月5日这篇小注完结。  
+
+> 此书结构好，内容相对较新。  
+
+> 英文版2017年出版，中文版2019年12月出版，而市面上流行的中文R书目，很多都是写作于13、14年，而当时的环境与17年（这一年Hadley Wickam的《R for Data Science》出版，意味着Tidyverse已相对成熟）相比有比较大的差别。  
+
+> 推荐：Garrett Grolemund.[Hands-On Programming with R](https://rstudio-education.github.io/hopr/)  其[中文版](https://book.douban.com/subject/26808217/)是我的启蒙书籍，讲解由三个项目驱动，在没有任何基础的情况下，三天就可看完。（这本书几乎没有使用任何R包，在我看来，其缺点也许只有内容相对较少。而Hadley Wickam的《R for Data Science》是其姊妹篇。）
 
 笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多注释性质的东西，故只称作“小注”。
 
@@ -167,7 +177,7 @@ all(econ2000 == re_econ2000)
 ### P109 “11.3 plyr包”
 本节有代码如下：  
 <1>
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(plyr)
 system.time(
     replicate(1000,dlply(baseball,"id",nrow))
@@ -176,7 +186,7 @@ system.time(
 #因为只运行一次的话几乎运行时长很短，几乎看不出差别
 ```
 <2>
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(plyr)
 iBaseball <- idata.frame(baseball)
 system.time(replicate(100,dlply(iBaseball,"id",nrow)))
@@ -215,6 +225,19 @@ system.time(
 ```
 用时十秒。
 
+### P139 “12.11 dplyr使用数据库”
+本节有代码如下：
+```
+download.file("http://www.jaredlander.com/data/diamonds.db",
+              destfile="data/diamonds.db",mode = "wb")
+diaDBSource <- src_sqlite("data/diamonds.db")
+```
+提示错误：找不到src_sqlite函数。原因是作者写作时dplyr包的版本为0.6，现在则为1.0.7。而1.0.0版本的相关更新说明如下： 
+
+> src_mysql(), src_postgres(), and src_sqlite() has been deprecated. We’ve recommended against them for some time. Instead please use the approach described at https://dbplyr.tidyverse.org/.
+
+即现在建议使用dbplyr（dplyr的支援包）来操纵数据库。dbplyr官网中的写法已经不再使用src_sqlite函数，而是改用书中提到的另一种应用面更广的方法：使用DBI::dbConnect()函数。
+
 ### P172 “16.3 提取文本”
 本节有代码如下：
 ```
@@ -241,10 +264,6 @@ presidents2 <- (read_html(theURL) %>%
     html_elements("table") %>% 
     html_table())[[4]]
 ```
-
-## 参考书目
-
-1. Garrett Grolemund.[Hands-On Programming with R](https://rstudio-education.github.io/hopr/) (作者将其免费发布在网上。其中文版是我的启蒙书籍。)
 
 ## One more thing
 _注：《R for Everyone》中没有给出练习题目，故应自行寻找巩固知识的办法。_

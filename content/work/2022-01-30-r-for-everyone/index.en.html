@@ -1,5 +1,5 @@
 ---
-title: 《R for Everyone》小注
+title: 《R for Everyone》小注 Part.1
 author: 马佳璇
 date: '2022-01-30'
 slug: r-for-everyone
@@ -11,6 +11,20 @@ description: R语言：实用数据分析和可视化技术（原书第2版）(h
 <script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
 
 
+<div class="line-block"></div>
+<p><a href="https://www.r-project.org/"><img src="https://simpleicons.org/icons/r.svg" style="max-width:15%;min-width:40px;float:right;" alt="R repo" /></a></p>
+<blockquote>
+<p>Part.1范围为第1-16章，17-26章与理论结合很紧密，留待Part.2探讨，27-30章则放在Part.3。书是1月30日开始读的，2月5日这篇小注完结。</p>
+</blockquote>
+<blockquote>
+<p>此书结构好，内容相对较新。</p>
+</blockquote>
+<blockquote>
+<p>英文版2017年出版，中文版2019年12月出版，而市面上流行的中文R书目，很多都是写作于13、14年，而当时的环境与17年（这一年Hadley Wickam的《R for Data Science》出版，意味着Tidyverse已相对成熟）相比有比较大的差别。</p>
+</blockquote>
+<blockquote>
+<p>推荐：Garrett Grolemund.<a href="https://rstudio-education.github.io/hopr/">Hands-On Programming with R</a> 其<a href="https://book.douban.com/subject/26808217/">中文版</a>是我的启蒙书籍，讲解由三个项目驱动，在没有任何基础的情况下，三天就可看完。（这本书几乎没有使用任何R包，在我看来，其缺点也许只有内容相对较少。而Hadley Wickam的《R for Data Science》是其姊妹篇。）</p>
+</blockquote>
 <p>笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多注释性质的东西，故只称作“小注”。</p>
 <p>“小注”分为<em>一般注释</em>和特针对此书的<em>特殊注释</em>。</p>
 <div id="一般注释" class="section level2">
@@ -83,7 +97,7 @@ system.time({
  }
 })</code></pre>
 <pre><code>## 用户 系统 流逝 
-##  0.5  0.0  0.5</code></pre>
+## 0.50 0.03 0.55</code></pre>
 <p>未事先指定output的长度：</p>
 <pre class="r"><code>system.time({
  output &lt;- NA
@@ -92,7 +106,7 @@ system.time({
  }
 })</code></pre>
 <pre><code>## 用户 系统 流逝 
-## 2.25 0.25 2.53</code></pre>
+## 2.84 0.16 3.09</code></pre>
 <p>可以看出前者的运行速度大约是后者的3.6倍。原因是在后者中，R不得不每次循环都扩充一次output变量的长度。即每次循环，R都需要在计算机内存中复制原长度的output变量，同时腾出一块容量更大的区域，用来存储新长度的output变量，最后把原位置的output变量清除。在后一段代码中，这一系列创建、复制、粘贴、删除的繁琐操作共进行了10000000次！而前者的写法就很好地避免了这个问题！</p>
 </div>
 <div id="p61-6.2-读取excel数据-1" class="section level3">
@@ -153,16 +167,16 @@ all(econ2000 == re_econ2000)</code></pre>
 system.time(
     replicate(1000,dlply(baseball,&quot;id&quot;,nrow))
 )</code></pre>
-<pre><code>##  用户  系统  流逝 
-## 87.86  0.08 89.34</code></pre>
+<pre><code>##   用户   系统   流逝 
+## 131.71   0.22 134.17</code></pre>
 <pre class="r"><code>#我擅自增加了replicate函数
 #因为只运行一次的话几乎运行时长很短，几乎看不出差别</code></pre>
 <p>&lt;2&gt;</p>
 <pre class="r"><code>library(plyr)
 iBaseball &lt;- idata.frame(baseball)
 system.time(replicate(100,dlply(iBaseball,&quot;id&quot;,nrow)))</code></pre>
-<pre><code>## 用户 系统 流逝 
-## 9.17 0.00 9.21</code></pre>
+<pre><code>##  用户  系统  流逝 
+## 22.64  0.05 23.93</code></pre>
 <p>课本中两者的运行时间分别为0.31和0.19，而这里的运行结果是88.89和94.59，为何两个结果不一致，不清楚。不过也许不重要，作者后面也提到将数据集转换为idata.frame格式能不能提高效率还得挑数据集。😵</p>
 <p>&lt;3&gt;<br />
 现在测试使用data.table的效率：</p>
@@ -175,7 +189,7 @@ system.time(
             )
 )</code></pre>
 <pre><code>## 用户 系统 流逝 
-## 2.16 0.16 2.23</code></pre>
+## 5.08 0.63 5.55</code></pre>
 <pre class="r"><code>#这里使用的是length，原因是nrow在这儿用不了。
 #事实上如果把上面的两段代码换成length，运行时间几乎与使用nrow相同。</code></pre>
 <p>仅用时两秒！😮</p>
@@ -191,9 +205,21 @@ system.time(
               summarize(nrow=nrow(year))
             )
 )</code></pre>
-<pre><code>##  用户  系统  流逝 
-## 10.05  0.00 10.09</code></pre>
+<pre><code>## 用户 系统 流逝 
+## 12.8  0.0 13.0</code></pre>
 <p>用时十秒。</p>
+</div>
+<div id="p139-12.11-dplyr使用数据库" class="section level3">
+<h3>P139 “12.11 dplyr使用数据库”</h3>
+<p>本节有代码如下：</p>
+<pre><code>download.file(&quot;http://www.jaredlander.com/data/diamonds.db&quot;,
+              destfile=&quot;data/diamonds.db&quot;,mode = &quot;wb&quot;)
+diaDBSource &lt;- src_sqlite(&quot;data/diamonds.db&quot;)</code></pre>
+<p>提示错误：找不到src_sqlite函数。原因是作者写作时dplyr包的版本为0.6，现在则为1.0.7。而1.0.0版本的相关更新说明如下：</p>
+<blockquote>
+<p>src_mysql(), src_postgres(), and src_sqlite() has been deprecated. We’ve recommended against them for some time. Instead please use the approach described at <a href="https://dbplyr.tidyverse.org/" class="uri">https://dbplyr.tidyverse.org/</a>.</p>
+</blockquote>
+<p>即现在建议使用dbplyr（dplyr的支援包）来操纵数据库。dbplyr官网中的写法已经不再使用src_sqlite函数，而是改用书中提到的另一种应用面更广的方法：使用DBI::dbConnect()函数。</p>
 </div>
 <div id="p172-16.3-提取文本" class="section level3">
 <h3>P172 “16.3 提取文本”</h3>
@@ -215,12 +241,6 @@ presidents2 &lt;- (read_html(theURL) %&gt;%
     html_elements(&quot;table&quot;) %&gt;% 
     html_table())[[4]]</code></pre>
 </div>
-</div>
-<div id="参考书目" class="section level2">
-<h2>参考书目</h2>
-<ol style="list-style-type: decimal">
-<li>Garrett Grolemund.<a href="https://rstudio-education.github.io/hopr/">Hands-On Programming with R</a> (作者将其免费发布在网上。其中文版是我的启蒙书籍。)</li>
-</ol>
 </div>
 <div id="one-more-thing" class="section level2">
 <h2>One more thing</h2>
