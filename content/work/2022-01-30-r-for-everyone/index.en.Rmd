@@ -1,6 +1,6 @@
 ---
 title: 《R for Everyone》小注 Part.1
-author: 马佳璇
+author: ''
 date: '2022-01-30'
 slug: r-for-everyone
 categories: []
