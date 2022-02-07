@@ -5,7 +5,7 @@ date: '2022-01-30'
 slug: r-for-everyone
 categories: []
 tags: []
-description: R语言：实用数据分析和可视化技术（原书第2版）(https://book.douban.com/subject/34891734/)...
+description: R语言：实用数据分析和可视化技术（原书第2版）https://book.douban.com/subject/34891734/
 ---
 |  
 [<img src="https://simpleicons.org/icons/r.svg" style="max-width:15%;min-width:40px;float:right;" alt="R repo" />](https://www.r-project.org/)
