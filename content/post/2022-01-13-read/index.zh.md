@@ -8,6 +8,14 @@ tags: []
 description: 了解社区讨论和相关文章...
 ---
 
+<audio id="audio" 
+       controls="" 
+       autoplay="autoplay"
+       preload="none">
+      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=5044899.mp3">
+</audio>
+
+
 讨论：[hugodown 是个啥新玩意?](https://d.cosx.org/d/421573-hugodown)
 
 文章：[从另一个视角看 R 语言的方言 Tidyverse](https://cosx.org/2020/10/alternative-view-tidyverse-r/)
