@@ -8,13 +8,7 @@ tags: []
 description: 了解社区讨论和相关文章...
 ---
 
-<audio id="audio" 
-       controls="" 
-       autoplay="autoplay"
-       preload="none">
-      <source id="mp3" src="https://music.163.com/song/media/outer/url?id=5044899.mp3">
-</audio>
-
+<iframe allow="autoplay *; encrypted-media *; fullscreen *" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/cn/album/ieta-single/1601290291"></iframe>
 
 讨论：[hugodown 是个啥新玩意?](https://d.cosx.org/d/421573-hugodown)
 
