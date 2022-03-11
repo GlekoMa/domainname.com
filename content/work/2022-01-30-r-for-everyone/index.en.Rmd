@@ -266,7 +266,7 @@ presidents2 <- (read_html(theURL) %>%
     html_table())[[4]]
 ```
 
-## One more thing
-_注：《R for Everyone》中没有给出练习题目，故应自行寻找巩固知识的办法。_
-
-> 子曰：“学而不思则罔，思而不学则殆。”    ——《论语·为政》
+## 运行环境
+```{r}
+devtools::session_info()
+```

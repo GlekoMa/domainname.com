@@ -5,7 +5,7 @@ date: '2022-01-18'
 slug: ''
 categories: []
 tags: []
-description: 建站相关的一些个人经验。
+description: 建站相关经验
 ---
 
 _推荐_：[用 R 语言的 blogdown+hugo+netlify+github 建博客](https://cosx.org/2018/01/build-blog-with-blogdown-hugo-netlify-github/)
