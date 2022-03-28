@@ -1,0 +1,227 @@
+---
+title: 回归分析作业
+author: ''
+date: '2022-03-28'
+slug: ''
+categories: []
+tags: []
+description: 大二下学期.教材《应用回归分析》（第五版）
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="一" class="section level1">
+<h1>一</h1>
+<div id="习题2.14" class="section level2">
+<h2>习题2.14</h2>
+<pre class="r"><code># 回归模型的拟合
+t2.14 &lt;- data.frame(
+  月份 = c(1, 2, 3, 4, 5),
+  x = c(1, 2, 3, 4, 5),
+  y = c(10, 10, 20, 20, 40)
+)
+model &lt;- lm(y ~ x,
+            data=t2.14)</code></pre>
+<div id="散点图" class="section level3">
+<h3>散点图</h3>
+<pre class="r"><code># 绘制拟合图
+attach(t2.14)
+model &lt;- lm(y ~ x)
+plot(y ~ x)
+text(y ~ x, label=月份, cex=0.6, adj=c(-0.6,0.25), col=4)
+abline(model, col=2,lwd=2)
+n = nrow(t2.14)
+for(i in 1:n){
+    segments(t2.14[i,2], t2.14[i,3], t2.14[i,2], model$fitted[i])
+}</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="汇总" class="section level3">
+<h3>汇总</h3>
+<pre class="r"><code>summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##          1          2          3          4          5 
+##  4.000e+00 -3.000e+00 -3.775e-15 -7.000e+00  6.000e+00 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)   -1.000      6.351  -0.157   0.8849  
+## x              7.000      1.915   3.656   0.0354 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.055 on 3 degrees of freedom
+## Multiple R-squared:  0.8167, Adjusted R-squared:  0.7556 
+## F-statistic: 13.36 on 1 and 3 DF,  p-value: 0.03535</code></pre>
+</div>
+<div id="置信区间" class="section level3">
+<h3>置信区间</h3>
+<pre class="r"><code>#计算回归系数的置信区间
+confint(model,level=0.95)</code></pre>
+<pre><code>##                   2.5 %   97.5 %
+## (Intercept) -21.2112485 19.21125
+## x             0.9060793 13.09392</code></pre>
+</div>
+<div id="方差分析" class="section level3">
+<h3>方差分析</h3>
+<pre class="r"><code># 输出方差分析表
+anova(model)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## x          1    490  490.00  13.364 0.03535 *
+## Residuals  3    110   36.67                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="相关系数的显著性检验" class="section level3">
+<h3>相关系数的显著性检验</h3>
+<pre class="r"><code>cor.test(x, y, method=&#39;pearson&#39;)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  x and y
+## t = 3.6556, df = 3, p-value = 0.03535
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1057216 0.9936915
+## sample estimates:
+##       cor 
+## 0.9036961</code></pre>
+</div>
+<div id="残差图" class="section level3">
+<h3>残差图</h3>
+<pre class="r"><code># 绘制残差图
+plot(model, which=1)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="广告费用4.2万元时" class="section level3">
+<h3>广告费用4.2万元时</h3>
+<pre class="r"><code>predict.lm(model,
+           newdata=data.frame(x=4.2),
+           interval=&#39;confidence&#39;,
+           level=0.95)</code></pre>
+<pre><code>##    fit      lwr      upr
+## 1 28.4 17.09746 39.70254</code></pre>
+</div>
+</div>
+<div id="习题2.15" class="section level2">
+<h2>习题2.15</h2>
+<pre class="r"><code>t2.15 &lt;- data.frame(
+  周序号 = 1:10,
+  x = c(825, 215, 1070, 550, 480, 920, 1350, 325, 670, 1215),
+  y = c(3.5, 1.0, 4.0, 2.0, 1.0, 3.0, 4.5, 1.5, 3.0, 5.0)
+)
+model &lt;- lm(y ~ x,
+            data=t2.15)# 拟合模型
+summary(model)# 输出结果</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, data = t2.15)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.83899 -0.33483  0.07842  0.37228  0.52594 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.1181291  0.3551477   0.333    0.748    
+## x           0.0035851  0.0004214   8.509 2.79e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.48 on 8 degrees of freedom
+## Multiple R-squared:  0.9005, Adjusted R-squared:  0.8881 
+## F-statistic:  72.4 on 1 and 8 DF,  p-value: 2.795e-05</code></pre>
+<pre class="r"><code>confint(model,level=0.95)# 输出置信区间</code></pre>
+<pre><code>##                    2.5 %      97.5 %
+## (Intercept) -0.700843004 0.937101152
+## x            0.002613486 0.004556779</code></pre>
+<pre class="r"><code>anova(model)# 输出方差分析表</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## x          1 16.6816 16.6816  72.396 2.795e-05 ***
+## Residuals  8  1.8434  0.2304                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code># 绘制拟合图
+attach(t2.15)</code></pre>
+<pre><code>## The following objects are masked from t2.14:
+## 
+##     x, y</code></pre>
+<pre class="r"><code>model &lt;- lm(y ~ x)
+plot(y ~ x)
+text(y ~ x, label=周序号, cex=0.6, adj=c(-0.6,0.25), col=4)
+abline(model, col=2,lwd=2)
+n = nrow(t2.14)
+for(i in 1:n){
+    segments(t2.14[i,2], t2.14[i,3], t2.14[i,2], model$fitted[i])
+}</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+<div id="text" class="section level1">
+<h1>text</h1>
+<pre class="r"><code>library(haven)
+li2_2 &lt;- read_sav(&quot;C:/Users/Gleko/Desktop/作业/应用回归分析/应用回归分析数据（第5版）/例题SPSS格式/li2.2.sav&quot;)
+# 回归模型的拟合
+t2.14 &lt;- li2_2
+model &lt;- lm(y ~ x,
+            data=t2.14)
+summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, data = t2.14)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -471.35 -120.86   65.89  134.58  269.99 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6.092e+02  7.584e+01   8.033 7.71e-08 ***
+## x           6.732e-01  6.762e-03  99.554  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 211.1 on 21 degrees of freedom
+## Multiple R-squared:  0.9979, Adjusted R-squared:  0.9978 
+## F-statistic:  9911 on 1 and 21 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>#计算回归系数的置信区间
+confint(model,level=0.95)</code></pre>
+<pre><code>##                   2.5 %      97.5 %
+## (Intercept) 451.4973964 766.9392067
+## x             0.6591171   0.6872417</code></pre>
+<pre class="r"><code># 输出方差分析表
+anova(model)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df    Sum Sq   Mean Sq F value    Pr(&gt;F)    
+## x          1 441542935 441542935  9910.9 &lt; 2.2e-16 ***
+## Residuals 21    935573     44551                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code># 绘制拟合图
+attach(t2.14)</code></pre>
+<pre><code>## The following objects are masked from t2.15:
+## 
+##     x, y</code></pre>
+<pre><code>## The following objects are masked from t2.14 (pos = 5):
+## 
+##     x, y</code></pre>
+<pre class="r"><code>model &lt;- lm(y ~ x)
+plot(y ~ x)
+text(y ~ x, label=年份, cex=0.6, adj=c(-0.6,0.25), col=4)
+abline(model, col=2,lwd=2)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>n = nrow(t2.14)</code></pre>
+</div>
