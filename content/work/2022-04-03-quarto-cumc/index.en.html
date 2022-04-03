@@ -1,0 +1,214 @@
+---
+title: Quarto模板：数学建模
+author: ''
+date: '2022-04-03'
+slug: quarto-cumc
+categories: []
+tags: []
+---
+
+
+
+<div id="text.qmd" class="section level2">
+<h2>text.qmd：</h2>
+<blockquote>
+<p>请把其中代码段开头与结尾的“#”去掉。</p>
+</blockquote>
+<pre><code>---
+format: 
+  pdf:
+    template: stulink.tex
+NO: 一
+group: 1707
+school: Stulink大学
+#-------------------
+name1: 和尚\quad
+class1: 头脑1班
+number1: 1000000000
+#-------------------
+name2: 方丈\quad
+class2: 身体2班
+number2: 1000000001
+#-------------------
+name3: 一头驴
+class3: 思想3班
+number3: 1000000002
+#-------------------
+time: 2022年3月
+preface: yes # 是否显示组队信息
+title: &quot;数学建模&quot;
+abstract: |-
+  你底影子是弓 | $x=0$
+  
+  你以自己拉响自己 | $y=1$
+  
+  拉的很满，很满。
+  $$ x+y\leqslant 1 $$
+keyword: Art \ Music \ Poem 
+---
+
+# 数学公式
+
+在一个孤立系统内，所有粒子的相对论动能与静能之和在相互作用过程中保持不变，称为质能守恒定律。
+
+\begin{equation}
+E=mc^2. (\#eq:Einstein)
+\end{equation}
+
+
+\newpage
+
+# 三线表绘制
+
+#```{r notation, echo=FALSE, warning=FALSE}
+library(kableExtra)
+table = data.frame(
+    符号 = c(&quot;$x_i$&quot;, &quot;$y_j$&quot;),
+    说明 = c(&quot;第$i$次相遇&quot;, &quot;第$j$次错过&quot;),
+    单位 = c(&quot;毫厘&quot;, &quot;千里&quot;)
+)
+kbl(table, 
+    booktabs = T,
+    escape = F,
+    caption = &quot;符号说明&quot;, 
+    position = &quot;h&quot;
+    )
+#```
+
+\newpage
+
+# 图片插入
+
+![鲍勃·迪伦](bob-dylan.jpg)</code></pre>
+</div>
+<div id="stulink.tex" class="section level2">
+<h2>stulink.tex：</h2>
+<pre><code>\documentclass[zihao = -4]{ctexart}
+\pagestyle{plain}
+\setlength{\belowcaptionskip}{0.25cm}
+\setlength{\abovecaptionskip}{0.25cm}
+
+% Load Packages--------------------------
+\usepackage[a4paper,vmargin=2.5cm,hmargin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{float}
+\setCJKfamilyfont{song}[AutoFakeBold]{SimSun}
+\newcommand*{\song}{\CJKfamily{song}}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+% Pandoc Syntax Highlighting--------------
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% Section Format--------------------------
+\titleformat{\section}
+  {\zihao{4} \heiti\centering}
+  {}{0em}
+  {}
+  []
+
+\titleformat{\subsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}}{1em}
+  {}
+  []
+
+%=========================================%
+\begin{document}
+
+% Preface---------------------------------
+$if(preface)$
+\newpage
+\begin{figure}[h]
+\begin{center}
+{\bfseries  \song \zihao{2} 21-22-2数学建模与数学实验}
+\vspace{2ex}\\
+{\bfseries  \song \zihao{2} 课程论文$NO$}
+\end{center}
+\end{figure}
+
+\vspace{16ex}
+
+{\bfseries  \song \zihao{4} 题目：} \zihao{4} $title$
+\vspace{4ex}
+
+{\bfseries  \song \zihao{4} 组队编号：} \zihao{4} $group$
+\vspace{4ex}
+
+{\bfseries  \song \zihao{4} 学生1}
+\vspace{4ex}
+
+\song \zihao{4}{{\bfseries   姓名}\  \zihao{4}{ \uline{\quad \ $name1$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class1$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number1$\quad \ }}
+
+$if(name2)$
+\vspace{4ex}
+{\bfseries  \song \zihao{4} 学生2}
+\vspace{4ex}
+
+\song \zihao{4}{{\bfseries  姓名}\   \zihao{4}{ \uline{\quad \ $name2$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class2$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number2$\quad \ }}
+$endif$
+
+$if(name3)$
+\vspace{4ex}
+{\bfseries  \song \zihao{4} 学生3}
+\vspace{4ex}
+
+\song \zihao{4}{{\bfseries   姓名}\  \zihao{4}{ \uline{\quad \ $name3$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class3$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number3$\quad \ }}
+$endif$
+
+\begin{figure}[b]
+\begin{center}
+{\bfseries  \song \zihao{4} $school$}
+\vspace{4ex}\\
+{\bfseries  \song \zihao{4} $time$}
+\end{center}
+\end{figure}
+$endif$
+
+% Abstract--------------------------------
+\newpage
+
+$if(title)$
+\begin{center}
+{\zihao{3} \heiti $title$}
+\vspace{3ex}
+$endif$
+
+{{\heiti \zihao{4} 摘\quad 要}}
+\end{center}
+
+$if(abstract)$
+$abstract$
+$endif$
+
+{\vspace{4ex}\noindent{\heiti 关键词:}}
+$keyword$
+
+% Main Body-------------------------------
+\newpage
+$body$
+
+\end{document}</code></pre>
+</div>
+<div id="bob-dylan.jpg" class="section level2">
+<h2>Bob dylan.jpg:</h2>
+<div class="figure">
+<img src="images/bob-dylan.jpg" alt="" />
+<p class="caption">May you stay, forever young.</p>
+</div>
+</div>
