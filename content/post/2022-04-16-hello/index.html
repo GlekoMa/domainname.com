@@ -1,0 +1,210 @@
+---
+title: Shiny:成绩整理(beta)
+author: 
+date: '2022-03-16'
+slug: score_app
+categories: []
+tags: []
+description: Shiny应用：整理成绩表并提供各科成绩的密度估计图（未完善）
+---
+
+
+
+<p>应用实例部署在：<a href="https://stulink.shinyapps.io/score_app/" class="uri">https://stulink.shinyapps.io/score_app/</a></p>
+<pre><code># 命令行输入：
+# options(encoding = &quot;UTF-8&quot;)
+# rsconnect::deployApp(&#39;C:/Users/Gleko/Desktop/R_rela/score_app&#39;)
+
+# Packages-------------------------------
+
+library(shiny)
+library(readxl)
+library(stringr)
+library(openxlsx)
+library(reshape2)
+library(dplyr)
+library(ggplot2)
+
+# Shiny----------------------------------
+
+ui &lt;- fluidPage(
+    fluidRow(
+        column(3, fileInput(&quot;upload&quot;, &quot;Require &#39;xxx.xlsx&#39;&quot;), 
+        downloadButton(&quot;download&quot;, &quot;Download&quot;)),
+        column(5, 
+               sliderInput(&quot;course&quot;, label = &quot;Course&quot;, min = 1, max = 8, value = 1),
+               plotOutput(&quot;files&quot;))
+        )
+)
+
+server &lt;- function(input,output,session){
+    output$files &lt;- renderPlot({
+        
+        # Prepare:使图表支持中文----------------------------------------
+        
+        ## 强制使用R自身的png()设备
+        options(shiny.usecairo = FALSE)
+        
+        ## 解决ShinyApps上没有中文字体的问题
+        font_home &lt;- function(path = &#39;&#39;) file.path(&#39;~&#39;, &#39;.fonts&#39;, path)
+        if (Sys.info()[[&#39;sysname&#39;]] == &#39;Linux&#39; &amp;&amp;
+            system(&#39;locate wqy-zenhei.ttc&#39;) != 0 &amp;&amp;
+            !file.exists(font_home(&#39;wqy-zenhei.ttc&#39;))) {
+            if (!file.exists(&#39;wqy-zenhei.ttc&#39;))
+                curl::curl_download(
+                    &#39;https://github.com/rstudio/shiny-examples/releases/download/v0.10.1/wqy-zenhei.ttc&#39;,
+                    &#39;wqy-zenhei.ttc&#39;
+                )
+            dir.create(font_home())
+            file.copy(&#39;wqy-zenhei.ttc&#39;, font_home())
+            system2(&#39;fc-cache&#39;, paste(&#39;-f&#39;, font_home()))
+        }
+        rm(font_home)
+        
+        if (.Platform$OS.type == &quot;windows&quot;) {
+            if (!grepl(&quot;Chinese&quot;, Sys.getlocale())) {
+                warning(
+                    &quot;You probably want Chinese locale on Windows for this app&quot;,
+                    &quot;to render correctly. See &quot;,
+                    &quot;https://github.com/rstudio/shiny/issues/1053#issuecomment-167011937&quot;
+                )
+            }
+        }
+        
+        # ----------------------------Main---------------------------- #
+        
+        req(input$upload)
+        
+        # 读取数据
+        score0 &lt;- read_excel(input$upload$datapath)
+        # 删除无价值的行和列（第一行、最后两行;第三列、最后七列）
+        score0 &lt;- score0[c(-1, -nrow(score0), 1-nrow(score0)), c(-3, (-ncol(score0)+6):-ncol(score0))]
+        # 对score0作备份以供生成Sheet2使用
+        sc0_back_up &lt;- as.data.frame(score0)
+        # 把课程信息格式改为“课程名 学分”；将数据框第一行作为列名
+        ## 按“，”把课程信息中的词分离
+        course &lt;- as.data.frame(do.call(rbind, str_split(string = score0[1, -1:-2], pattern = &quot;，&quot;)))
+        course[, 4] &lt;- paste(&#39;/&#39;, do.call(rbind, str_split(string = course[, 4], pattern = &#39; &#39;))[, 2], sep = &#39;&#39;)
+        ## 取出格式化全部课程
+        all_cour &lt;- course[, c(1, 4)]
+        all_cour &lt;- str_c(course[, 1], course[, 4], sep = &quot;&quot;)
+        ## 取出格式化必修课程
+        ### 去掉由各种原因导致成绩缺失的非目标列
+        ### 如：转专业同学的原专业必修课
+        col_na &lt;- rep(NA, ncol(score0)-2)
+        for (i in 3:(length(col_na)+2)){
+            col_na[i-2] &lt;- score0[,i] %&gt;% 
+                is.na() %&gt;% 
+                sum()
+        } # 对每列缺失值NA计数
+        require_cour &lt;- course[col_na / nrow(score0) &lt; 0.5, ]
+        require_cour &lt;- require_cour[require_cour[,3] == &quot;必修&quot;, c(1, 4)]
+        require_cour &lt;- str_c(require_cour[, 1], require_cour[, 2], sep = &quot;&quot;)
+        ## 将第一行作为列名
+        names(score0) &lt;- c(&quot;学号&quot;, &quot;姓名&quot;, all_cour)
+        score0 &lt;- as.data.frame(score0[-1, ])
+        ## 将character类型数字转换为numeric类型
+        score0[, -2] &lt;- apply(score0[, -2], 2, as.numeric)
+        
+        # Sheet1--------------------------------------------------------
+        
+        sheet1 &lt;- score0[, c(1, 2, which(names(score0) %in% require_cour))]
+        # 学习成绩＝（科目一*对应学分+科目二*对应学分···+科目n*对应学分）/总学分
+        ## 分离出每门课的学分，生成(ncol-2)×1矩阵mat_point
+        cour_point &lt;- do.call(rbind, str_split(string = require_cour, pattern = &quot;/&quot;))
+        mat_point &lt;- apply(matrix(cour_point[, 2]), 2, as.numeric)
+        ## 由课程分数生成nrow×(ncol-2)矩阵mat_score
+        mat_score &lt;- apply(as.matrix(sheet1[, -1:-2]), 2, as.numeric)
+        ## 算出学习成绩
+        sheet1$学习成绩 &lt;- format(as.numeric(mat_score %*% mat_point / sum(mat_point[, 1])), digits = 4)
+        ## 按成绩排序
+        sheet1 &lt;- arrange(sheet1, desc(学习成绩))
+        ranking &lt;- data.frame(&quot;排名&quot; = 1:nrow(sheet1))
+        ## 生成成绩表Sheet1
+        sheet1 &lt;- cbind(sheet1[, c(1, 2)], ranking, sheet1[, 3:ncol(sheet1)])
+        
+        # Sheet2--------------------------------------------------------
+        
+        ## 因某些原因（如转专业），同名课程可能被分成两列，需将重复的列重命名为“原列名 ”
+        dup_course &lt;- duplicated(as.character(sc0_back_up[1, ]))
+        if (sum(dup_course) != 0){
+            sc0_back_up[1, dup_course] &lt;- str_c(sc0_back_up[1, dup_course], &#39; &#39;)
+        }
+        names(sc0_back_up) &lt;- sc0_back_up[1, ]
+        sc0_back_up &lt;- sc0_back_up[-1, ]
+        ## 长短列表转换
+        sheet2 &lt;- melt(sc0_back_up, id.vars = c(&quot;学号&quot;, &quot;姓名&quot;),
+                       variable.name = &quot;科目&quot;,
+                       value.name = &quot;分数&quot;)
+        ## 删去缺失值的行
+        sheet2 &lt;- sheet2[!is.na(sheet2$分数), ]
+        ## 筛选出成绩小于60的
+        sheet2 &lt;- sheet2[sheet2$分数 &lt; 60 &amp; sheet2$分数 != 100, ]
+        ## 把课程列细分成科目类型和科目
+        cour_df &lt;- data.frame(do.call(rbind, str_split(string = sheet2[, 3], pattern = &quot;，&quot;)))
+        sheet2[,3] &lt;- cour_df[, 1]
+        sheet2$科目类型 &lt;- cour_df[, 2]
+        ## 生成挂科表sheet2
+        sheet2 &lt;- sheet2[,c(1,2,5,3,4)]
+        
+        # Sheet3--------------------------------------------------------
+        
+        ## 将sheet1长短列表转换
+        fail_cour &lt;- melt(sheet1[, c(-3, -ncol(sheet1))],
+                          na.rm = TRUE,
+                          id.vars = c(&quot;学号&quot;, &quot;姓名&quot;),
+                          variable.name = &quot;科目&quot;,
+                          value.name = &quot;分数&quot;)
+        ## 计每个科目挂科数
+        fail_cour &lt;- fail_cour[fail_cour$分数 &lt; 60, ] %&gt;% group_by(科目) %&gt;% count()
+        ## 新添加一列“挂科率”
+        fail_cour$挂科率 &lt;- format(fail_cour$n/nrow(sheet1), digit = 1)
+        ## 转置数据框以待之后列合并
+        fail_cour &lt;- as.data.frame(t(fail_cour))
+        ## 第一行作为列名
+        names(fail_cour) &lt;- fail_cour[1, ]
+        fail_cour &lt;- fail_cour[-1, ]
+        ## 创建一个数据框，表示班级挂科率
+        n &lt;- rep(0,length(require_cour))
+        sheet3 &lt;- as.data.frame(rbind(require_cour, n, n))
+        sheet3$new &lt;- c(&quot;科目&quot;,&quot;挂科人数&quot;,&quot;挂科率&quot;)
+        sheet3 &lt;- sheet3[, c(ncol(sheet3), 1:(ncol(sheet3)-1))]
+        names(sheet3) &lt;- sheet3[1,]
+        sheet3 &lt;- sheet3[-1,]
+        ## 赋值
+        sheet3 &lt;- cbind(sheet3[, !names(sheet3) %in% names(fail_cour)], fail_cour)
+        
+        # Create Excel--------------------------------------------------
+        
+        wb &lt;- createWorkbook(creator = &#39;Rydeen&#39;, title = &#39;成绩&#39;)
+        addWorksheet(wb,sheetName = &#39;学习成绩&#39;)
+        writeData(wb,sheet = &#39;学习成绩&#39;,x = sheet1)
+        addWorksheet(wb,sheetName = &#39;挂科名单&#39;)
+        writeData(wb,sheet = &#39;挂科名单&#39;,x = sheet2)
+        addWorksheet(wb,sheetName = &#39;班级挂科率&#39;)
+        writeData(wb,sheet = &#39;班级挂科率&#39;,x = sheet3)
+        saveWorkbook(wb, &quot;score_server.xlsx&quot;, overwrite = TRUE)
+        
+        # 密度估计
+        sheet1_Long &lt;- melt(sheet1[, c(-3, -ncol(sheet1))],
+                            na.rm = TRUE,
+                            id.vars = c(&quot;学号&quot;, &quot;姓名&quot;),
+                            variable.name = &quot;科目&quot;,
+                            value.name = &quot;分数&quot;)
+        cour &lt;- names(sheet1)[c(-1:-3, -ncol(sheet1))][input$course]
+        pic &lt;- sheet1_Long[sheet1_Long$科目 == cour, ] %&gt;% 
+            ggplot(aes(x=`分数`, color=`科目`, fill=`科目`)) + 
+            geom_density(alpha=0.3)
+        return(pic)
+        rm(list = ls())
+    })
+    
+    output$download &lt;- downloadHandler(
+        filename = &quot;成绩单(beta).xlsx&quot;,
+        content = function(file) {
+            file.copy(paste0(getwd(),&quot;/score_server.xlsx&quot;), file)
+        }
+    )
+}
+
+shinyApp(ui, server)</code></pre>
