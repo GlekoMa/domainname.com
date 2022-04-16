@@ -3,6 +3,8 @@ project:
 
 website:
   title: "Blog"
+  site-url: https://www.myblogexample.io
+  description: "A great sample blog"
   navbar:
     right:
       - about.qmd
