@@ -2,10 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-exampleSite/public
-exampleSite/index.Rmd
-.DS_Store
-Thumbs.db
-.hugo_build.lock
-/public/
-/resources/
+
+/.quarto/
