@@ -117,7 +117,7 @@
   <![endif]-->
   <link rel="stylesheet" href="../../styles.css">
 </head>
-<body class="fullcontent">
+<body>
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -148,7 +148,11 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p>subscribe.html</p>
+</div></div>
+        
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default page-columns page-full" data-sidebar-align="true">
@@ -158,6 +162,23 @@
 <div class="quarto-title-banner color-navbar page-columns page-full"><div class="quarto-title column-body"><h1 class="title display-7">Post With Code</h1><div class="quarto-categories"><div class="quarto-category">news</div><div class="quarto-category">code</div><div class="quarto-category">analysis</div></div></div></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><div><div>
 <p>Gleko Ma</p>
 </div></div></div></div></div><div><div class="quarto-title-meta-heading">Published</div><div class="quarto-title-meta-contents"><p class="date">April 17, 2022</p></div></div></div></header>
+
+<!-- ... -->
+<script src="../..//cdn.jsdelivr.net/npm/@waline/client"></script>
+<!-- ... -->
+
+
+<!-- ... -->
+<div id="waline">
+
+</div>
+<script>
+    Waline({
+      el: '#waline',
+      serverURL: 'https://waline-gwzx-dk13l03mk-glekoma.vercel.app/',
+    });
+  </script>
+
 <p>This is a post with executable code.</p>
 <section id="polar-axis" class="level1">
 <h1>Polar Axis</h1>
@@ -188,7 +209,7 @@
 
 
 </section>
-</main> <!-- /main -->
+<p>waline.html</p></main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";

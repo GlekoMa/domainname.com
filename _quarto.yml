@@ -11,6 +11,8 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com/GlekoMa
+  body-footer: waline.html
+  margin-header: subscribe.html
 format:
   html:
     theme: cosmo
