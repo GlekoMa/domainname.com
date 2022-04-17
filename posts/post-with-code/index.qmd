@@ -7,6 +7,8 @@ image: "image.jpg"
 jupyter: python3
 ---
 
+This is a post with executable code.
+
 # Polar Axis
 
 For a demonstration of a line plot on a polar axis, see @fig-polar.
