@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Blog",
     "section": "",
-    "text": "2022.1.30-2.5\n笔记是一种很私人的东西，网络上许多博客的学习笔记通常过于冗长，且内容常仅是对原书的一些提炼，这类总结性的笔记适用于自己复习，而就效率来说，未必适合他者。所以这篇文章里只包含许多注释性质的东西，故只称作“小注”。\n“小注”分为一般注释和特针对此书的特殊注释。"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\nThis is a post with executable code.\n\n\n\n\n\n\nApr 16, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\nThis is the first post in a Quarto blog. Welcome!\n\n\n\n\n\n\nApr 13, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "关于",
     "section": "",
-    "text": "About this blog"
+    "text": "Quarto\nGitHub\n\nNetlify"
   },
   {
     "objectID": "posts/post-with-code/index.html",

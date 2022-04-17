@@ -2,16 +2,14 @@ project:
   type: website
 
 website:
-  title: "Blog"
-  site-url: https://www.myblogexample.io
-  description: "A great sample blog"
+  title: "Stulink"
+  site-url: https://stulink.netlify.app/
+  description: "Blogs of Stulink"
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/GlekoMa
 format:
   html:
     theme: cosmo
