@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.myblogexample.io/index.html</loc>
-    <lastmod>2022-04-17T01:26:37.077Z</lastmod>
+    <loc>https://stulink.netlify.app/about.html</loc>
+    <lastmod>2022-04-17T03:23:21.377Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/index.html</loc>
-    <lastmod>2022-04-17T02:52:28.745Z</lastmod>
-  </url>
-  <url>
-    <loc>https://stulink.netlify.app/about.html</loc>
-    <lastmod>2022-04-17T03:08:45.613Z</lastmod>
+    <lastmod>2022-04-17T03:23:22.245Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/posts/post-with-code/index.html</loc>
-    <lastmod>2022-04-17T02:52:28.081Z</lastmod>
+    <lastmod>2022-04-17T03:23:23.891Z</lastmod>
   </url>
 </urlset>
