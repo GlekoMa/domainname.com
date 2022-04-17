@@ -7,7 +7,12 @@ about:
     - icon: github
       text: Github
       href: https://github.com/GlekoMa
-
 ---
 
-使用[Quarto](https://quarto.org/)构建，代码由[GitHub](https://github.com/)托管，[Netlify](https://www.netlify.com/)提供服务器支持。
+#### 日出
+
+------------------------------------------------------------------------
+
+拍摄于2021年5月1日凌晨六点\
+地点：峨眉金顶\
+拍摄者：付仕豪
