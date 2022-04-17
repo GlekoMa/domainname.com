@@ -60,9 +60,9 @@
       }
 
       const options = {
-        valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+        valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
         
-        searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+        searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
       };
 
       window['quarto-listings'] = window['quarto-listings'] || {};
@@ -92,7 +92,7 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">关于</a>
+    <a class="nav-link" href="./about.html">About</a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/GlekoMa"><i class="bi bi-github" role="img">
@@ -109,15 +109,12 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(2)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full column-page" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default page-columns page-full" data-sidebar-align="true">
 
-<div class="quarto-title-banner color-navbar page-columns page-full"><div class="quarto-title column-page-left"><h1 class="title display-7">Blog</h1></div></div></header>
-<p><strong>Study Link</strong></p>
+<div class="quarto-title-banner color-navbar page-columns page-full"><div class="quarto-title column-page"><h1 class="title display-7">Blog</h1></div></div></header>
 
 
 
@@ -149,7 +146,7 @@
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="news,code,analysis" data-listing-date-sort="1650038400000" data-listing-file-modified-sort="1650115048210" data-listing-reading-time-sort="0.045">
+<div class="quarto-post image-right" data-index="0" data-categories="news,code,analysis" data-listing-date-sort="1650038400000" data-listing-file-modified-sort="1650162240492" data-listing-reading-time-sort="0.26">
 <div class="thumbnail">
 <p><a href="./posts/post-with-code/index.html"> <img src="\posts\post-with-code\image.jpg" class="thumnail-image"> </a></p>
 </div>
@@ -161,21 +158,8 @@ Post With Code
 <div class="listing-subtitle">
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
-analysis
-</div>
-</div>
-<a href="./posts/post-with-code/index.html">
 <div class="listing-description">
-<p>This is a post with executable code.</p>
+<p>For a demonstration of a line plot on a polar axis, see <strong>?@fig-polar</strong>.</p>
 </div>
 </a>
 </div>
@@ -186,41 +170,6 @@ Apr 16, 2022
 </div>
 <div class="listing-author">
 Harlow Malloc
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="news" data-listing-date-sort="1649779200000" data-listing-file-modified-sort="1650115048195" data-listing-reading-time-sort="0.16">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html"> <img src="\posts\welcome\thumbnail.jpg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/welcome/index.html">
-<h3 class="no-anchor listing-title">
-Welcome To My Blog
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<a href="./posts/welcome/index.html">
-<div class="listing-description">
-<p>This is the first post in a Quarto blog. Welcome!</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html">
-<div class="listing-date">
-Apr 13, 2022
-</div>
-<div class="listing-author">
-Tristan O’Malley
 </div>
 </a>
 </div>

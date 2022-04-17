@@ -1,5 +1,5 @@
 ---
-title: "关于"
+title: "About"
 image: profile.jpg
 about:
   template: solana
@@ -10,6 +10,4 @@ about:
 
 ---
 
-* [Quarto](https://quarto.org/)
-* [GitHub](https://github.com/)  
-* [Netlify](https://www.netlify.com/)  
+使用[Quarto](https://quarto.org/)构建，代码由[GitHub](https://github.com/)托管，[Netlify](https://www.netlify.com/)提供服务器支持。
