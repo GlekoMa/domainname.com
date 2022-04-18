@@ -1,6 +1,6 @@
 project:
   type: website
-
+  
 website:
   title: "Stulink"
   site-url: https://stulink.netlify.app/
@@ -11,11 +11,7 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com/GlekoMa
-        
 format:
   html:
     theme: cosmo
     css: styles.css
-
-
-
