@@ -3,6 +3,7 @@ title: "数学建模Quarto模板"
 author: "Jing Peng"
 date: "2022/4/18"
 categories: [news]
+image: "image.jpg"
 knitr: true
 ---
 
