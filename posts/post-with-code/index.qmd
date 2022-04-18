@@ -1,6 +1,6 @@
 ---
 title: "Post With Code"
-author: "Gleko Ma"
+author: "Quarto"
 date: "2022/4/17"
 categories: [news, code, analysis]
 image: "image.jpg"

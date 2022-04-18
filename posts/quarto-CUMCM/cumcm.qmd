@@ -1,8 +1,9 @@
 ---
 title: "数学建模Quarto模板"
-author: "Gleko Ma"
+author: "Jing Peng"
 date: "2022/4/18"
 categories: [news]
+knitr: true
 ---
 
 Template for CUMCM.
@@ -18,20 +19,20 @@ NO: 一
 group: 1707
 school: stulink大学
 #-------------------
-name1: 和尚\quad
-class1: 头脑1班
+name1: 蛋卷\quad
+class1: 成都1店
 number1: 1000000000
 #-------------------
-name2: 方丈\quad
-class2: 身体2班
+name2: 烤肉\quad
+class2: 成都2店
 number2: 1000000001
 #-------------------
-name3: 一头驴
-class3: 思想3班
+name3: 麻辣拌
+class3: 成都3店
 number3: 1000000002
 #-------------------
 time: 2022年3月
-preface: yes # 是否显示组队信息
+preface: yes  # 是否显示组队信息
 title: "标题"
 abstract: |-
   摘要部分
@@ -41,7 +42,7 @@ keyword: 关键字，以" \ "分割
 
 ### cumcm.tex
 
-```{r eval=FALSE, include=TRUE}
+```{tex eval=FALSE, include=TRUE}
 \documentclass[zihao = -4]{ctexart}
 \pagestyle{plain}
 \setlength{\belowcaptionskip}{0.25cm}
