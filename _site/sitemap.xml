@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stulink.netlify.app/posts/quarto-CUMCM/cumcm.html</loc>
-    <lastmod>2022-04-18T09:46:09.950Z</lastmod>
+    <loc>https://stulink.netlify.app/about.html</loc>
+    <lastmod>2022-04-18T11:30:42.423Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/index.html</loc>
-    <lastmod>2022-04-18T09:46:10.502Z</lastmod>
+    <lastmod>2022-04-18T11:33:01.224Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/posts/post-with-code/index.html</loc>
-    <lastmod>2022-04-18T09:33:56.345Z</lastmod>
+    <lastmod>2022-04-18T11:30:44.774Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stulink.netlify.app/posts/quarto-CUMCM/cumcm.html</loc>
+    <lastmod>2022-04-18T11:33:00.466Z</lastmod>
   </url>
 </urlset>
