@@ -5,6 +5,8 @@ date: "2022/4/18"
 categories: [news]
 ---
 
+全国大学生数学建模大赛论文模板
+
 ### main.qmd
 
 ```{r eval=FALSE, include=TRUE}
