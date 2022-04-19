@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.166">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="author" content="Jing Peng">
+  <meta name="author" content="Gleko Ma">
   <title>Stulink - 数学建模Quarto模板</title>
   <style>
     code{white-space: pre-wrap;}
@@ -156,11 +156,33 @@
 
 
 <div class="quarto-title-banner color-navbar page-columns page-full"><div class="quarto-title column-body"><h1 class="title display-7">数学建模Quarto模板</h1><div class="quarto-categories"><div class="quarto-category">news</div></div></div></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><div><div>
-<p>Jing Peng</p>
+<p>Gleko Ma</p>
 </div></div></div></div></div><div><div class="quarto-title-meta-heading">Published</div><div class="quarto-title-meta-contents"><p class="date">April 18, 2022</p></div></div></div></header>
 <p>Template for CUMCM.</p>
-<section id="main.qmd" class="level3">
-<h3 class="anchored" data-anchor-id="main.qmd">main.qmd</h3>
+<section id="说明" class="level2">
+<h2 class="anchored" data-anchor-id="说明">说明</h2>
+<p>此为本文作者自制的数学建模论文模板。主要编译工具为Quarto，当前软件版本为0.93。<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="一准备工作" class="level3">
+<h3 class="anchored" data-anchor-id="一准备工作">一、准备工作</h3>
+<ol type="1">
+<li>从<a href="quarto.org">Quato</a>官网下载软件</li>
+<li>阅读官网指引并结合实际情况进行配置</li>
+<li>复制附录代码并创建相应文件</li>
+<li>结合自己实际内容对main.qmd进行修改，最后编译</li>
+</ol>
+</section>
+<section id="二相关资料" class="level3">
+<h3 class="anchored" data-anchor-id="二相关资料">二、相关资料</h3>
+<p>首要需阅读的资料当为<a href="quarto.org">Quato</a>官网的<code>Get Started</code>部分、<code>Guide</code>的<code>Authoring</code>部分和<code>Formats\PDF</code>部分。</p>
+<p>另：</p>
+<p><a href="https://liam.page/2014/09/08/latex-introduction/">一份其实很短的LaTeX入门文档</a></p>
+<p><a href="https://latexlive.com/home">在线LaTeX公式编辑器</a></p>
+<p><a href="https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf">使用knitr包输出各种类型的LaTeX表格</a></p>
+</section>
+<section id="三附录" class="level3">
+<h3 class="anchored" data-anchor-id="三附录">三、附录</h3>
+<section id="main.qmd" class="level4">
+<h4 class="anchored" data-anchor-id="main.qmd">main.qmd</h4>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> </span>
@@ -191,8 +213,8 @@
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="cumcm.tex" class="level3">
-<h3 class="anchored" data-anchor-id="cumcm.tex">cumcm.tex</h3>
+<section id="cumcm.tex" class="level4">
+<h4 class="anchored" data-anchor-id="cumcm.tex">cumcm.tex</h4>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="sourceCode tex cell-code code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>[zihao = -4]{<span class="ex">ctexart</span>}</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\pagestyle</span>{plain}</span>
@@ -316,11 +338,32 @@
 <span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="qmd---rmd见脚注" class="level4">
+<h4 class="anchored" data-anchor-id="qmd---rmd见脚注">qmd -&gt; rmd（见脚注）</h4>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  pdf<span class="sc">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">:</span> cumcm.tex</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 修改为</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  bookdown<span class="sc">::</span>pdf_document2<span class="sc">:</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">:</span> cumcm.tex</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    latex_engine<span class="sc">:</span> xelatex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 
 </section>
-</main> <!-- /main -->
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>事实上，使用R语言的rmarkdown包也完全可以，主要操作流程基本相同，只需把后缀qmd改为rmd，并修改部分YAML头即可，具体代码见附录。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 
     <!-- ... -->
     <script src="https://cdn.jsdelivr.net/npm/@waline/client"></script>

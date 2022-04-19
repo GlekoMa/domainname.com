@@ -1,6 +1,6 @@
 ---
 title: "数学建模Quarto模板"
-author: "Jing Peng"
+author: "Gleko Ma"
 date: "2022/4/18"
 categories: [news]
 image: "image.jpg"
@@ -9,7 +9,34 @@ knitr: true
 
 Template for CUMCM.
 
-### main.qmd
+## 说明
+
+此为本文作者自制的数学建模论文模板。主要编译工具为Quarto，当前软件版本为0.93。[^1]
+
+[^1]: 事实上，使用R语言的rmarkdown包也完全可以，主要操作流程基本相同，只需把后缀qmd改为rmd，并修改部分YAML头即可，具体代码见附录。
+
+### 一、准备工作
+
+1.  从[Quato](quarto.org)官网下载软件
+2.  阅读官网指引并结合实际情况进行配置
+3.  复制附录代码并创建相应文件
+4.  结合自己实际内容对main.qmd进行修改，最后编译
+
+### 二、相关资料
+
+首要需阅读的资料当为[Quato](quarto.org)官网的`Get Started`部分、`Guide`的`Authoring`部分和`Formats\PDF`部分。
+
+另：
+
+[一份其实很短的LaTeX入门文档](https://liam.page/2014/09/08/latex-introduction/)
+
+[在线LaTeX公式编辑器](https://latexlive.com/home)
+
+[使用knitr包输出各种类型的LaTeX表格](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
+
+### 三、附录
+
+#### main.qmd
 
 ```{r eval=FALSE, include=TRUE}
 ---
@@ -41,7 +68,7 @@ keyword: 关键字，以" \ "分割
 ---
 ```
 
-### cumcm.tex
+#### cumcm.tex
 
 ```{tex eval=FALSE, include=TRUE}
 \documentclass[zihao = -4]{ctexart}
@@ -165,4 +192,17 @@ $keyword$
 $body$
 
 \end{document}
+```
+
+#### qmd -> rmd（见脚注）
+
+```{r eval=FALSE, include=TRUE}
+format: 
+  pdf:
+    template: cumcm.tex
+# 修改为
+output:
+  bookdown::pdf_document2: 
+    template: cumcm.tex
+    latex_engine: xelatex
 ```
