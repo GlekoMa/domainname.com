@@ -1,0 +1,171 @@
+---
+title: "探索性数据分析 | 1st"
+author: "Gleko Ma"
+date: "2022/4/22"
+categories: [code, analysis]
+image: "hello.jpg"
+knitr: true
+---
+
+For school work.
+
+## 示例模型的重演
+
+##### 建立数据框
+
+```{r}
+options(digits = 3)
+df0 = data.frame(
+    '人均专著' = c(0.1, 0.2, 0.4, 0.9, 1.2),
+    '生师比' = c(5, 6, 7, 10, 2),
+    '科研经费' = c(5000, 6000, 7000, 10000, 400),
+    '逾期毕业率' = c(4.7, 5.6, 6.7, 2.3, 1.8)
+) # df0作为备份
+df = df0
+knitr::kable(df)
+```
+
+##### 区间型属性变换
+
+变换公式：
+$$
+b_{i j}=\left\{\begin{array}{ll}
+1-\left(a_{j}^{0}-a_{i j}\right) /\left(a_{j}^{0}-a_{j}^{\prime}\right), & a_{j}^{\prime} \leq a_{i j}<a_{j}^{0} \\
+1, & a_{j}^{0} \leq a_{i j}<a_{j}^{*} \\
+1-\left(a_{i j}-a_{j}^{*}\right) /\left(a_{j}^{\prime \prime}-a_{j}^{*}\right), & a_{j}^{*} \leq a_{i j}<a_{j}^{\prime \prime} \\
+0, & \text { 其他 }
+\end{array}\right.
+$$
+
+```{r}
+df$生师比 = c(1, 1, 0.8333, 0.8333, 0)
+knitr::kable(df)
+```
+
+##### 数据标准化
+
+```{r}
+mom = function(col){sqrt(sum(col^2))}
+for (i in 1:4){df[, i] = df[, i]/mom(df[, i])}
+knitr::kable(df)
+```
+
+##### 数据加权
+
+```{r}
+w = c(0.2, 0.3, 0.4, 0.1)
+for (i in 1:4){df[, i] = w[i]*df[, i]}
+knitr::kable(df)
+```
+
+##### 到正负理想解的距离
+
+```{r}
+good = c(0.1530, 0.163, 0.276, 0.0648)
+bad = c(0.0128, 0.000, 0.011, 0.0174)
+good_d = function(row){sqrt(sum((row - good)^2))}
+bad_d = function(row){sqrt(sum((row - bad)^2))}
+df_over = data.frame(
+    s = rep(NA, 5),
+    s0 = rep(NA, 5)
+)
+for (i in 1:5){
+    df_over$s[i] = good_d(df[i, ])
+    df_over$s0[i] = bad_d(df[i, ])
+}
+knitr::kable(df_over)
+```
+
+##### 计算综合指标值
+
+```{r}
+df_over$f = df_over$s0/(df_over$s + df_over$s0)
+knitr::kable(df_over)
+```
+
+故结论为：4 > 3 > 2 > 1 > 5
+
+## 探索性分析
+
+##### 检查变量相关性
+
+对数据中各属性间的相关性进行可视化。
+
+```{r}
+#| warning: false
+#| message: false
+library(GGally)
+ggpairs(df0)
+```
+
+**生师比**与**科研经费**的相关系数高达0.991。
+
+既然生师比与科研经费相关性这么高，那么现在计算一下人均科研经费：
+
+```{r}
+df_avg = data.frame(
+    '人均经费' = df0$科研经费/df0$生师比
+) |> t()
+knitr::kable(df_avg)
+```
+
+可以清楚明白准确无误地看出来，第5行数据是个"异类"。
+
+让我们再回头仔细观察一下它们：
+
+```{r}
+knitr::kable(df0)
+```
+
+第五个学校虽然科研经费少，但生师比、人均专著与逾期毕业率都很理想，可以猜测此学校类型为弱工科院校，亦或者某类新型院校。数据如此理想的院校，相见恨晚，本文私自将其内定为第一名，并将其在后续分析中剔除。
+
+##### 消除高度相关的列
+
+既剔除了第五个院校，那么剩下四个院校的生师比与科研经费就完美符合$\hat{y}=1000\hat{x}$.的等式了，如此可将科研经费列剔除[^1]。
+
+[^1]: 为啥可剔除？因为只取样本的充分统计量即可哇
+
+于是现在剩余数据如下：
+
+```{r}
+df0 = df0[-5, -3]
+knitr::kable(df0)
+```
+
+再对其相关性进行可视化
+
+```{r}
+library(GGally)
+ggpairs(df0)
+```
+
+这下生师比与人均专著又展现出了极高的相关性。那么现在对这两个变量进行可视化与回归拟合：
+
+```{r message=FALSE}
+library(ggplot2)
+ggplot(df0, aes(x=`生师比`, y=`人均专著`)) + 
+    geom_point(aes(x=`生师比`, y=`人均专著`)) + 
+    geom_smooth(method = "lm")
+
+model1 = lm(`人均专著` ~ `生师比`, data = df0)
+kb1 = summary(model1)[4]$coefficients
+colnames(kb1) = c('估计值', '标准误', 't值', 'P值')
+rownames(kb1) = c('截距', '生师比')
+knitr::kable(kb1)
+```
+
+的确，拟合的很好。回归方程：$\hat{y} =0.164\hat{x}-0.750$.
+
+如此，我们又可以剔除一列：人均专著。
+
+```{r}
+df0 = df0[, -1]
+```
+
+现在只剩下孤零零的两列四行数据了：
+
+```{r}
+knitr::kable(df0)
+```
+
+接下来该怎么办？明天再想，收工！

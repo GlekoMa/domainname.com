@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/EDA_1/EDA_1.html",
       "/posts/quarto-CUMCM/cumcm.html",
       "/posts/post-with-code/index.html"
     ]
