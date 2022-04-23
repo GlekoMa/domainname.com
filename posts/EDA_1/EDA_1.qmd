@@ -177,7 +177,7 @@ print(df0)
 
 ![研究生生师比分类统计图示](SSB.jpg){fig-alt="研究生生师比分类统计图示"}
 
-为确定生师比加权系数，本文根据参考资料对世界一流大学的调查统计图进行了数据复现并
+可以看出，一流大学的生师比集中在2左右，为偏态分布。为确定本文模型生师比加权系数，本文根据参考资料对世界一流大学的调查统计图进行了数据复现并
 对其进行了gamma分布拟合，拟合结果其基本服从$X\sim Ga(2.256,0.797)$，拟合效果如图
 ：
 
@@ -199,15 +199,17 @@ ggplot() +
   ylab("y")
 ```
 
-于是本文决定生师比值的转换公式为：
+于是本文决定生师比值的转换成本型公式为：
+
 $$
-k_i = \frac{p(x_i)}{\sum_{i=1}^{4}p(x_i)}.
+k_i = 1-\frac{p(x_i)}{\sum_{i=1}^{4}p(x_i)}.
 $$
-$p(x)$为$X\sim Ga(2.256,0.797)$的密度函数，k越大，代表其越可能为好学校。
+
+$p(x)$为$X\sim Ga(2.256,0.797)$的密度函数，由$p(x)$越小，其为好学校的概率越小，即$k$越小，其为好学校的概率越小。
 
 ```{r}
 p_ssb = dgamma(c(5, 6, 7, 10), shape = fitt$estimate[1], rate = fitt$estimate[2])
-(k = p_ssb/sum(p_ssb))
+(k = 1-p_ssb/sum(p_ssb))
 ```
 
 计算后的数据变为：
@@ -217,17 +219,18 @@ df0$生师比 = k
 print(df0)
 ```
 
-### 4. 将成本型属性转为效益性属性
+### 4. 逾期毕业率转换
 
-仅逾期毕业率为成本型属性，将其转换为“正常毕业率”，即做运算：$y = 100-x$。
-
+转换公式为：
+$$
+l_i = \frac{x_i}{\sum_{i=1}^{4}x_i}.
+$$
 ```{r}
-df0$正常毕业率 = 100-df0$逾期毕业率
-df0 = df0[, -2]
-print(df0)
+df0$逾期毕业率 = df0$逾期毕业率/sum(df0$逾期毕业率)
 ```
 
-### 5. 去量纲化处理
+
+### 5. 最终处理
 
 #### 变异系数法
 
@@ -239,8 +242,9 @@ $$
 
 ```{r}
 df0_a = df0
+df0_a$生师比 = p_ssb
 x1 = df0_a$生师比
-x2 = df0_a$正常毕业率
+x2 = df0_a$逾期毕业率
 w1_a = sd(x1)/mean(x1)
 w2_a = sd(x2)/mean(x2)
 ```
@@ -253,14 +257,14 @@ $$
 
 ```{r}
 df0_a$生师比 = w1_a*df0_a$生师比
-df0_a$正常毕业率 = w2_a*df0_a$正常毕业率
+df0_a$逾期毕业率 = w2_a*df0_a$逾期毕业率
 df0_a
 ```
 
 ##### 正负理想解与综合指标
 
-正理想解：$(0.7110,0.01009)$\\
-负理想解：$(0.0316,0.00964)$
+正理想解：$(0.00279,0.0462)$\\
+负理想解：$(0.06269,0.1347)$
 
 到正理想解的距离：
 $$
@@ -276,8 +280,8 @@ f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
 $$
 
 ```{r}
-good_a = c(0.7110,0.01009)
-bad_a = c(0.0316,0.00964)
+good_a = c(0.00279,0.0462)
+bad_a = c(0.06269,0.1347)
 good_d_a = function(row){sqrt(sum((row - good_a)^2))}
 bad_d_a = function(row){sqrt(sum((row - bad_a)^2))}
 df_over_a = data.frame(
@@ -292,7 +296,7 @@ df_over_a$f = df_over_a$s0/(df_over_a$s + df_over_a$s0)
 print(df_over_a)
 ```
 
-最终结果：5>2>3>1>4
+最终结果：5>3>2>1>4
 
 #### 均方差法
 
@@ -312,24 +316,26 @@ $$
 \end{cases}
 $$
 
+
+求得均方差
 ```{r}
 df0_b = df0
 s = rep(NA, 2)
 for (i in 1:2){
-  s[i] = sqrt(1/(4-1)*var(df0_b[, i]))
-  df0_b[, i] = (df0_b[, i]-mean(df0_b[, i]))/s[i]
+  s[i] = (df0_b[, i]-mean(df0_b[, i]))/sqrt(1/(4-1)*var(df0_b[, i]))
 }
+for (i in 1:2){df0_b[, i] = df0_b[, i]*s[i]/sum(s)}
 print(df0_b)
 ```
 
 ##### 正负理想解与综合指标
 
-正理想解：$(2.213,2.337)$\\
-负理想解：$(-1.856,-1.735)$
+正理想解：$(0.456,0.00592)$\\
+负理想解：$(0.928,0.01725)$
 
 ```{r}
-good_b = c(2.213,2.337)
-bad_b = c(-1.856,-1.735)
+good_b = c(0.456,0.00592)
+bad_b = c(0.928,0.01725)
 good_d_b = function(row){sqrt(sum((row - good_b)^2))}
 bad_d_b = function(row){sqrt(sum((row - bad_b)^2))}
 df_over_b = data.frame(
@@ -344,7 +350,7 @@ df_over_b$f = df_over_b$s0/(df_over_b$s + df_over_b$s0)
 print(df_over_b)
 ```
 
-最终结果：5>1>4>2>3
+最终结果：5>4>3>2>1
 
 #### 极差法
 
@@ -353,6 +359,7 @@ print(df_over_b)
 $$
 b_{i j}=\left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right) \times 100.
 $$
+
 ```{r}
 df0_c = df0
 for (i in 1:2){df0_c[, i] = (df0_c[, i]-min(df0_c[, i]))/(max(df0_c[, i])-min(df0_c[, i]))}
@@ -362,12 +369,12 @@ print(df0_c)
 
 ##### 正负理想解与综合指标
 
-正理想解：$(1,1)$\\
-负理想解：$(0,0)$
+正理想解：$(0,0)$\\
+负理想解：$(1,1)$
 
 ```{r}
-good_c = c(1,1)
-bad_c = c(0,0)
+good_c = c(0, 0)
+bad_c = c(1, 1)
 good_d_c = function(row){sqrt(sum((row - good_c)^2))}
 bad_d_c = function(row){sqrt(sum((row - bad_c)^2))}
 df_over_c = data.frame(
