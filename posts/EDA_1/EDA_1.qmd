@@ -22,7 +22,7 @@ df0 = data.frame(
     '逾期毕业率' = c(4.7, 5.6, 6.7, 2.3, 1.8)
 ) # df0作为备份
 df = df0
-knitr::kable(df)
+print(df)
 ```
 
 ##### 区间型属性变换
@@ -39,15 +39,20 @@ $$
 
 ```{r}
 df$生师比 = c(1, 1, 0.8333, 0.8333, 0)
-knitr::kable(df)
+print(df)
 ```
 
 ##### 数据标准化
 
+公式：
+$$
+b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
+$$
+
 ```{r}
 mom = function(col){sqrt(sum(col^2))}
 for (i in 1:4){df[, i] = df[, i]/mom(df[, i])}
-knitr::kable(df)
+print(df)
 ```
 
 ##### 数据加权
@@ -55,7 +60,7 @@ knitr::kable(df)
 ```{r}
 w = c(0.2, 0.3, 0.4, 0.1)
 for (i in 1:4){df[, i] = w[i]*df[, i]}
-knitr::kable(df)
+print(df)
 ```
 
 ##### 到正负理想解的距离
@@ -73,21 +78,21 @@ for (i in 1:5){
     df_over$s[i] = good_d(df[i, ])
     df_over$s0[i] = bad_d(df[i, ])
 }
-knitr::kable(df_over)
+print(df_over)
 ```
 
 ##### 计算综合指标值
 
 ```{r}
 df_over$f = df_over$s0/(df_over$s + df_over$s0)
-knitr::kable(df_over)
+print(df_over)
 ```
 
 故结论为：4 > 3 > 2 > 1 > 5
 
 ## 探索性分析
 
-##### 检查变量相关性
+### 1. 检查变量相关性
 
 对数据中各属性间的相关性进行可视化。
 
@@ -106,7 +111,7 @@ ggpairs(df0)
 df_avg = data.frame(
     '人均经费' = df0$科研经费/df0$生师比
 ) |> t()
-knitr::kable(df_avg)
+print(df_avg)
 ```
 
 可以清楚明白准确无误地看出来，第5行数据是个"异类"。
@@ -114,22 +119,20 @@ knitr::kable(df_avg)
 让我们再回头仔细观察一下它们：
 
 ```{r}
-knitr::kable(df0)
+print(df0)
 ```
 
 第五个学校虽然科研经费少，但生师比、人均专著与逾期毕业率都很理想，可以猜测此学校类型为弱工科院校，亦或者某类新型院校。数据如此理想的院校，相见恨晚，本文私自将其内定为第一名，并将其在后续分析中剔除。
 
-##### 消除高度相关的列
+### 2. 消除高度相关的列
 
 既剔除了第五个院校，那么剩下四个院校的生师比与科研经费就完美符合$\hat{y}=1000\hat{x}$.的等式了，如此可将科研经费列剔除[^1]。
-
-[^1]: 为啥可剔除？因为只取样本的充分统计量即可哇
 
 于是现在剩余数据如下：
 
 ```{r}
 df0 = df0[-5, -3]
-knitr::kable(df0)
+print(df0)
 ```
 
 再对其相关性进行可视化
@@ -151,10 +154,11 @@ model1 = lm(`人均专著` ~ `生师比`, data = df0)
 kb1 = summary(model1)[4]$coefficients
 colnames(kb1) = c('估计值', '标准误', 't值', 'P值')
 rownames(kb1) = c('截距', '生师比')
-knitr::kable(kb1)
+print(kb1)
+summary(model1)[8]
 ```
 
-的确，拟合的很好。回归方程：$\hat{y} =0.164\hat{x}-0.750$.
+的确，$R^2=0.994$， 显著性水平为$0.01$，拟合的很好。回归方程：$\hat{y} =0.164\hat{x}-0.750$.
 
 如此，我们又可以剔除一列：人均专著。
 
@@ -165,7 +169,227 @@ df0 = df0[, -1]
 现在只剩下孤零零的两列四行数据了：
 
 ```{r}
-knitr::kable(df0)
+print(df0)
+```
+### 3. 师生比转换
+
+查阅相关资料[^2]，国际一流大学的生师比所在区间一般为[2, 4]，就本体所剩数据而言，无一达到。而资料中也表明，生师比在10以内都可以接受。
+
+![研究生生师比分类统计图示](SSB.jpg){fig-alt="研究生生师比分类统计图示"}
+
+为确定生师比加权系数，本文根据参考资料对世界一流大学的调查统计图进行了数据复现并
+对其进行了gamma分布拟合，拟合结果其基本服从$X\sim Ga(2.256,0.797)$，拟合效果如图
+：
+
+```{r message=FALSE, cache=TRUE}
+ssb = c(10, rep(7, 2), rep(6, 3), rep(5, 7), rep(4, 9), rep(3, 15), rep(2, 18), rep(1, 12), rep(0.5, 7))
+library(MASS)
+fitt = fitdistr(ssb, "gamma")
+df_ga = data.frame(
+  x = rgamma(10000, shape = fitt$estimate[1], rate = fitt$estimate[2])
+)
+df_ssb = data.frame(
+  x = ssb
+)
+ggplot() + 
+  geom_density(data = df_ga, aes(x), size = 1) + 
+  geom_histogram(data = df_ssb, 
+                 aes(x, y = ..density../1.75),
+                 alpha = 0.6) + 
+  ylab("y")
 ```
 
-接下来该怎么办？明天再想，收工！
+于是本文决定生师比值的转换公式为：
+$$
+k_i = \frac{p(x_i)}{\sum_{i=1}^{4}p(x_i)}.
+$$
+$p(x)$为$X\sim Ga(2.256,0.797)$的密度函数，k越大，代表其越可能为好学校。
+
+```{r}
+p_ssb = dgamma(c(5, 6, 7, 10), shape = fitt$estimate[1], rate = fitt$estimate[2])
+(k = p_ssb/sum(p_ssb))
+```
+
+计算后的数据变为：
+
+```{r}
+df0$生师比 = k
+print(df0)
+```
+
+### 4. 将成本型属性转为效益性属性
+
+仅逾期毕业率为成本型属性，将其转换为“正常毕业率”，即做运算：$y = 100-x$。
+
+```{r}
+df0$正常毕业率 = 100-df0$逾期毕业率
+df0 = df0[, -2]
+print(df0)
+```
+
+### 5. 去量纲化处理
+
+#### 变异系数法
+
+##### 变异系数法加权：
+
+$$
+w_j=\frac{\sigma_j}{\overline{a}_j},\ \ j = 1,2
+$$
+
+```{r}
+df0_a = df0
+x1 = df0_a$生师比
+x2 = df0_a$正常毕业率
+w1_a = sd(x1)/mean(x1)
+w2_a = sd(x2)/mean(x2)
+```
+
+加权公式：
+
+$$
+c_{ij} = w_j\times a_{ij},\ \ i=1,2,3,4,\ \ j=1,2.
+$$
+
+```{r}
+df0_a$生师比 = w1_a*df0_a$生师比
+df0_a$正常毕业率 = w2_a*df0_a$正常毕业率
+df0_a
+```
+
+##### 正负理想解与综合指标
+
+正理想解：$(0.7110,0.01009)$\\
+负理想解：$(0.0316,0.00964)$
+
+到正理想解的距离：
+$$
+s_i^*=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^*)^2}
+$$
+到负理想解的距离：
+$$
+s_i^0=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^0)^2}
+$$
+综合指标值：
+$$
+f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
+$$
+
+```{r}
+good_a = c(0.7110,0.01009)
+bad_a = c(0.0316,0.00964)
+good_d_a = function(row){sqrt(sum((row - good_a)^2))}
+bad_d_a = function(row){sqrt(sum((row - bad_a)^2))}
+df_over_a = data.frame(
+    s = rep(NA, 4),
+    s0 = rep(NA, 4)
+)
+for (i in 1:4){
+    df_over_a$s[i] = good_d_a(df0_a[i, ])
+    df_over_a$s0[i] = bad_d_a(df0_a[i, ])
+}
+df_over_a$f = df_over_a$s0/(df_over_a$s + df_over_a$s0)
+print(df_over_a)
+```
+
+最终结果：5>2>3>1>4
+
+#### 均方差法
+
+##### 均方差法加权：
+
+$$
+b_{ij}=\frac{a_{ij}-\overline{a}_j}{s_j}.
+$$
+其中
+$$
+\begin{cases}
+\begin{aligned}
+&\overline{a}_j=\frac{1}{m}\sum_{i=1}^{m}a_{ij}\\
+&s_j=\sqrt{\frac{1}{m-1}\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}\\
+&i = 1,2,3,4,\ \ j = 1,2,\ \ m=4\\
+\end{aligned}
+\end{cases}
+$$
+
+```{r}
+df0_b = df0
+s = rep(NA, 2)
+for (i in 1:2){
+  s[i] = sqrt(1/(4-1)*var(df0_b[, i]))
+  df0_b[, i] = (df0_b[, i]-mean(df0_b[, i]))/s[i]
+}
+print(df0_b)
+```
+
+##### 正负理想解与综合指标
+
+正理想解：$(2.213,2.337)$\\
+负理想解：$(-1.856,-1.735)$
+
+```{r}
+good_b = c(2.213,2.337)
+bad_b = c(-1.856,-1.735)
+good_d_b = function(row){sqrt(sum((row - good_b)^2))}
+bad_d_b = function(row){sqrt(sum((row - bad_b)^2))}
+df_over_b = data.frame(
+    s = rep(NA, 4),
+    s0 = rep(NA, 4)
+)
+for (i in 1:4){
+    df_over_b$s[i] = good_d_b(df0_b[i, ])
+    df_over_b$s0[i] = bad_d_b(df0_b[i, ])
+}
+df_over_b$f = df_over_b$s0/(df_over_b$s + df_over_b$s0)
+print(df_over_b)
+```
+
+最终结果：5>1>4>2>3
+
+#### 极差法
+
+##### 极差法加权
+
+$$
+b_{i j}=\left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right) \times 100.
+$$
+```{r}
+df0_c = df0
+for (i in 1:2){df0_c[, i] = (df0_c[, i]-min(df0_c[, i]))/(max(df0_c[, i])-min(df0_c[, i]))}
+print(df0_c)
+```
+
+
+##### 正负理想解与综合指标
+
+正理想解：$(1,1)$\\
+负理想解：$(0,0)$
+
+```{r}
+good_c = c(1,1)
+bad_c = c(0,0)
+good_d_c = function(row){sqrt(sum((row - good_c)^2))}
+bad_d_c = function(row){sqrt(sum((row - bad_c)^2))}
+df_over_c = data.frame(
+    s = rep(NA, 4),
+    s0 = rep(NA, 4)
+)
+for (i in 1:4){
+    df_over_c$s[i] = good_d_c(df0_c[i, ])
+    df_over_c$s0[i] = bad_d_c(df0_c[i, ])
+}
+df_over_c$f = df_over_c$s0/(df_over_c$s + df_over_c$s0)
+print(df_over_c)
+```
+
+最终结果：5>1>4>2>3
+
+#### 专家法
+
+相关资料[^3]指出，“变异系数法，均方差法都是客观赋权法……要求数据量大，否则准确性不高”，所以本文通过查阅资料了解专家的主观赋权观点，建立了基于专家法的评价模型。
+
+[^1]: 为啥可剔除？因为只取样本的充分统计量即可哇
+
+[^2]: 范哗.大众化进程中的生师比与大学质量关系——世界一流大学生师比研究的启示[J].教育发展研究,2012,32(23):8-15.DOI:10.14121/j.cnki.1008-3855.2012.23.005.
+
+[^3]: 赵静, 但琦. 数学建模与数学实验（第五版）[M]. 高等教育出版社, 北京, 2020.
