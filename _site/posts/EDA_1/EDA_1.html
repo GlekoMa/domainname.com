@@ -242,8 +242,27 @@ b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
 </div>
 </div>
 </section>
-<section id="到正负理想解的距离" class="level5">
-<h5 class="anchored" data-anchor-id="到正负理想解的距离">到正负理想解的距离</h5>
+<section id="正负理想解与距离" class="level5">
+<h5 class="anchored" data-anchor-id="正负理想解与距离">正负理想解与距离</h5>
+<p>正理想解： <span class="math display">\[
+c_j^*=\begin{cases}
+\max c_{ij},\ \ j为效益型属性\\
+\min c_{ij},\ \ j为成本型属性.
+\end{cases}
+\]</span></p>
+<p>负理想解： <span class="math display">\[
+c_j^0=\begin{cases}
+\min c_{ij},\ \ j为效益型属性\\
+\max c_{ij},\ \ j为成本型属性.
+\end{cases}
+\]</span></p>
+<p>到正理想解的距离： <span class="math display">\[
+s_i^*=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^*)^2}
+\]</span> 到负理想解的距离： <span class="math display">\[
+s_i^0=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^0)^2}
+\]</span> 综合指标值： <span class="math display">\[
+f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
+\]</span></p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>good <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.1530</span>, <span class="fl">0.163</span>, <span class="fl">0.276</span>, <span class="fl">0.0648</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>bad <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.0128</span>, <span class="fl">0.000</span>, <span class="fl">0.011</span>, <span class="fl">0.0174</span>)</span>
@@ -326,17 +345,17 @@ b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
 </section>
 <section id="消除高度相关的列" class="level3">
 <h3 class="anchored" data-anchor-id="消除高度相关的列">2. 消除高度相关的列</h3>
-<p>既剔除了第五个院校，那么剩下四个院校的生师比与科研经费就完美符合<span class="math inline">\(\hat{y}=1000\hat{x}\)</span>.的等式了，如此可将科研经费列剔除<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+<p>既剔除了第五个院校，那么剩下四个院校的生师比与科研经费就完美符合<span class="math inline">\(\hat{y}=1000\hat{x}\)</span>.的等式了。</p>
 <p>于是现在剩余数据如下：</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df0 <span class="ot">=</span> df0[<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">3</span>]</span>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df0 <span class="ot">=</span> df0[<span class="sc">-</span><span class="dv">5</span>, ]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>  人均专著 生师比 逾期毕业率
-1      0.1      5        4.7
-2      0.2      6        5.6
-3      0.4      7        6.7
-4      0.9     10        2.3</code></pre>
+<pre><code>  人均专著 生师比 科研经费 逾期毕业率
+1      0.1      5     5000        4.7
+2      0.2      6     6000        5.6
+3      0.4      7     7000        6.7
+4      0.9     10    10000        2.3</code></pre>
 </div>
 </div>
 <p>再对其相关性进行可视化</p>
@@ -372,26 +391,12 @@ b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
 [1] 0.994</code></pre>
 </div>
 </div>
-<p>的确，<span class="math inline">\(R^2=0.994\)</span>， 显著性水平为<span class="math inline">\(0.01\)</span>，拟合的很好。回归方程：<span class="math inline">\(\hat{y} =0.164\hat{x}-0.750\)</span>.</p>
-<p>如此，我们又可以剔除一列：人均专著。</p>
-<div class="cell">
-<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df0 <span class="ot">=</span> df0[, <span class="sc">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>现在只剩下孤零零的两列四行数据了：</p>
-<div class="cell">
-<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>  生师比 逾期毕业率
-1      5        4.7
-2      6        5.6
-3      7        6.7
-4     10        2.3</code></pre>
-</div>
-</div>
+<p>的确，<span class="math inline">\(R^2=0.994\)</span>， 显著性水平为<span class="math inline">\(0.01\)</span>，拟合得很好。回归方程：<span class="math inline">\(\hat{y} =0.164\hat{x}-0.750\)</span>.</p>
+<p>如此，我们以后可以根据一个学校生师比的值推测其人均专著与科研经费了。假若结果与预 测相差较远，那么就可以认为这个学校应该有其特别之处。当然，仅根据四个数据的立论是 不可靠的，但也有一定参考价值。</p>
 </section>
 <section id="师生比转换" class="level3">
 <h3 class="anchored" data-anchor-id="师生比转换">3. 师生比转换</h3>
-<p>查阅相关资料<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，国际一流大学的生师比所在区间一般为[2, 4]，就本体所剩数据而言，无一达到。而资料中也表明，生师比在10以内都可以接受。</p>
+<p>查阅相关资料<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，国际一流大学的生师比所在区间一般为[2, 4]，就本体所剩数据而言，无一达到。而资料中也表明，生师比在10以内都可以接受。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="SSB.jpg" class="img-fluid figure-img" alt="研究生生师比分类统计图示"></p>
@@ -399,58 +404,56 @@ b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
 </figure>
 </div>
 <p>可以看出，一流大学的生师比集中在2左右，为偏态分布。为确定本文模型生师比加权系数，本文根据参考资料对世界一流大学的调查统计图进行了数据复现并 对其进行了gamma分布拟合，拟合结果其基本服从<span class="math inline">\(X\sim Ga(2.256,0.797)\)</span>，拟合效果如图 ：</p>
-<div class="cell" data-hash="EDA_1_cache/html/unnamed-chunk-15_58ba97eef63295d1385c1fc9be253583">
-<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ssb <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="fu">rep</span>(<span class="dv">7</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">6</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">7</span>), <span class="fu">rep</span>(<span class="dv">4</span>, <span class="dv">9</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">15</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">18</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">12</span>), <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">7</span>))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>fitt <span class="ot">=</span> <span class="fu">fitdistr</span>(ssb, <span class="st">"gamma"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>df_ga <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, <span class="at">shape =</span> fitt<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">rate =</span> fitt<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>df_ssb <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> ssb</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">data =</span> df_ga, <span class="fu">aes</span>(x), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">data =</span> df_ssb, </span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(x, <span class="at">y =</span> ..density..<span class="sc">/</span><span class="fl">1.75</span>),</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="EDA_1_cache/html/unnamed-chunk-13_1eb57409b1ae582d9340204d16462a1a">
+<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ssb <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="fu">rep</span>(<span class="dv">7</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">6</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">7</span>), <span class="fu">rep</span>(<span class="dv">4</span>, <span class="dv">9</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">15</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">18</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">12</span>), <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">7</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>fitt <span class="ot">=</span> <span class="fu">fitdistr</span>(ssb, <span class="st">"gamma"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>df_ga <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rgamma</span>(<span class="dv">10000</span>, <span class="at">shape =</span> fitt<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">rate =</span> fitt<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>df_ssb <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> ssb</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">data =</span> df_ga, <span class="fu">aes</span>(x), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">data =</span> df_ssb, </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(x, <span class="at">y =</span> ..density..<span class="sc">/</span><span class="fl">1.75</span>),</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="EDA_1_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="EDA_1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>于是本文决定生师比值的转换成本型公式为：</p>
-<p><span class="math display">\[
-k_i = 1-\frac{p(x_i)}{\sum_{i=1}^{4}p(x_i)}.
-\]</span></p>
-<p><span class="math inline">\(p(x)\)</span>为<span class="math inline">\(X\sim Ga(2.256,0.797)\)</span>的密度函数，由<span class="math inline">\(p(x)\)</span>越小，其为好学校的概率越小，即<span class="math inline">\(k\)</span>越小，其为好学校的概率越小。</p>
+<p><span class="math inline">\(p(x)\)</span>为<span class="math inline">\(X\sim Ga(2.256,0.797)\)</span>的密度函数，<span class="math inline">\(p(x)\)</span>越小，则其为好学校的概率越小。 将其值作为新的生师比列的值，为效益型属性。</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>p_ssb <span class="ot">=</span> <span class="fu">dgamma</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">10</span>), <span class="at">shape =</span> fitt<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">rate =</span> fitt<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">-</span>p_ssb<span class="sc">/</span><span class="fu">sum</span>(p_ssb))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df0<span class="sc">$</span>生师比 <span class="ot">=</span> <span class="fu">dgamma</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">10</span>), <span class="at">shape =</span> fitt<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">rate =</span> fitt<span class="sc">$</span>estimate[<span class="dv">2</span>])</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>[1] 0.480 0.705 0.839 0.977</code></pre>
-</div>
-</div>
-<p>计算后的数据变为：</p>
-<div class="cell">
-<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df0<span class="sc">$</span>生师比 <span class="ot">=</span> k</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>  生师比 逾期毕业率
-1  0.480        4.7
-2  0.705        5.6
-3  0.839        6.7
-4  0.977        2.3</code></pre>
+<pre><code>  人均专著  生师比 科研经费 逾期毕业率
+1      0.1 0.07402     5000        4.7
+2      0.2 0.04195     6000        5.6
+3      0.4 0.02295     7000        6.7
+4      0.9 0.00329    10000        2.3</code></pre>
 </div>
 </div>
 </section>
-<section id="逾期毕业率转换" class="level3">
-<h3 class="anchored" data-anchor-id="逾期毕业率转换">4. 逾期毕业率转换</h3>
-<p>转换公式为： <span class="math display">\[
-l_i = \frac{x_i}{\sum_{i=1}^{4}x_i}.
-\]</span> ::: {.cell}</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df0<span class="sc">$</span>逾期毕业率 <span class="ot">=</span> df0<span class="sc">$</span>逾期毕业率<span class="sc">/</span><span class="fu">sum</span>(df0<span class="sc">$</span>逾期毕业率)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+<section id="数据标准化-1" class="level3">
+<h3 class="anchored" data-anchor-id="数据标准化-1">4. 数据标准化</h3>
+<p>公式： <span class="math display">\[
+b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mom <span class="ot">=</span> <span class="cf">function</span>(col){<span class="fu">sqrt</span>(<span class="fu">sum</span>(col<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){df0[, i] <span class="ot">=</span> df0[, i]<span class="sc">/</span><span class="fu">mom</span>(df0[, i])}</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>  人均专著 生师比 科研经费 逾期毕业率
+1    0.099 0.8394    0.345      0.462
+2    0.198 0.4757    0.414      0.550
+3    0.396 0.2602    0.483      0.658
+4    0.891 0.0373    0.690      0.226</code></pre>
+</div>
+</div>
 </section>
 <section id="最终处理" class="level3">
 <h3 class="anchored" data-anchor-id="最终处理">5. 最终处理</h3>
@@ -459,67 +462,51 @@ l_i = \frac{x_i}{\sum_{i=1}^{4}x_i}.
 <section id="变异系数法加权" class="level5">
 <h5 class="anchored" data-anchor-id="变异系数法加权">变异系数法加权：</h5>
 <p><span class="math display">\[
-w_j=\frac{\sigma_j}{\overline{a}_j},\ \ j = 1,2
-\]</span></p>
-<div class="cell">
-<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df0_a <span class="ot">=</span> df0</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df0_a<span class="sc">$</span>生师比 <span class="ot">=</span> p_ssb</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">=</span> df0_a<span class="sc">$</span>生师比</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">=</span> df0_a<span class="sc">$</span>逾期毕业率</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>w1_a <span class="ot">=</span> <span class="fu">sd</span>(x1)<span class="sc">/</span><span class="fu">mean</span>(x1)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>w2_a <span class="ot">=</span> <span class="fu">sd</span>(x2)<span class="sc">/</span><span class="fu">mean</span>(x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>加权公式：</p>
-<p><span class="math display">\[
+w_j=\frac{\sigma_j}{\overline{a}_j},\ \ j = 1,2\\
 c_{ij} = w_j\times a_{ij},\ \ i=1,2,3,4,\ \ j=1,2.
 \]</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df0_a<span class="sc">$</span>生师比 <span class="ot">=</span> w1_a<span class="sc">*</span>df0_a<span class="sc">$</span>生师比</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>df0_a<span class="sc">$</span>逾期毕业率 <span class="ot">=</span> w2_a<span class="sc">*</span>df0_a<span class="sc">$</span>逾期毕业率</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>df0_a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df0_a <span class="ot">=</span> df0</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  df0_a[, i] <span class="ot">=</span> df0_a[, i]<span class="sc">*</span><span class="fu">sd</span>(df0_a[, i])<span class="sc">/</span><span class="fu">mean</span>(df0_a[, i])</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0_a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>   生师比 逾期毕业率
-1 0.06269     0.0945
-2 0.03553     0.1125
-3 0.01944     0.1347
-4 0.00279     0.0462</code></pre>
+<pre><code>  人均专著 生师比 科研经费 逾期毕业率
+1   0.0881 0.7110    0.106     0.1791
+2   0.1762 0.4029    0.128     0.2134
+3   0.3524 0.2204    0.149     0.2553
+4   0.7929 0.0316    0.213     0.0876</code></pre>
 </div>
 </div>
 </section>
 <section id="正负理想解与综合指标" class="level5">
 <h5 class="anchored" data-anchor-id="正负理想解与综合指标">正负理想解与综合指标</h5>
-<p>正理想解：<span class="math inline">\((0.00279,0.0462)\)</span>\ 负理想解：<span class="math inline">\((0.06269,0.1347)\)</span></p>
-<p>到正理想解的距离： <span class="math display">\[
-s_i^*=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^*)^2}
-\]</span> 到负理想解的距离： <span class="math display">\[
-s_i^0=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^0)^2}
-\]</span> 综合指标值： <span class="math display">\[
-f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
-\]</span></p>
+<p>正理想解：<span class="math inline">\((0.7929,0.7110,0.213,0.0876)\)</span>\ 负理想解：<span class="math inline">\((0.0881,0.0316,0.106,0.2553)\)</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>good_a <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.00279</span>,<span class="fl">0.0462</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bad_a <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.06269</span>,<span class="fl">0.1347</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>good_d_a <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> good_a)<span class="sc">^</span><span class="dv">2</span>))}</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>bad_d_a <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> bad_a)<span class="sc">^</span><span class="dv">2</span>))}</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>df_over_a <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>),</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">s0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    df_over_a<span class="sc">$</span>s[i] <span class="ot">=</span> <span class="fu">good_d_a</span>(df0_a[i, ])</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    df_over_a<span class="sc">$</span>s0[i] <span class="ot">=</span> <span class="fu">bad_d_a</span>(df0_a[i, ])</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>df_over_a<span class="sc">$</span>f <span class="ot">=</span> df_over_a<span class="sc">$</span>s0<span class="sc">/</span>(df_over_a<span class="sc">$</span>s <span class="sc">+</span> df_over_a<span class="sc">$</span>s0)</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_over_a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>good_a <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.7929</span>,<span class="fl">0.7110</span>,<span class="fl">0.213</span>,<span class="fl">0.0876</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>bad_a <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.0881</span>,<span class="fl">0.0316</span>,<span class="fl">0.106</span>,<span class="fl">0.2553</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>good_d_a <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> good_a)<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>bad_d_a <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> bad_a)<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>df_over_a <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">s0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    df_over_a<span class="sc">$</span>s[i] <span class="ot">=</span> <span class="fu">good_d_a</span>(df0_a[i, ])</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    df_over_a<span class="sc">$</span>s0[i] <span class="ot">=</span> <span class="fu">bad_d_a</span>(df0_a[i, ])</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>df_over_a<span class="sc">$</span>f <span class="ot">=</span> df_over_a<span class="sc">$</span>s0<span class="sc">/</span>(df_over_a<span class="sc">$</span>s <span class="sc">+</span> df_over_a<span class="sc">$</span>s0)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_over_a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>         s     s0     f
-1 7.69e-02 0.0402 0.343
-2 7.40e-02 0.0351 0.321
-3 9.00e-02 0.0433 0.325
-4 2.37e-05 0.1068 1.000</code></pre>
+<pre><code>      s    s0     f
+1 0.719 0.684 0.488
+2 0.706 0.385 0.353
+3 0.683 0.328 0.324
+4 0.679 0.732 0.519</code></pre>
 </div>
 </div>
-<p>最终结果：5&gt;3&gt;2&gt;1&gt;4</p>
+<p>最终结果：5&gt;4&gt;1&gt;2&gt;3</p>
 </section>
 </section>
 <section id="均方差法" class="level4">
@@ -527,7 +514,8 @@ f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
 <section id="均方差法加权" class="level5">
 <h5 class="anchored" data-anchor-id="均方差法加权">均方差法加权：</h5>
 <p><span class="math display">\[
-b_{ij}=\frac{a_{ij}-\overline{a}_j}{s_j}.
+w_j=\frac{s_j}{\sum_{j=1}^4 s_j}\\
+c_{ij} = w_j\times a_{ij},\ \ i=1,2,3,4,\ \ j=1,2.
 \]</span> 其中 <span class="math display">\[
 \begin{cases}
 \begin{aligned}
@@ -538,56 +526,49 @@ b_{ij}=\frac{a_{ij}-\overline{a}_j}{s_j}.
 \end{cases}
 \]</span></p>
 <p>求得均方差 ::: {.cell}</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df0_b <span class="ot">=</span> df0</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">2</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  s[i] <span class="ot">=</span> (df0_b[, i]<span class="sc">-</span><span class="fu">mean</span>(df0_b[, i]))<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">4-1</span>)<span class="sc">*</span><span class="fu">var</span>(df0_b[, i]))</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
-<pre><code>Warning in s[i] &lt;- (df0_b[, i] - mean(df0_b[, i]))/sqrt(1/(4 - 1) *
-var(df0_b[, : 被替换的项目不是替换值长度的倍数
-
-Warning in s[i] &lt;- (df0_b[, i] - mean(df0_b[, i]))/sqrt(1/(4 - 1) *
-var(df0_b[, : 被替换的项目不是替换值长度的倍数</code></pre>
-</div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){df0_b[, i] <span class="ot">=</span> df0_b[, i]<span class="sc">*</span>s[i]<span class="sc">/</span><span class="fu">sum</span>(s)}</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df0_b <span class="ot">=</span> df0</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  s[i] <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="dv">4</span><span class="sc">/</span>(<span class="dv">4-1</span>)<span class="sc">*</span><span class="fu">var</span>(df0_b[, i]))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){df0_b[, i] <span class="ot">=</span> df0_b[, i]<span class="sc">*</span>s[i]<span class="sc">/</span><span class="fu">sum</span>(s)}</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>  生师比 逾期毕业率
-1  0.456    0.01210
-2  0.670    0.01442
-3  0.797    0.01725
-4  0.928    0.00592</code></pre>
+<pre><code>  人均专著 生师比 科研经费 逾期毕业率
+1    0.034 0.2792   0.0501     0.0827
+2    0.068 0.1582   0.0601     0.0985
+3    0.136 0.0866   0.0701     0.1178
+4    0.306 0.0124   0.1002     0.0405</code></pre>
 </div>
 <p>:::</p>
 </section>
 <section id="正负理想解与综合指标-1" class="level5">
 <h5 class="anchored" data-anchor-id="正负理想解与综合指标-1">正负理想解与综合指标</h5>
-<p>正理想解：<span class="math inline">\((0.456,0.00592)\)</span>\ 负理想解：<span class="math inline">\((0.928,0.01725)\)</span></p>
+<p>正理想解：<span class="math inline">\((0.306,0.2792,0.1002,0.0405)\)</span>\ 负理想解：<span class="math inline">\((0.034,0.0124,0.0501,0.1178)\)</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb44"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>good_b <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.456</span>,<span class="fl">0.00592</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>bad_b <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.928</span>,<span class="fl">0.01725</span>)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>good_d_b <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> good_b)<span class="sc">^</span><span class="dv">2</span>))}</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>bad_d_b <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> bad_b)<span class="sc">^</span><span class="dv">2</span>))}</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>df_over_b <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>),</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">s0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    df_over_b<span class="sc">$</span>s[i] <span class="ot">=</span> <span class="fu">good_d_b</span>(df0_b[i, ])</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    df_over_b<span class="sc">$</span>s0[i] <span class="ot">=</span> <span class="fu">bad_d_b</span>(df0_b[i, ])</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>df_over_b<span class="sc">$</span>f <span class="ot">=</span> df_over_b<span class="sc">$</span>s0<span class="sc">/</span>(df_over_b<span class="sc">$</span>s <span class="sc">+</span> df_over_b<span class="sc">$</span>s0)</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_over_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>good_b <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.306</span>,<span class="fl">0.2792</span>,<span class="fl">0.1002</span>,<span class="fl">0.0405</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>bad_b <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.034</span>,<span class="fl">0.0124</span>,<span class="fl">0.0501</span>,<span class="fl">0.1178</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>good_d_b <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> good_b)<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>bad_d_b <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> bad_b)<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>df_over_b <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">s0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    df_over_b<span class="sc">$</span>s[i] <span class="ot">=</span> <span class="fu">good_d_b</span>(df0_b[i, ])</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    df_over_b<span class="sc">$</span>s0[i] <span class="ot">=</span> <span class="fu">bad_d_b</span>(df0_b[i, ])</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>df_over_b<span class="sc">$</span>f <span class="ot">=</span> df_over_b<span class="sc">$</span>s0<span class="sc">/</span>(df_over_b<span class="sc">$</span>s <span class="sc">+</span> df_over_b<span class="sc">$</span>s0)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_over_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>        s     s0      f
-1 0.00619 0.4724 0.9871
-2 0.21415 0.2580 0.5465
-3 0.34114 0.1310 0.2775
-4 0.47233 0.0113 0.0234</code></pre>
+<pre><code>      s    s0     f
+1 0.280 0.269 0.490
+2 0.276 0.151 0.354
+3 0.270 0.128 0.321
+4 0.267 0.287 0.518</code></pre>
 </div>
 </div>
-<p>最终结果：5&gt;4&gt;3&gt;2&gt;1</p>
+<p>最终结果：5&gt;4&gt;1&gt;2&gt;3</p>
 </section>
 </section>
 <section id="极差法" class="level4">
@@ -598,50 +579,50 @@ var(df0_b[, : 被替换的项目不是替换值长度的倍数</code></pre>
 b_{i j}=\left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right) \times 100.
 \]</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb46"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df0_c <span class="ot">=</span> df0</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){df0_c[, i] <span class="ot">=</span> (df0_c[, i]<span class="sc">-</span><span class="fu">min</span>(df0_c[, i]))<span class="sc">/</span>(<span class="fu">max</span>(df0_c[, i])<span class="sc">-</span><span class="fu">min</span>(df0_c[, i]))}</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df0_c <span class="ot">=</span> df0</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){df0_c[, i] <span class="ot">=</span> (df0_c[, i]<span class="sc">-</span><span class="fu">min</span>(df0_c[, i]))<span class="sc">/</span>(<span class="fu">max</span>(df0_c[, i])<span class="sc">-</span><span class="fu">min</span>(df0_c[, i]))}</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df0_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>  生师比 逾期毕业率
-1  0.000      0.545
-2  0.453      0.750
-3  0.722      1.000
-4  1.000      0.000</code></pre>
+<pre><code>  人均专著 生师比 科研经费 逾期毕业率
+1    0.000  1.000      0.0      0.545
+2    0.125  0.547      0.2      0.750
+3    0.375  0.278      0.4      1.000
+4    1.000  0.000      1.0      0.000</code></pre>
 </div>
 </div>
 </section>
 <section id="正负理想解与综合指标-2" class="level5">
 <h5 class="anchored" data-anchor-id="正负理想解与综合指标-2">正负理想解与综合指标</h5>
-<p>正理想解：<span class="math inline">\((0,0)\)</span>\ 负理想解：<span class="math inline">\((1,1)\)</span></p>
+<p>正理想解：<span class="math inline">\((1,1,1,0)\)</span>\ 负理想解：<span class="math inline">\((0,0,0,1)\)</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>good_c <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>bad_c <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>good_d_c <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> good_c)<span class="sc">^</span><span class="dv">2</span>))}</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>bad_d_c <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> bad_c)<span class="sc">^</span><span class="dv">2</span>))}</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>df_over_c <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>),</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">s0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    df_over_c<span class="sc">$</span>s[i] <span class="ot">=</span> <span class="fu">good_d_c</span>(df0_c[i, ])</span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    df_over_c<span class="sc">$</span>s0[i] <span class="ot">=</span> <span class="fu">bad_d_c</span>(df0_c[i, ])</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>df_over_c<span class="sc">$</span>f <span class="ot">=</span> df_over_c<span class="sc">$</span>s0<span class="sc">/</span>(df_over_c<span class="sc">$</span>s <span class="sc">+</span> df_over_c<span class="sc">$</span>s0)</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_over_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>good_c <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>bad_c <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>good_d_c <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> good_c)<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>bad_d_c <span class="ot">=</span> <span class="cf">function</span>(row){<span class="fu">sqrt</span>(<span class="fu">sum</span>((row <span class="sc">-</span> bad_c)<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>df_over_c <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>),</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">s0 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    df_over_c<span class="sc">$</span>s[i] <span class="ot">=</span> <span class="fu">good_d_c</span>(df0_c[i, ])</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    df_over_c<span class="sc">$</span>s0[i] <span class="ot">=</span> <span class="fu">bad_d_c</span>(df0_c[i, ])</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>df_over_c<span class="sc">$</span>f <span class="ot">=</span> df_over_c<span class="sc">$</span>s0<span class="sc">/</span>(df_over_c<span class="sc">$</span>s <span class="sc">+</span> df_over_c<span class="sc">$</span>s0)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_over_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>      s    s0     f
-1 0.545 1.098 0.668
-2 0.876 0.601 0.407
-3 1.233 0.278 0.184
-4 1.000 1.000 0.500</code></pre>
+<pre><code>     s    s0     f
+1 1.52 1.098 0.420
+2 1.47 0.646 0.305
+3 1.51 0.615 0.290
+4 1.00 1.732 0.634</code></pre>
 </div>
 </div>
-<p>最终结果：5&gt;1&gt;4&gt;2&gt;3</p>
+<p>最终结果：5&gt;4&gt;1&gt;2&gt;3</p>
 </section>
 </section>
 <section id="专家法" class="level4">
 <h4 class="anchored" data-anchor-id="专家法">专家法</h4>
-<p>相关资料<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>指出，“变异系数法，均方差法都是客观赋权法……要求数据量大，否则准确性不高”，所以本文通过查阅资料了解专家的主观赋权观点，建立了基于专家法的评价模型。</p>
+<p>相关资料<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>指出，“变异系数法，均方差法都是客观赋权法……要求数据量大，否则准确性不高”，所以本文通过查阅资料了解专家的主观赋权观点，建立了基于专家法的评价模型。</p>
 
 
 
@@ -652,9 +633,8 @@ b_{i j}=\left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right) \tim
 <div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>为啥可剔除？因为只取样本的充分统计量即可哇<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>范哗.大众化进程中的生师比与大学质量关系——世界一流大学生师比研究的启示[J].教育发展研究,2012,32(23):8-15.DOI:10.14121/j.cnki.1008-3855.2012.23.005.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>赵静, 但琦. 数学建模与数学实验（第五版）[M]. 高等教育出版社, 北京, 2020.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>范哗.大众化进程中的生师比与大学质量关系——世界一流大学生师比研究的启示[J].教育发展研究,2012,32(23):8-15.DOI:10.14121/j.cnki.1008-3855.2012.23.005.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>赵静, 但琦. 数学建模与数学实验（第五版）[M]. 高等教育出版社, 北京, 2020.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 
