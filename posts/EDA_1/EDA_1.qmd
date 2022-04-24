@@ -10,201 +10,136 @@ toc: true
 
 For school work.
 
-## 示例模型的重演
-
-##### 建立数据框
-
 ```{r}
+#| echo: false
+#| message: false
 options(digits = 3)
+# 使生成的pdf中的ggplot图像支持中文
+library(showtext)
+showtext_auto()
+font_path = "msyh.ttc"
+font_name = tools::file_path_sans_ext(basename(font_path))
+font_add(font_name, font_path)
+# 数据
 df0 = data.frame(
     '人均专著' = c(0.1, 0.2, 0.4, 0.9, 1.2),
     '生师比' = c(5, 6, 7, 10, 2),
     '科研经费' = c(5000, 6000, 7000, 10000, 400),
     '逾期毕业率' = c(4.7, 5.6, 6.7, 2.3, 1.8)
-) # df0作为备份
-df = df0
-print(df)
-```
-
-##### 区间型属性变换
-
-变换公式：
-$$
-b_{i j}=\left\{\begin{array}{ll}
-1-\left(a_{j}^{0}-a_{i j}\right) /\left(a_{j}^{0}-a_{j}^{\prime}\right), & a_{j}^{\prime} \leq a_{i j}<a_{j}^{0} \\
-1, & a_{j}^{0} \leq a_{i j}<a_{j}^{*} \\
-1-\left(a_{i j}-a_{j}^{*}\right) /\left(a_{j}^{\prime \prime}-a_{j}^{*}\right), & a_{j}^{*} \leq a_{i j}<a_{j}^{\prime \prime} \\
-0, & \text { 其他 }
-\end{array}\right.
-$$
-
-```{r}
-df$生师比 = c(1, 1, 0.8333, 0.8333, 0)
-print(df)
-```
-
-##### 数据标准化
-
-公式：
-$$
-b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
-$$
-
-```{r}
-mom = function(col){sqrt(sum(col^2))}
-for (i in 1:4){df[, i] = df[, i]/mom(df[, i])}
-print(df)
-```
-
-##### 数据加权
-
-```{r}
-w = c(0.2, 0.3, 0.4, 0.1)
-for (i in 1:4){df[, i] = w[i]*df[, i]}
-print(df)
-```
-
-##### 正负理想解与距离
-
-正理想解：
-$$
-c_j^*=\begin{cases}
-\max c_{ij},\ \ j为效益型属性\\
-\min c_{ij},\ \ j为成本型属性.
-\end{cases}
-$$
-
-负理想解：
-$$
-c_j^0=\begin{cases}
-\min c_{ij},\ \ j为效益型属性\\
-\max c_{ij},\ \ j为成本型属性.
-\end{cases}
-$$
-
-到正理想解的距离：
-$$
-s_i^*=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^*)^2}
-$$
-到负理想解的距离：
-$$
-s_i^0=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^0)^2}
-$$
-综合指标值：
-$$
-f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
-$$
-
-```{r}
-good = c(0.1530, 0.163, 0.276, 0.0648)
-bad = c(0.0128, 0.000, 0.011, 0.0174)
-good_d = function(row){sqrt(sum((row - good)^2))}
-bad_d = function(row){sqrt(sum((row - bad)^2))}
-df_over = data.frame(
-    s = rep(NA, 5),
-    s0 = rep(NA, 5)
 )
-for (i in 1:5){
-    df_over$s[i] = good_d(df[i, ])
-    df_over$s0[i] = bad_d(df[i, ])
-}
-print(df_over)
 ```
 
-##### 计算综合指标值
+# 一、问题重述
+
+## 问题背景
+
+为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。所收集的数据如表1.
 
 ```{r}
-df_over$f = df_over$s0/(df_over$s + df_over$s0)
-print(df_over)
-```
-
-故结论为：4 > 3 > 2 > 1 > 5
-
-## 探索性分析
-
-### 1. 检查变量相关性
-
-对数据中各属性间的相关性进行可视化。
-
-```{r}
-#| warning: false
+#| echo: false
 #| message: false
+library(dplyr)
+library(knitr)
+library(kableExtra)
+kbl(df0, booktabs = T, caption = "研究生院的试评估数据资料", position = "h") %>%
+  kable_styling(latex_options = "striped")
+```
+
+## 问题提出
+
+试对样本中5个院校实力进行评估，最终给出院校排名。
+
+# 二、问题分析
+
+本题为典型的小样本评估问题，对其分析如下：\newline \indent 1. 所给样本数据的四个属性中，人均专著与科研经费带有不同的量纲，应在模型的建立中进行规范化（去量纲）处理；\newline \indent 2. 之后为方便比较，需要将各属性数据进行不同的加权操作，而具体权数有待后续确定；\newline \indent 3. 就类型而言，人均专著与科研经费为效益型属性，逾期毕业率为成本型属性，而生师比的类型也待后续进行确定。
+
+# 三、模型假设
+
+\indent 1. 所给数据具有一定的代表性；
+
+\indent 2. 本次评估的标杆为世界一流院校。
+
+# 四、符号说明
+
+```{r notation, echo=FALSE, warning=FALSE}
+table = data.frame(
+    符号 = c("$a_{ij}$", "$b_{ij}$", "$\\sigma_j$", "$p_{ij}$", "$e_j$", "$d_j$", "$w_j$", "$c_{ij}$", "$c^*$", "$c^0$", "$s_i^*$", "$s_i^0$", "$f_i^*$"),
+    说明 = c("原数据表中第$i$行第$j$列元素的值", "标准化后数据表中第$i$行第$j$列元素的值", "标准化后数据表第$j$列的样本标准差", "第$j$项指标下第$i$个样本值占该指标的比重", "第$j$项指标的熵值", "信息熵冗余度（差异）", "第$j$列所加权数", "加权后的数据表中第$i$行第$j$列元素的值", "正理想解", "负理想解", "第$i$行数据到正理想解的距离", "第$i$行数据到负理想解的距离", "第$i$行数据综合指标值")
+)
+kbl(table, 
+    booktabs = T,
+    escape = F,
+    ) %>% 
+    kable_styling(position = "center")
+```
+
+# 五、模型的建立与求解
+
+## 数据的分析
+
+本文首先对数据中各属性指标间的相关性进行了可视化（图1）。
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: "原数据各属性指标间的相关性"
+#| fig-height: 3
+#| fig-width: 5
 library(GGally)
 ggpairs(df0)
 ```
 
-**生师比**与**科研经费**的相关系数高达0.991。
-
-既然生师比与科研经费相关性这么高，那么现在计算一下人均科研经费：
+发现院校生师比与科研经费的相关系数高达0.991。然后经计算得出各院校人均的科研经费依次（从第一行数据所代表院校到最后一行数据所代表院校）为1000、1000、1000、1000、200万元/年。由此可知第五行数据相较其他更为特殊。观察原数据表能够发现第五个院校除了科研经费较少外，其余各项属性指标均非常优异，大大强于另外四者。可以猜测此学校类型为弱工科院校。本文预先将其定为院校排名的第一名，并将其在后续的分析数据中剔除。
 
 ```{r}
-df_avg = data.frame(
-    '人均经费' = df0$科研经费/df0$生师比
-) |> t()
-print(df_avg)
-```
-
-可以清楚明白准确无误地看出来，第5行数据是个"异类"。
-
-让我们再回头仔细观察一下它们：
-
-```{r}
-print(df0)
-```
-
-第五个学校虽然科研经费少，但生师比、人均专著与逾期毕业率都很理想，可以猜测此学校类型为弱工科院校，亦或者某类新型院校。数据如此理想的院校，相见恨晚，本文私自将其内定为第一名，并将其在后续分析中剔除。
-
-### 2. 消除高度相关的列
-
-既剔除了第五个院校，那么剩下四个院校的生师比与科研经费就完美符合$\hat{y}=1000\hat{x}$.的等式了。
-
-于是现在剩余数据如下：
-
-```{r}
+#| echo: false
+#| message: false
 df0 = df0[-5, ]
-print(df0)
+kbl(df0, booktabs = T, caption = "剔除第五所院校后的数据", position = "h") %>%
+  kable_styling(latex_options = "striped")
 ```
 
-再对其相关性进行可视化
+在剔除第五行数据后，再此对该数据的相关性进行可视化如图2.
 
 ```{r}
-library(GGally)
+#| echo: false
+#| message: false
+#| fig-cap: 剔除第五行数据后各属性间的相关性
+#| fig-height: 3
+#| fig-width: 5
 ggpairs(df0)
 ```
 
-这下生师比与人均专著又展现出了极高的相关性。那么现在对这两个变量进行可视化与回归拟合：
+可以看出现在生师比与人均专著也展现出了极高的相关性。本文对这两个属性指标进行了回归拟合可视化（图3）。
 
-```{r message=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: "人均专著与生师比的回归拟合"
+#| fig-height: 2
+#| fig-width: 4.5
 library(ggplot2)
 ggplot(df0, aes(x=`生师比`, y=`人均专著`)) + 
     geom_point(aes(x=`生师比`, y=`人均专著`)) + 
     geom_smooth(method = "lm")
-
-model1 = lm(`人均专著` ~ `生师比`, data = df0)
-kb1 = summary(model1)[4]$coefficients
-colnames(kb1) = c('估计值', '标准误', 't值', 'P值')
-rownames(kb1) = c('截距', '生师比')
-print(kb1)
-summary(model1)[8]
 ```
 
-的确，$R^2=0.994$， 显著性水平为$0.01$，拟合得很好。回归方程：$\hat{y} =0.164\hat{x}-0.750$.
+由图像可以看出数据拟合得很好。既如此，我们以后便可根据一个学校生师比的值推测出其人均专著与科研经费的值。假若结果与预测相差较远，那么可认为这个学校应该有其特别之处。当然，仅根据四行数据进行的立论是不可靠的，但一定程度上也具有参考价值。
 
-如此，我们以后可以根据一个学校生师比的值推测其人均专著与科研经费了。假若结果与预
-测相差较远，那么就可以认为这个学校应该有其特别之处。当然，仅根据四个数据的立论是
-不可靠的，但也有一定参考价值。
+## 模型的准备
 
-### 3. 师生比转换
+查阅相关资料\[1\]，国际一流大学的生师比所在区间一般为\[2, 4\]，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料中也表明，生师比在10以内都可以接受。资料中有世界一流大学生师比数据统计如图4.
 
-查阅相关资料[^2]，国际一流大学的生师比所在区间一般为[2, 4]，就本体所剩数据而言，无一达到。而资料中也表明，生师比在10以内都可以接受。
+![一流大学研究生生师比分类统计图示](SSB.jpg)
 
-![研究生生师比分类统计图示](SSB.jpg){fig-alt="研究生生师比分类统计图示"}
+可以看出（本文只参考了统计图中公立院校的数据），一流大学的生师比集中在2左右，为偏态分布。为确定本文模型生师比加权系数，本文根据参考资料对世界一流大学的调查统计图进行了数据复现并 对其进行了伽马分布拟合，拟合结果其基本服从$X\sim Ga(2.256,0.797)$，拟合效果如图5.
 
-可以看出，一流大学的生师比集中在2左右，为偏态分布。为确定本文模型生师比加权系数，本文根据参考资料对世界一流大学的调查统计图进行了数据复现并
-对其进行了gamma分布拟合，拟合结果其基本服从$X\sim Ga(2.256,0.797)$，拟合效果如图
-：
-
-```{r message=FALSE, cache=TRUE}
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: "一流大学生师比的伽马分布拟合"
+#| fig-height: 4
+#| fig-width: 5
 ssb = c(10, rep(7, 2), rep(6, 3), rep(5, 7), rep(4, 9), rep(3, 15), rep(2, 18), rep(1, 12), rep(0.5, 7))
 library(MASS)
 fitt = fitdistr(ssb, "gamma")
@@ -222,167 +157,505 @@ ggplot() +
   ylab("y")
 ```
 
-$p(x)$为$X\sim Ga(2.256,0.797)$的密度函数，$p(x)$越小，则其为好学校的概率越小。
-将其值作为新的生师比列的值，为效益型属性。
+$p(x)$为$X\sim Ga(2.256,0.797)$的密度函数，$p(x)$越小，则其为好学校的概率越小。将其值作为新的生师比列的值，为效益型属性。
 
 ```{r}
+#| echo: false
+#| message: false
 df0$生师比 = dgamma(c(5, 6, 7, 10), shape = fitt$estimate[1], rate = fitt$estimate[2])
-print(df0)
+kbl(df0, booktabs = T, caption = "转换生师比后的数据", position = "h") %>%
+  kable_styling(latex_options = "striped")
 ```
 
-### 4. 数据标准化
+## 模型的建立与求解
 
-公式：
-$$
-b_{ij} = \frac{a_{ij}}{\sqrt{\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}
-$$
+由于本文所采用标准化方法与加权方法数量较多，故本文先给出这些数据处理方法，然后仅在模型一中进行详细描述，而后续模型的建立与求解只需带入相应公式即可，本文将略去这些繁琐的细节。
 
-```{r}
-mom = function(col){sqrt(sum(col^2))}
-for (i in 1:4){df0[, i] = df0[, i]/mom(df0[, i])}
-print(df0)
+### 数据处理方法
+
+#### 标准化方面
+
+\
+
+本文所采用的两种标准化方法与对应公式分别为：
+
+##### min-max标准化法：
+
+```{=tex}
+\begin{equation}
+b_{i j} = \left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right).
+\end{equation}
 ```
 
-### 5. 最终处理
-
-#### 变异系数法
-
-##### 变异系数法加权：
-
-$$
-w_j=\frac{\sigma_j}{\overline{a}_j},\ \ j = 1,2\\
-c_{ij} = w_j\times a_{ij},\ \ i=1,2,3,4,\ \ j=1,2.
-$$
-
 ```{r}
-df0_a = df0
-for (i in 1:4){
-  df0_a[, i] = df0_a[, i]*sd(df0_a[, i])/mean(df0_a[, i])
+#| echo: false
+#| message: false
+ax = function(df0_a){
+  for (i in 1:4){
+    df0_a[, i] = (df0_a[, i]-min(df0_a[, i]))/(max(df0_a[, i])-min(df0_a[, i]))
+    }
+  return(df0_a)
 }
-print(df0_a)
 ```
 
-##### 正负理想解与综合指标
+##### Z-score标准化法：
 
-正理想解：$(0.7929,0.7110,0.213,0.0876)$\\
-负理想解：$(0.0881,0.0316,0.106,0.2553)$
+```{=tex}
+\begin{equation}
+b_{ij} = \frac{a_{ij}-\overline{a}_{j}}{\sigma_j} = \frac{a_{ij}-\overline{a}_{j}}{\sqrt{\frac{1}{m-1}\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}}.
+\end{equation}
+```
 
 ```{r}
-good_a = c(0.7929,0.7110,0.213,0.0876)
-bad_a = c(0.0881,0.0316,0.106,0.2553)
-good_d_a = function(row){sqrt(sum((row - good_a)^2))}
-bad_d_a = function(row){sqrt(sum((row - bad_a)^2))}
-df_over_a = data.frame(
-    s = rep(NA, 4),
-    s0 = rep(NA, 4)
-)
-for (i in 1:4){
-    df_over_a$s[i] = good_d_a(df0_a[i, ])
-    df_over_a$s0[i] = bad_d_a(df0_a[i, ])
+#| echo: false
+#| message: false
+bx = function(df0_b){
+  avg = rep(NA, 4)
+  sdd = rep(NA, 4)
+  for (i in 1:4){
+    avg[i] = mean(df0_b[, i])
+    sdd[i] = sqrt(4/(4-1)*var(df0_b[, i]))
+  }
+  for (i in 1:4){
+    df0_b[, i] = (df0_b[, i]-avg[i])/sdd[i]
+  } 
+  return (df0_b)
 }
-df_over_a$f = df_over_a$s0/(df_over_a$s + df_over_a$s0)
-print(df_over_a)
 ```
 
-最终结果：5>4>1>2>3
+#### 赋权方面
 
-#### 均方差法
+\
 
-##### 均方差法加权：
+本文所采用的三种客观赋权法与对应公式分别为：
+
+##### 变异系数法：
+
+```{=tex}
+\begin{equation}
+w_j=\frac{\sigma_j}{\overline{b}_j}
+\end{equation}
+```
+
+```{=tex}
+\begin{equation}
+c_{ij} = w_j\times b_{ij}.
+\end{equation}
+```
+
+```{r}
+#| echo: false
+#| message: false
+xa = function(df0_xa){
+   for (i in 1:4){
+     df0_xa[, i] = df0_xa[, i]*sd(df0_xa[, i])/mean(df0_xa[, i])
+   }
+  return (df0_xa)
+}
+```
+
+##### 均方差法：
+
+```{=tex}
+\begin{equation}
+w_j=\frac{\sigma_j}{\sum_{j=1}^4 \sigma_j}\\
+\end{equation}
+```
 
 $$
-w_j=\frac{s_j}{\sum_{j=1}^4 s_j}\\
-c_{ij} = w_j\times a_{ij},\ \ i=1,2,3,4,\ \ j=1,2.
+c_{ij} = w_j\times b_{ij}.
 $$
-其中
+
+```{r}
+#| echo: false
+#| message: false
+xb = function(df0_xb){
+   s = rep(NA, 4)
+   for (i in 1:4){
+     s[i] = sqrt(4/(4-1)*var(df0_xb[, i]))
+   }
+   for (i in 1:4){df0_xb[, i] = df0_xb[, i]*s[i]/sum(s)}
+   return (df0_xb)
+}
+```
+
+##### 熵权法：
+
+```{=tex}
+\begin{equation}
+p_{i j}=\frac{b_{i j}}{\sum_{i=1}^{n} b_{i j}}, \quad i=1, \cdots, n, j=1, \cdots, m.
+\end{equation}
+```
+
+```{=tex}
+\begin{equation}
+e_{j}=-k \sum_{i=1}^{n} p_{i j} \ln \left(p_{i j}\right), \quad j=1, \cdots, m .
+\end{equation}
+```
+
+\noindent 其中，$k=\frac{1}{\ln (n)>0}.$ 满足$e_{j} \geq 0$
+
+```{=tex}
+\begin{equation}
+d_{j}=1-e_{j}, \quad j=1, \cdots, m.
+\end{equation}
+```
+
+```{=tex}
+\begin{equation}
+w_j=\frac{d_j}{\sum_{j=1}^{m}d_j}, \quad j=1, \cdots, m.
+\end{equation}
+```
+
 $$
-\begin{cases}
-\begin{aligned}
-&\overline{a}_j=\frac{1}{m}\sum_{i=1}^{m}a_{ij}\\
-&s_j=\sqrt{\frac{1}{m-1}\sum_{i=1}^{m}(a_{ij}-\overline{a}_j)^2}\\
-&i = 1,2,3,4,\ \ j = 1,2,\ \ m=4\\
-\end{aligned}
+c_{ij} = w_j\times b_{ij}.
+$$
+
+```{r}
+#| echo: false
+#| message: false
+xc = function(df0_xc) {
+  # 判定数据中是否有0或1，有的话制造噪声
+  chaos = function(l){
+    l[l == 0] = 0.001
+    l[l == 1] = 0.999
+    return (l)
+  }
+  df0_xc = apply(df0_xc, 2, chaos)
+  # 实现用熵权法计算各指标(列）的权重及各数据行的得分
+  # s返回各行（样本）得分，w返回各列权重
+  # 计算第j个指标下，第i个样本占该指标的比重p(i,j)      
+  P = apply(df0_xc, 2, function(x) x / sum(x))
+  
+  # 计算第j个指标的熵值e(j)
+  e = as.vector(apply(P, 2, function(x) sum(x * log(x)) *(-1/log(nrow(P)))))
+  
+  d = 1 - e         # 计算信息熵冗余度
+  w = d / sum(d)   # 计算权重向量
+  
+  for (i in 1:4){
+    df0_xc[, i] = df0_xc[, i] * w[i]
+  }
+  return (df0_xc)
+}
+```
+
+### 模型一的建立
+
+模型一采用的标准化方法为min-max法，采用的加权方法为变异系数法。
+
+由min-max法标准化公式(1)： 
+$$
+b_{i j} = \left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right).
+$$
+
+可得标准化后的数据如表4.
+
+```{r}
+#| echo: false
+#| message: false
+df0_a = ax(df0)
+kbl(df0_a, booktabs = T, caption = "模型一标准化后的数据", position = "h") %>%
+  kable_styling(latex_options = "striped")
+```
+
+由变异系数法加权公式(2)：
+
+$$
+w_j=\frac{\sigma_j}{\overline{a}_j},\ \ j = 1,2
+$$
+
+$$
+c_{ij} = w_j\times a_{ij}.
+$$
+
+可得加权后的数据如表5.
+
+```{r}
+#| echo: false
+#| message: false
+xa = function(df0_xa){
+   for (i in 1:4){
+     df0_xa[, i] = df0_xa[, i]*sd(df0_xa[, i])/mean(df0_xa[, i])
+   }
+  return (df0_xa)
+}
+df0_aa = xa(df0_a)
+kbl(df0_aa, booktabs = T, caption = "模型一标准化并加权后的数据", position = "h") %>% 
+  kable_styling(latex_options = "striped")
+```
+
+### 模型一的求解
+
+理想解法相关公式有以下：
+
+```{r}
+#| echo: false
+#| message: false
+
+good_bad = function(df){
+good = rep(NA, 4)
+for (i in 1:3){
+  good[i] = max(df[, i])
+}
+good[4] = min(df[, 4])
+
+bad = rep(NA, 4)
+for (i in 1:3){
+  bad[i] = min(df[, i])
+}
+bad[4] = max(df[, 4])
+
+return(list(good,bad))
+}
+
+over = function(df){
+     gg = function(row){sqrt(sum((row - g)^2))}
+     bb = function(row){sqrt(sum((row - b)^2))}
+     df0_over = data.frame(
+         s = rep(NA, 4),
+         s0 = rep(NA, 4)
+     )
+     for (i in 1:4){
+         df0_over$s[i] = gg(df[i, ])
+         df0_over$s0[i] = bb(df[i, ])
+     }
+     df0_over$f = df0_over$s0/(df0_over$s + df0_over$s0)
+     names(df0_over) = c("$s^*$", "$s^0$", "$f^*$")
+     return (df0_over)
+}
+```
+
+· 正理想解：
+
+\begin{equation}
+c_j^*=\begin{cases}
+\max c_{ij},\ \ j为效益型属性\\
+\min c_{ij},\ \ j为成本型属性.
 \end{cases}
-$$
+\end{equation}
 
+· 负理想解：
 
-求得均方差
+\begin{equation}
+c_j^0=\begin{cases}
+\min c_{ij},\ \ j为效益型属性\\
+\max c_{ij},\ \ j为成本型属性.
+\end{cases}
+\end{equation}
+
+· 到正理想解的距离：
+
+\begin{equation}
+s_i^*=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^*)^2}
+\end{equation}
+
+· 到负理想解的距离：
+
+\begin{equation}
+s_i^0=\sqrt{\sum_{j=1}^n(c_{ij}-c_j^0)^2}
+\end{equation}
+
+· 综合指标值：
+
+\begin{equation}
+f_i^*=\frac{s_i^0}{s_i^0+s_i^*}
+\end{equation}
+
 ```{r}
-df0_b = df0
-s = rep(NA, 4)
-for (i in 1:4){
-  s[i] = sqrt(4/(4-1)*var(df0_b[, i]))
-}
-for (i in 1:4){df0_b[, i] = df0_b[, i]*s[i]/sum(s)}
-print(df0_b)
+#| echo: false
+#| message: false
+g = good_bad(df0_aa)[[1]]
+b = good_bad(df0_aa)[[2]]
 ```
 
-##### 正负理想解与综合指标
+由表5可以看出正理想解为：
 
-正理想解：$(0.306,0.2792,0.1002,0.0405)$\\
-负理想解：$(0.034,0.0124,0.0501,0.1178)$
+```{python}
+#| echo: false
+#| message: false
+import numpy as np
+print("   ", tuple(np.around(r.g, decimals=2)))
+```
+
+负理想解为：
+
+```{python}
+#| echo: false
+#| message: false
+print("   ", tuple(np.around(r.b, decimals=2)))
+```
+
+由正负理想解带入公式得到的数据如表6.
 
 ```{r}
-good_b = c(0.306,0.2792,0.1002,0.0405)
-bad_b = c(0.034,0.0124,0.0501,0.1178)
-good_d_b = function(row){sqrt(sum((row - good_b)^2))}
-bad_d_b = function(row){sqrt(sum((row - bad_b)^2))}
-df_over_b = data.frame(
-    s = rep(NA, 4),
-    s0 = rep(NA, 4)
-)
-for (i in 1:4){
-    df_over_b$s[i] = good_d_b(df0_b[i, ])
-    df_over_b$s0[i] = bad_d_b(df0_b[i, ])
-}
-df_over_b$f = df_over_b$s0/(df_over_b$s + df_over_b$s0)
-print(df_over_b)
+#| echo: false
+#| message: false
+kbl(over(df0_aa), booktabs = T, caption = "模型一理想解表", position = "h", escape = F) %>% 
+  kable_styling(latex_options = "striped")
+```
+
+最终结果：5>4>1>3>2
+
+### 模型二的建立与求解
+
+模型二采用的标准化方法为min-max法，采用的加权方法为均方差法。
+
+现直接给出标准化并加权后的数据如表7.
+
+```{r}
+#| echo: false
+#| message: false
+df0_ab = xb(df0_a)
+kbl(df0_ab, booktabs = T, caption = "模型二标准化并加权后的数据", position = "h") %>% 
+  kable_styling(latex_options = "striped")
+```
+
+```{r}
+#| echo: false
+#| message: false
+g = good_bad(df0_ab)[[1]]
+b = good_bad(df0_ab)[[2]]
+```
+
+然后给出对应理想解的数据如表8.
+
+```{r}
+#| echo: false
+#| message: false
+kbl(over(df0_ab), booktabs = T, caption = "模型二理想解表", position = "h", escape = F) %>% 
+  kable_styling(latex_options = "striped")
 ```
 
 最终结果：5>4>1>2>3
 
-#### 极差法
+### 模型三的建立与求解
 
-##### 极差法加权
+模型三采用的标准化方法为min-max法，采用的加权方法为熵权法。
 
-$$
-b_{i j}=\left(\frac{a_{i j}-\min a_{i j}}{\max a_{i j}-\min a_{i j}}\right) \times 100.
-$$
+现直接给出标准化并加权后的数据如表9.
 
 ```{r}
-df0_c = df0
-for (i in 1:4){df0_c[, i] = (df0_c[, i]-min(df0_c[, i]))/(max(df0_c[, i])-min(df0_c[, i]))}
-print(df0_c)
+#| echo: false
+#| message: false
+df0_ac = xc(df0_a)
+kbl(df0_ac, booktabs = T, caption = "模型三标准化并加权后的数据", position = "h") %>% 
+  kable_styling(latex_options = "striped")
 ```
 
-##### 正负理想解与综合指标
+```{r}
+#| echo: false
+#| message: false
+g = good_bad(df0_ac)[[1]]
+b = good_bad(df0_ac)[[2]]
+```
 
-正理想解：$(1,1,1,0)$\\
-负理想解：$(0,0,0,1)$
+然后给出对应理想解的数据如表10.
 
 ```{r}
-good_c = c(1,1,1,0)
-bad_c = c(0,0,0,1)
-good_d_c = function(row){sqrt(sum((row - good_c)^2))}
-bad_d_c = function(row){sqrt(sum((row - bad_c)^2))}
-df_over_c = data.frame(
-    s = rep(NA, 4),
-    s0 = rep(NA, 4)
-)
-for (i in 1:4){
-    df_over_c$s[i] = good_d_c(df0_c[i, ])
-    df_over_c$s0[i] = bad_d_c(df0_c[i, ])
-}
-df_over_c$f = df_over_c$s0/(df_over_c$s + df_over_c$s0)
-print(df_over_c)
+#| echo: false
+#| message: false
+kbl(over(df0_ac), booktabs = T, caption = "模型三理想解表", position = "h", escape = F) %>% 
+  kable_styling(latex_options = "striped")
 ```
 
 最终结果：5>4>1>2>3
 
-#### 专家法
+### 模型四的建立与求解
 
-相关资料[^3]指出，“变异系数法，均方差法都是客观赋权法……要求数据量大，否则准确性不高”，所以本文通过查阅资料了解专家的主观赋权观点，建立了基于专家法的评价模型。
+模型四采用的标准化方法为Z-score法，采用的加权方法为变异系数法。
 
-[^2]: 范哗.大众化进程中的生师比与大学质量关系——世界一流大学生师比研究的启示[J].教育发展研究,2012,32(23):8-15.DOI:10.14121/j.cnki.1008-3855.2012.23.005.
+现直接给出标准化并加权后的数据如表11.
 
-[^3]: 赵静, 但琦. 数学建模与数学实验（第五版）[M]. 高等教育出版社, 北京, 2020.
+```{r}
+#| echo: false
+#| message: false
+df0_b = bx(df0)
+df0_ba = xa(df0_b)
+kbl(df0_ba, booktabs = T, caption = "模型四标准化并加权后的数据", position = "h") %>% 
+  kable_styling(latex_options = "striped")
+```
+
+```{r}
+#| echo: false
+#| message: false
+g = good_bad(df0_ba)[[1]]
+b = good_bad(df0_ba)[[2]]
+```
+
+然后给出对应理想解的数据如表12.
+
+```{r}
+#| echo: false
+#| message: false
+kbl(over(df0_ba), booktabs = T, caption = "模型四理想解表", position = "h", escape = F) %>% 
+  kable_styling(latex_options = "striped")
+```
+
+最终结果：5>1>2>3>4
+
+### 模型五的建立与求解
+
+模型五采用的标准化方法为Z-score法，采用的加权方法为均方差法。
+
+现直接给出标准化并加权后的数据如表13.
+
+```{r}
+#| echo: false
+#| message: false
+df0_bb = xb(df0_b)
+kbl(df0_bb, booktabs = T, caption = "模型五标准化并加权后的数据", position = "h") %>% 
+  kable_styling(latex_options = "striped")
+```
+
+```{r}
+#| echo: false
+#| message: false
+g = good_bad(df0_bb)[[1]]
+b = good_bad(df0_bb)[[2]]
+```
+
+然后给出对应理想解的数据如表14.
+
+```{r}
+#| echo: false
+#| message: false
+kbl(over(df0_bb), booktabs = T, caption = "模型五理想解表", position = "h", escape = F) %>% 
+  kable_styling(latex_options = "striped")
+```
+
+最终结果：5>4>1>2>3
+
+# 七、模型的评价、改进与推广
+
+## 模型的优点
+
+1. 经由相关分析，人为剔除了与其他院校相差较大的第五所院校的数据，有一定道理。且该处理相当于消除极端值，减小了后面使用客观赋权法进行建模的误差；
+
+2. 以一流大学的生师比数据为依据并拟合其分布，将原数据的生师比依概率赋值，较为合理；
+
+3. 使用五个基于客观赋权法的模型结果进行平均得出了最后结果，较为有信服力。
+
+## 模型的缺点
+
+1. 人为剔除第五个院校的数据较为武断，缺乏更有力的资料支撑；
+
+2. 由相关资料[2]，小样本数据使用客观赋权法效果通常不理想，对于院校评价这样复杂的模型，需要结合专家的经验性看法才能得到较好的评估效果。
+
+## 模型的推广与改进
+
+本文对数据的指标进行了相关性分析，得出生师比、科研经费、人均专著间具有强相关关系。如有需求，可拟合相应回归方程，并根据其中一项的值来预测另外两项，如此便能由预测值与实际值的差距来对院校做额外的评估，比如评估该院校的相应指标是否处于正常范围等等。
+
+本文未包含主观赋权法的最大原因是在于找不到可信服的专家制定的权数，如有更多时间，可以在寻求专家权数方面多做努力。
+
+# 参考文献
+
+\[1\]范哗.大众化进程中的生师比与大学质量关系------世界一流大学生师比研究的启示\[J\].教育发展研究,2012,32(23):8-15.DOI:10.14121/j.cnki.1008-3855.2012.23.005.
+
+\[2\]李健宁. 高等学校学科竞争力评价研究\[D\].华东师范大学,2004.
+
+\[3\]郭显光.熵值法及其在综合评价中的应用[J].财贸研究,1994(06):56-60.DOI:10.19337/j.cnki.34-1093/f.1994.06.014.
+
+\[4\]赵静, 但琦. 数学建模与数学实验（第五版）\[M\]. 高等教育出版社, 北京, 2020.
+
+# 附录
