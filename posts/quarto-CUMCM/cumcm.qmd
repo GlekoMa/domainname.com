@@ -3,7 +3,7 @@ title: "数学建模Quarto模板"
 author: "Gleko Ma"
 date: "2022/4/18"
 categories: [news]
-image: "image.jpg"
+image: "hello.jfif"
 knitr: true
 ---
 
