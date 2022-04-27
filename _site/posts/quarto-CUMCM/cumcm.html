@@ -230,113 +230,148 @@
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">amsmath</span>}</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">amssymb</span>}</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">array</span>}</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">booktabs</span>}</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">float</span>}</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">\setCJKfamilyfont</span>{song}[AutoFakeBold]{SimSun}</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">\newcommand*</span>{<span class="ex">\song</span>}{<span class="fu">\CJKfamily</span>{song}}</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">\floatstyle</span>{plaintop}</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">\restylefloat</span>{table}</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">% Pandoc Syntax Highlighting--------------</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(highlighting-macros)$</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">$highlighting-macros$</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">% Section Format--------------------------</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="kw">\section</span>}</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\zihao</span>{4} <span class="fu">\heiti\centering</span>}</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  {}{0em}</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  {}</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  []</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="kw">\subsection</span>}</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}}{1em}</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  {}</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  []</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="kw">\subsubsection</span>}</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}.<span class="fu">\bfseries\arabic</span>{subsubsection}}{1em}</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  {}</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  []</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">%=========================================%</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">% Preface---------------------------------</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(preface)$</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">\newpage</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}[h]</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{2} 21-22-2数学建模与数学实验}</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{2ex}<span class="fu">\\</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{2} 课程论文<span class="ss">$NO$</span>}</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{16ex}</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 题目：} <span class="fu">\zihao</span>{4} <span class="ss">$title$</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 组队编号：} <span class="fu">\zihao</span>{4} <span class="ss">$group$</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 学生1}</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="fu">\song</span> <span class="fu">\zihao</span>{4}{{<span class="fu">\bfseries</span>   姓名}<span class="fu">\ </span> <span class="fu">\zihao</span>{4}{ <span class="fu">\uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$name1$</span><span class="fu">\quad</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 班级}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$class1$</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 学号}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$number1$</span><span class="fu">\quad</span> <span class="fu">\ </span>}}</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(name2)$</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 学生2}</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="fu">\song</span> <span class="fu">\zihao</span>{4}{{<span class="fu">\bfseries</span>  姓名}<span class="fu">\ </span>  <span class="fu">\zihao</span>{4}{ <span class="fu">\uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$name2$</span><span class="fu">\quad</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 班级}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$class2$</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 学号}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$number2$</span><span class="fu">\quad</span> <span class="fu">\ </span>}}</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">float</span>}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">booktabs</span>}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">longtable</span>}</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">xcolor</span>}</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">multirow</span>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">wrapfig</span>}</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">colortbl</span>}</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">pdflscape</span>}</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">tabu</span>}</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">threeparttable</span>}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">threeparttablex</span>}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">makecell</span>}</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[section]{<span class="ex">placeins</span>}</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">\setCJKfamilyfont</span>{song}[AutoFakeBold]{SimSun}</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">\newcommand*</span>{<span class="ex">\song</span>}{<span class="fu">\CJKfamily</span>{song}}</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">\floatstyle</span>{plaintop}</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">\restylefloat</span>{table}</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">% Pandoc Syntax Highlighting--------------</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(highlighting-macros)$</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ss">$highlighting-macros$</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">% Section Format--------------------------</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="kw">\section</span>}</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\zihao</span>{4} <span class="fu">\heiti\centering</span>}</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  {}{0em}</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  []</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="kw">\subsection</span>}</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}}{1em}</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  []</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="kw">\subsubsection</span>}</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}.<span class="fu">\bfseries\arabic</span>{subsubsection}}{1em}</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  []</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="fu">\subsubsubsection</span>}</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}.<span class="fu">\bfseries\arabic</span>{subsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsection}}{1em}</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  []</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="fu">\subsubsubsubsection</span>}</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}.<span class="fu">\bfseries\arabic</span>{subsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsubsection}}{1em}</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  []</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="fu">\subsubsubsubsubsection</span>}</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}.<span class="fu">\bfseries\arabic</span>{subsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsubsubsection}}{1em}</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>  []</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="fu">\titleformat</span>{<span class="fu">\subsubsubsubsubsubsection</span>}</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\heiti</span>}</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">\bfseries\arabic</span>{section}.<span class="fu">\bfseries\arabic</span>{subsection}.<span class="fu">\bfseries\arabic</span>{subsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsubsubsection}.<span class="fu">\bfseries\arabic</span>{subsubsubsubsubsubsection}}{1em}</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  []</span>
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(name3)$</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 学生3}</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">\song</span> <span class="fu">\zihao</span>{4}{{<span class="fu">\bfseries</span>   姓名}<span class="fu">\ </span> <span class="fu">\zihao</span>{4}{ <span class="fu">\uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$name3$</span><span class="fu">\quad</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 班级}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$class3$</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 学号}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$number3$</span><span class="fu">\quad</span> <span class="fu">\ </span>}}</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}[b]</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} <span class="ss">$school$</span>}</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}<span class="fu">\\</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} <span class="ss">$time$</span>}</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="co">% Abstract--------------------------------</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="fu">\newpage</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(title)$</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\zihao</span>{3} <span class="fu">\heiti</span> <span class="ss">$title$</span>}</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{3ex}</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>{{<span class="fu">\heiti</span> <span class="fu">\zihao</span>{4} 摘<span class="fu">\quad</span> 要}}</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(abstract)$</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="ss">$abstract$</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\vspace</span>{4ex}<span class="fu">\noindent</span>{<span class="fu">\heiti</span> 关键词:}}</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="ss">$keyword$</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="co">% Main Body-------------------------------</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="fu">\newpage</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="ss">$body$</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="co">%=========================================%</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co">% Preface---------------------------------</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(preface)$</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="fu">\newpage</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}[h]</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{2} 21-22-2数学建模与数学实验}</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{2ex}<span class="fu">\\</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{2} 课程论文<span class="ss">$NO$</span>}</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{16ex}</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 题目：} <span class="fu">\zihao</span>{4} <span class="ss">$title$</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 组队编号：} <span class="fu">\zihao</span>{4} <span class="ss">$group$</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 学生1}</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="fu">\song</span> <span class="fu">\zihao</span>{4}{{<span class="fu">\bfseries</span>   姓名}<span class="fu">\ </span> <span class="fu">\zihao</span>{4}{ <span class="fu">\uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$name1$</span><span class="fu">\quad</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 班级}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$class1$</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 学号}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$number1$</span><span class="fu">\quad</span> <span class="fu">\ </span>}}</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(name2)$</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 学生2}</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="fu">\song</span> <span class="fu">\zihao</span>{4}{{<span class="fu">\bfseries</span>  姓名}<span class="fu">\ </span>  <span class="fu">\zihao</span>{4}{ <span class="fu">\uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$name2$</span><span class="fu">\quad</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 班级}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$class2$</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 学号}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$number2$</span><span class="fu">\quad</span> <span class="fu">\ </span>}}</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(name3)$</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 学生3}</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}</span>
 <span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="fu">\song</span> <span class="fu">\zihao</span>{4}{{<span class="fu">\bfseries</span>   姓名}<span class="fu">\ </span> <span class="fu">\zihao</span>{4}{ <span class="fu">\uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$name3$</span><span class="fu">\quad</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 班级}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$class3$</span> <span class="fu">\quad</span> <span class="fu">\ </span>}<span class="fu">\ </span>{<span class="fu">\bfseries</span> 学号}<span class="fu">\ \uline</span>{<span class="fu">\quad</span> <span class="fu">\ </span><span class="ss">$number3$</span><span class="fu">\quad</span> <span class="fu">\ </span>}}</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}[b]</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} 成都工业学院}</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{4ex}<span class="fu">\\</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\bfseries</span>  <span class="fu">\song</span> <span class="fu">\zihao</span>{4} <span class="ss">$time$</span>}</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="co">% Abstract--------------------------------</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="fu">\newpage</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(title)$</span></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">center</span>}</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\zihao</span>{3} <span class="fu">\heiti</span> <span class="ss">$title$</span>}</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="fu">\vspace</span>{3ex}</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>{{<span class="fu">\heiti</span> <span class="fu">\zihao</span>{4} 摘<span class="fu">\quad</span> 要}}</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">center</span>}</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(abstract)$</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">$abstract$</span></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>{<span class="fu">\vspace</span>{4ex}<span class="fu">\noindent</span>{<span class="fu">\heiti</span> 关键词:}}</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="ss">$keyword$</span></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="co">% Main Body-------------------------------</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="fu">\newpage</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="ss">$body$</span></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="qmd---rmd见脚注" class="level4">

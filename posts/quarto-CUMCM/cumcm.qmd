@@ -85,8 +85,19 @@ keyword: 关键字，以" \ "分割
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{array}
-\usepackage{booktabs}
 \usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage{makecell}
+\usepackage[section]{placeins}
 \setCJKfamilyfont{song}[AutoFakeBold]{SimSun}
 \newcommand*{\song}{\CJKfamily{song}}
 \floatstyle{plaintop}
@@ -113,6 +124,30 @@ $endif$
 \titleformat{\subsubsection}
   {\heiti}
   {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}}{1em}
+  {}
+  []
+
+\titleformat{\subsubsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsubsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsubsubsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsubsection}}{1em}
   {}
   []
 
@@ -161,7 +196,7 @@ $endif$
 
 \begin{figure}[b]
 \begin{center}
-{\bfseries  \song \zihao{4} $school$}
+{\bfseries  \song \zihao{4} 成都工业学院}
 \vspace{4ex}\\
 {\bfseries  \song \zihao{4} $time$}
 \end{center}
