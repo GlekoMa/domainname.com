@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://stulink.netlify.app/index.html</loc>
-    <lastmod>2022-04-27T05:28:54.439Z</lastmod>
+    <lastmod>2022-05-03T16:41:37.835Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/posts/post-with-code/index.html</loc>
@@ -15,5 +15,9 @@
   <url>
     <loc>https://stulink.netlify.app/posts/quarto-CUMCM/cumcm.html</loc>
     <lastmod>2022-04-27T05:28:56.479Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stulink.netlify.app/posts/for-python-beginner/index.html</loc>
+    <lastmod>2022-05-03T16:41:37.163Z</lastmod>
   </url>
 </urlset>
