@@ -211,12 +211,102 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>直接说结论，我认为，<code>x</code>是变量、是变量名、是指针。而当我们说变量<code>x</code>时，我们通常想要表达的是变量名<code>x</code>与它所指向的那块儿内存（值为4）这个捆绑体。但它的本质其实只是一副躯壳，一个名字而已。</p>
+</section>
+<section id="一切皆为对象" class="level3">
+<h3 class="anchored" data-anchor-id="一切皆为对象">一切皆为对象</h3>
+<p>Python是一个面向对象语言，Python中一切都是对象。</p>
+<p>你也许正摸不着头脑：什么是面向对象？怎么到处都听说这个概念，但却从来没人站出来把它解释清楚？现在让我们试图把它弄明白。</p>
+<p>上一节我们讲了“变量为指针“的概念，即变量名自身不携带任何类型（int、str、float等）信息。现在看几个例子：</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode" id="cb10"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="6">
+<pre><code>int</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode" id="cb12"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">'hello'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="7">
+<pre><code>str</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">3.14159</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="8">
+<pre><code>float</code></pre>
+</div>
+</div>
+<p>如果你已经弄明白了上节的内容，那你一定想到这里<code>type(x)</code>的结果其实输出的是<code>x</code>指向的那块儿内存的类型。一句话，Python中有类型，但类型不是绑定在变量名上，而是绑定在<strong>对象</strong>本身上的。即这里type的作用对象为那块儿内存本身。</p>
+<p>在Python中，<strong>对象</strong>其实指的是一个携带信息的实体，这个实体携带三种信息：<strong>值</strong>、<strong>属性</strong>和<strong>方法</strong>。值，顾名思义，你执行<code>x = 4</code>，那这个对象（那块儿内存）的值就为4，然后执行你：</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="9">
+<pre><code>3.14159</code></pre>
+</div>
+</div>
+<p>很自然的，它输出了4。所以，访问（使用）对象的值很简单，直接输入即可。</p>
+<p>访问（使用）对象的属性和方法则需要用“.”来实现，你一定见过，例如：</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode" id="cb18"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>L.append(<span class="dv">100</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1, 2, 3, 100]</code></pre>
+</div>
+</div>
+<p>这里我们调用了这个对象的所具有的方法<code>append</code>，不同的对象具有不同的方法，具体这个对象具有什么属性什么方法，完全依赖于这个对象是什么类型（你可能疑问，对象不就三种信息吗？怎么又跑出来一个类型？其实你可以把类型归到<strong>值</strong>里面，值的类型嘛。我个人是这么理解的）。下面给一个访问（使用）对象属性的例子：</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode" id="cb20"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.5</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.real, <span class="st">"+"</span>, x.imag, <span class="st">'i'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>4.5 + 0.0 i</code></pre>
+</div>
+</div>
+<p>这里我们访问（使用）了数字型（int、float都属于数字型大类）对象的<code>real</code>（实部）和<code>imag</code>（虚部）属性，并将其以复数格式打印了出来。</p>
+<p>访问（使用）属性和方法的方式有什么不同呢？它们间的区别就在于，属性没有括号，直接写成<code>x.real</code>，而方法有括号，例如<code>L.append(100)</code>。下面再看一个例子：</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode" id="cb22"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.5</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x.is_integer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="12">
+<pre><code>False</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode" id="cb24"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.0</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x.is_integer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="13">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>猜一猜上面调用了对象的属性还是方法？答案当然是方法，因为有括号！（浮点数有一个方法名叫<code>is_integer</code>，这个方法的作用是判断这个浮点数是不是一个整数（跟整型不是一个意思！），而上面的代码就是它的实际演示。）</p>
+<p>当我们说Python中一切皆为对象，请注意，我们的指的是一切，Right，一切。所以一个对象的属性和方法本身，也是一个对象。例如：</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode" id="cb26"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.5</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(x.is_integer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="14">
+<pre><code>builtin_function_or_method</code></pre>
+</div>
+</div>
+<p>(发现了吗？这里<code>x.is_integer</code>没有括号。为什么？想象一下，如果输入<code>type(x.is_integer())</code>会输出什么？<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>)</p>
+<p>Python一切皆为对象的设计带来了一些非常方便的特性，以后慢慢体会。</p>
+</section>
+</section>
+<section id="参考资料" class="level2">
+<h2 class="anchored" data-anchor-id="参考资料">参考资料</h2>
+<p>[1]A Whirlwind Tour of Python by Jake VanderPlas (O’Reilly). Copyright 2016 O’Reilly Media, Inc., 978-1-491-96465-1</p>
 
 
 
 </section>
-</section>
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>会输出&lt;class ‘bool’&gt;<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 
     <!-- ... -->
     <script src="https://cdn.jsdelivr.net/npm/@waline/client"></script>
