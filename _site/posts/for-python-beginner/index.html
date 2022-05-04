@@ -239,15 +239,15 @@
 </div>
 </div>
 <p>如果你已经弄明白了上节的内容，那你一定想到这里<code>type(x)</code>的结果其实输出的是<code>x</code>指向的那块儿内存的类型。一句话，Python中有类型，但类型不是绑定在变量名上，而是绑定在<strong>对象</strong>本身上的。即这里type的作用对象为那块儿内存本身。</p>
-<p>在Python中，<strong>对象</strong>其实指的是一个携带信息的实体，这个实体携带三种信息：<strong>值</strong>、<strong>属性</strong>和<strong>方法</strong>。值，顾名思义，你执行<code>x = 4</code>，那这个对象（那块儿内存）的值就为4，然后执行你：</p>
+<p>在Python中，<strong>对象</strong>其实指的是一个携带信息的实体，这个实体携带三种信息：<strong>值</strong>、<strong>属性</strong>和<strong>方法</strong>。值，顾名思义，你执行<code>x = 4</code>，那这个对象（那块儿内存）的值就为4，然后你执行：</p>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode" id="cb16"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="9">
 <pre><code>3.14159</code></pre>
 </div>
 </div>
-<p>很自然的，它输出了4。所以，访问（使用）对象的值很简单，直接输入即可。</p>
-<p>访问（使用）对象的属性和方法则需要用“.”来实现，你一定见过，例如：</p>
+<p>很自然的，它输出了4。所以，调用对象的值很简单，直接输入即可。</p>
+<p>调用对象的属性和方法则需要用“.”来实现，你一定见过，例如：</p>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode" id="cb18"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>L.append(<span class="dv">100</span>)</span>
@@ -256,7 +256,7 @@
 <pre><code>[1, 2, 3, 100]</code></pre>
 </div>
 </div>
-<p>这里我们调用了这个对象的所具有的方法<code>append</code>，不同的对象具有不同的方法，具体这个对象具有什么属性什么方法，完全依赖于这个对象是什么类型（你可能疑问，对象不就三种信息吗？怎么又跑出来一个类型？其实你可以把类型归到<strong>值</strong>里面，值的类型嘛。我个人是这么理解的）。下面给一个访问（使用）对象属性的例子：</p>
+<p>这里我们调用了这个对象（数据类型为列表）的所具有的方法<code>append</code>，不同的对象具有不同的方法，具体这个对象具有什么属性什么方法，完全依赖于这个对象是什么类型（你可能疑问，对象不就三种信息吗？怎么又跑出来一个类型？其实你可以把类型归到<strong>值</strong>里面，值的类型嘛。我个人是这么理解的）。下面给一个调用对象属性的例子：</p>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode" id="cb20"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.5</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.real, <span class="st">"+"</span>, x.imag, <span class="st">'i'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -264,8 +264,8 @@
 <pre><code>4.5 + 0.0 i</code></pre>
 </div>
 </div>
-<p>这里我们访问（使用）了数字型（int、float都属于数字型大类）对象的<code>real</code>（实部）和<code>imag</code>（虚部）属性，并将其以复数格式打印了出来。</p>
-<p>访问（使用）属性和方法的方式有什么不同呢？它们间的区别就在于，属性没有括号，直接写成<code>x.real</code>，而方法有括号，例如<code>L.append(100)</code>。下面再看一个例子：</p>
+<p>这里我们调用了数字型（int、float都属于数字型大类）对象的<code>real</code>（实部）和<code>imag</code>（虚部）属性，并将其以复数格式打印了出来。</p>
+<p>调用属性和方法的方式有什么不同呢？它们间的区别就在于，属性没有括号，直接写成<code>x.real</code>，而方法有括号，例如<code>L.append(100)</code>。下面再看一个例子：</p>
 <div class="cell" data-execution_count="14">
 <div class="sourceCode" id="cb22"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.5</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x.is_integer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
