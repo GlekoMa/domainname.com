@@ -2,22 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://stulink.netlify.app/about.html</loc>
-    <lastmod>2022-04-27T05:28:53.818Z</lastmod>
+    <lastmod>2022-05-06T05:46:15.659Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/index.html</loc>
-    <lastmod>2022-05-04T03:52:50.350Z</lastmod>
+    <lastmod>2022-05-06T05:46:16.339Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/posts/post-with-code/index.html</loc>
-    <lastmod>2022-04-27T05:28:55.654Z</lastmod>
+    <lastmod>2022-05-06T05:46:17.567Z</lastmod>
   </url>
   <url>
     <loc>https://stulink.netlify.app/posts/quarto-CUMCM/cumcm.html</loc>
-    <lastmod>2022-04-27T05:28:56.479Z</lastmod>
-  </url>
-  <url>
-    <loc>https://stulink.netlify.app/posts/for-python-beginner/index.html</loc>
-    <lastmod>2022-05-04T03:52:49.738Z</lastmod>
+    <lastmod>2022-05-06T05:46:18.352Z</lastmod>
   </url>
 </urlset>

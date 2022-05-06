@@ -2,7 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/for-python-beginner/index.html",
       "/posts/quarto-CUMCM/cumcm.html",
       "/posts/post-with-code/index.html"
     ]
