@@ -1,5 +1,5 @@
 ---
-title: "数学建模Quarto模板"
+title: "Quarto Template for CUMCM"
 author: "Gleko Ma"
 date: "2022/4/18"
 categories: [news]
@@ -40,9 +40,17 @@ Template for CUMCM.
 
 ```{r eval=FALSE, include=TRUE}
 ---
+crossref: 
+  fig-prefix: 图   # 设置引用格式
+  tbl-prefix: 表
+  eq-prefix: ""
 format: 
   pdf:
-    template: cumcm.tex
+    template: stulink.tex
+    keep-tex: true
+  html:
+    toc: true
+    code-fold: true
 NO: 一
 group: 1707
 school: stulink大学
@@ -98,6 +106,7 @@ keyword: 关键字，以" \ "分割
 \usepackage{threeparttablex}
 \usepackage{makecell}
 \usepackage[section]{placeins}
+\hypersetup{hidelinks}
 \setCJKfamilyfont{song}[AutoFakeBold]{SimSun}
 \newcommand*{\song}{\CJKfamily{song}}
 \floatstyle{plaintop}
@@ -153,7 +162,6 @@ $endif$
 
 %=========================================%
 \begin{document}
-
 % Preface---------------------------------
 $if(preface)$
 \newpage
