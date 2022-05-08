@@ -15,7 +15,7 @@ Last updated: May 8 2022
 
 ### 关于Quarto
 
-[Quato](quarto.org)是一个开源的科技出版系统，支持Jupyter、RStudio和VS Code等多种代码编辑器。其官方描述如下：
+[Quato](https://quarto.org/)是一个开源的科技出版系统，支持Jupyter、RStudio和VS Code等多种代码编辑器。其官方描述如下：
 
 - 创建代码与文本结合的可动态编译内容。支持Python、R、Julia和Observable。
 
@@ -369,7 +369,7 @@ data[["a"]]
 
 ### 准备工作
 
-1. 从[Quato](quarto.org)官网下载并安装软件
+1. 从[Quato](https://quarto.org/)官网下载并安装软件
 
 2. 使用终端（Terminal）执行命令：
 ````markdown
