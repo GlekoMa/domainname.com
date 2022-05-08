@@ -1,0 +1,607 @@
+---
+title: "Quarto Template for CUMCM"
+author: "Gleko Ma"
+date: "2022/4/18"
+categories: [news]
+page-layout: full
+image: "hello.jfif"
+smooth-scroll: true
+toc: true
+---
+
+Last updated: May 8 2022
+
+## 概述
+
+### 关于Quarto
+
+[Quato](quarto.org)是一个开源的科技出版系统，支持Jupyter、RStudio和VS Code等多种代码编辑器。其官方描述如下：
+
+- 创建代码与文本结合的可动态编译内容。支持Python、R、Julia和Observable。
+
+- 使用markdown文本或Jupyter笔记本的形式进行编译。
+
+- 渲染高质量论文、报告、幻灯片、网站、博客和书籍，并以HTML、PDF、MS Word、ePub或其他格式输出。
+
+- 支持数学公式、引文、交叉引用、图表、标注、高级布局以及其他特性。
+
+### 使用须知
+
+本文主要介绍Quarto在数学建模论文排版上的应用。关于此数学建模论文模板的使用，需要声明以下几点：
+
+1. 该模板谨按照全国大学生数学建模竞赛的标准进行设计，不适用于美赛、深圳杯等其他数学建模赛事。
+
+2. 本模板仅适合对排版要求不高的朋友采用。模板主要使用LaTeX编写，由于一篇论文的编译流程大致为：ipynb/qmd -> md -> Pandoc -> PDF，层层抽象过多，故自定义排版布局对使用者相关知识的要求较高，且一旦编写格式逾矩，排错难度较大。
+
+3. 对模板的过度依赖会导致使用者个人的排版能力下降，即使理想的未来情况为内容创作者不再需要为各式样的排版劳心，但就目前来说，社会对于个人的排版能力仍然有一定要求。
+
+## 应用范例
+
+::: hello-cumcm-banner
+<ul class="nav nav-pills" id="hello-cumcm-tab" role="tablist">
+
+<li class="nav-item" role="presentation">
+
+<button class="nav-link active" id="jupyter-tab" data-bs-toggle="tab" data-bs-target="#jupyter" type="button" role="tab" aria-controls="jupyter" aria-selected="true">
+
+Jupyter
+
+</button>
+
+</li>
+
+<li class="nav-item" role="presentation">
+
+<button class="nav-link" id="rstudio-tab" data-bs-toggle="tab" data-bs-target="#rstudio" type="button" role="tab" aria-controls="rstudio" aria-selected="false">
+
+RStudio
+
+</button>
+
+</li>
+
+</ul>
+:::
+
+::: {style="width:900px;overflow:auto;"}
+::: {#hello-cumcm-tabcontent .tab-content}
+::: {#jupyter .tab-pane .fade .show .active role="tabpanel" aria-labelledby="jupyter-tab"}
+::: {style="height:500px;width:880px;overflow:auto;"}
+
+在Jupyter中使用数学建模论文模板，只需为原Jupyter Notebook笔记本添加YAML头（raw模式），然后使用Quarto编译，即可渲染为指定论文格式。
+
+::: grid
+::: {.g-col-lg-6 .g-col-12}
+``` markdown
+=============raw代码块=============
+
+---
+#-----YAML文件-----#
+crossref: 
+  fig-prefix: 图   # 设置引用格式
+  tbl-prefix: 表
+  eq-prefix: ""
+format: 
+  pdf:
+    template: stulink.tex
+    keep-tex: true
+  html:
+    toc: true
+    code-fold: true
+#--队伍信息及摘要页--#
+NO: 一
+group: 1707
+school: stulink大学
+#-------------------
+name1: 蛋卷
+class1: 成都1店
+number1: 1000000000
+#-------------------
+name2: 烤肉
+class2: 成都2店
+number2: 1000000001
+#-------------------
+name3: 麻辣拌
+class3: 成都3店
+number3: 1000000002
+#-------------------
+time: 2022年3月
+preface: yes  # 是否显示组队信息
+title: "暴雨将至"
+abstract: |-
+  摘要第一段
+  
+  摘要第二段
+keyword: 别问 \ 问就是一只猪
+---
+
+==========Markdown代码块===========
+
+# Jupyter Demo
+
+## 基础
+
+### 数学公式
+
+#### 质能方程
+
+$$
+E = mc^2
+$$ {#eq-质能方程}
+
+#### 自动编号
+
+$$
+G = mg
+$$ {#eq-重力公式}
+
+#### 无编号公式
+
+$$
+\text{s.t.} = 
+\begin{cases}
+x + y\\
+x - y
+\end{cases}
+$$
+
+### 表格及图片
+
+#### 符号说明
+
+| 符号  | 说明        | 单位 |
+|-------|-------------|------|
+| $x_i$ | 第$i$次相遇 | 毫厘 |
+| $y_j$ | 第$j$次错过 | 千里 |
+
+: 符号说明 {#tbl-符号说明}
+
+#### MIT LOGO
+
+![麻省理工学院](mit_logo.png){fig.pos="H" width="50%" height="17.5%"}
+
+
+#### 代码输出
+
+===========Python代码块============
+
+#| echo: false
+#| fig.pos: "b"
+#| label: fig-螺旋
+#| fig-cap: "螺旋图"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+
+==========Markdown代码块===========
+
+## 引用
+
+引用质能方程([-@eq-质能方程])、符号说明[-@tbl-符号说明]、螺旋图[-@fig-螺旋]。
+```
+:::
+
+::: {.hello-output .g-col-lg-6 .g-col-12}
+![](images/jupyter-output.png)
+:::
+:::
+:::
+:::
+
+::: {#rstudio .tab-pane .fade role="tabpanel" aria-labelledby="rstudio-tab"}
+::: {style="height:500px;width:880px;overflow:auto;"}
+RStudio为数学公式的输入提供了可视化。分为Source和Visual两种编辑模式，其中Visual模式提供了一些插件以便捷插入图表、代码块等。
+
+::: grid
+::: {.g-col-lg-6 .g-col-12}
+````markdown
+---
+#------YAML文件------#
+crossref: 
+  fig-prefix: 图   # 设置引用格式
+  tbl-prefix: 表
+  eq-prefix: ""
+format: 
+  pdf:
+    template: stulink.tex
+    keep-tex: true
+  html:
+    toc: true
+    code-fold: true
+#--队伍信息及摘要页--#
+NO: 一
+group: 1707
+school: stulink大学
+#---------------------
+name1: 蛋卷
+class1: 成都1店
+number1: 1000000000
+#---------------------
+name2: 烤肉
+class2: 成都2店
+number2: 1000000001
+#---------------------
+name3: 麻辣拌
+class3: 成都3店
+number3: 1000000002
+#---------------------
+time: 2022年3月
+preface: yes  # 是否显示组队信息
+title: "暴雨将至"
+abstract: |-
+  摘要第一段
+  
+  摘要第二段
+keyword: 别问 \ 问就是一只猪
+---
+
+# Jupyter Demo
+
+## 基础
+
+### 数学公式
+
+#### 质能方程
+
+$$
+E = mc^2
+$$ {#eq-质能方程}
+
+#### 自动编号
+
+$$
+G = mg
+$$ {#eq-重力公式}
+
+#### 无编号公式
+
+$$
+\text{s.t.} = 
+\begin{cases}
+x + y\\
+x - y
+\end{cases}
+$$
+
+### 表格及图片
+
+#### 符号说明
+
+| 符号  | 说明        | 单位 |
+|-------|-------------|------|
+| $x_i$ | 第$i$次相遇 | 毫厘 |
+| $y_j$ | 第$j$次错过 | 千里 |
+
+: 符号说明 {#tbl-符号说明}
+
+#### MIT LOGO
+
+![麻省理工学院](mit_logo.png){fig.pos="H" width="50%" height="17.5%"}
+
+#### R代码输出
+
+```{{r}}
+#| echo: false
+#| fig.pos: H
+#| label: fig-空气质量
+#| fig-cap: 温度与臭氧浓度
+#| warning: false
+
+library(ggplot2)
+
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess"
+)
+```
+
+#### Python代码输出
+
+```{{python}}
+#| echo: false
+#| fig.pos: H
+#| label: fig-螺旋
+#| fig-cap: "螺旋图"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r0 = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r0
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r0)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+\newpage
+
+#### Python与R的相互调用
+
+\indent
+
+```{{r}}
+# R代码
+df = data.frame(
+  "a" = 1:3,
+  "b" = 4:6
+)
+df[["a"]]
+```
+
+```{{python}}
+# Python代码
+import numpy as np
+data = r.df
+data[["a"]]
+```
+
+## 引用
+
+引用质能方程([-@eq-质能方程])、符号说明[-@tbl-符号说明]、空气质量图[-@fig-空气质量]。
+````
+:::
+
+::: {.hello-output .g-col-lg-6 .g-col-12}
+![](images/rstudio-output.png)
+:::
+
+:::
+:::
+:::
+:::
+:::
+
+## 使用指南
+
+### 准备工作
+
+1. 从[Quato](quarto.org)官网下载并安装软件
+
+2. 使用终端（Terminal）执行命令：
+````markdown
+quarto tools install tinytex
+````
+
+3. 把以下路径加入环境变量：
+``` bash
+# 注意改成你的用户名
+C:\Users\用户名\AppData\Roaming\TinyTeX\bin\win32
+```
+
+### 选择工具
+
+#### Jupyter
+
+下载范例笔记本``hello.ipynb``并在Jupyter Lab中打开。
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download hello.ipynb](_hello.ipynb){download="hello.ipynb"}
+:::
+
+显示如下：
+
+![](images/hello-ipynb.jpeg)
+
+然后在Jupyter Lab中创建一个Terminal以便执行Quarto命令：
+
+![](images/jupyter-terminal.png)
+
+下一步，编译该笔记本（三条指令代表三种格式）：
+
+``` bash
+quarto render hello.ipynb --to html
+quarto render hello.ipynb --to docx
+quarto render hello.ipynb --to pdf
+```
+
+上述操作需确保该笔记本位于Jupyter Lab当前工作目录下。编译非当前工作目录笔记本的流程如下：
+
+1. 复制图中选中部分。
+
+![](images/select-jupyter-path.png)
+
+2. 进入Terminal，运行命令：
+
+最后，进入该笔记本所处的文件夹查看所生成文档。
+
+``` bash
+# "."不能少
+quarto render .粘贴内容 --to html
+```
+
+#### RStudio
+
+## 资料与工具
+
+### 资料
+
+[Quato官网](quarto.org)
+
+[一份其实很短的LaTeX入门文档](https://liam.page/2014/09/08/latex-introduction/)
+
+[使用knitr包输出各种类型的LaTeX表格](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
+
+### 工具
+
+[在线LaTeX公式编辑器](https://latexlive.com/home)
+
+[流程图：Draw.io](https://www.draw.io/index.html)
+
+[思维导图：XMind](https://www.xmind.cn/)
+
+## 附录
+
+### cumcm.tex
+
+``` tex
+\documentclass[zihao = -4]{ctexart}
+\pagestyle{plain}
+\setlength{\belowcaptionskip}{0.25cm}
+\setlength{\abovecaptionskip}{0.25cm}
+
+% Load Packages--------------------------
+\usepackage[a4paper,vmargin=2.5cm,hmargin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage{makecell}
+\usepackage[section]{placeins}
+\hypersetup{hidelinks}
+\setCJKfamilyfont{song}[AutoFakeBold]{SimSun}
+\newcommand*{\song}{\CJKfamily{song}}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+% Pandoc Syntax Highlighting--------------
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% Section Format--------------------------
+\titleformat{\section}
+  {\zihao{4} \heiti\centering}
+  {}{0em}
+  {}
+  []
+
+\titleformat{\subsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}}{1em}
+  {}
+  []
+
+\titleformat{\subsubsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsubsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsection}}{1em}
+  {}
+  []
+  
+\titleformat{\subsubsubsubsubsubsection}
+  {\heiti}
+  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsubsection}}{1em}
+  {}
+  []
+
+%=========================================%
+\begin{document}
+% Preface---------------------------------
+$if(preface)$
+\newpage
+\begin{figure}[h]
+\begin{center}
+{\bfseries  \song \zihao{2} 21-22-2数学建模与数学实验}
+\vspace{2ex}\\
+{\bfseries  \song \zihao{2} 课程论文$NO$}
+\end{center}
+\end{figure}
+
+\vspace{16ex}
+
+{\bfseries  \song \zihao{4} 题目：} \zihao{4} $title$
+\vspace{4ex}
+
+{\bfseries  \song \zihao{4} 组队编号：} \zihao{4} $group$
+\vspace{4ex}
+
+{\bfseries  \song \zihao{4} 学生1}
+\vspace{4ex}
+
+\song \zihao{4}{{\bfseries   姓名}\  \zihao{4}{ \uline{\quad \ $name1$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class1$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number1$\quad \ }}
+
+$if(name2)$
+\vspace{4ex}
+{\bfseries  \song \zihao{4} 学生2}
+\vspace{4ex}
+
+\song \zihao{4}{{\bfseries  姓名}\   \zihao{4}{ \uline{\quad \ $name2$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class2$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number2$\quad \ }}
+$endif$
+
+$if(name3)$
+\vspace{4ex}
+{\bfseries  \song \zihao{4} 学生3}
+\vspace{4ex}
+
+\song \zihao{4}{{\bfseries   姓名}\  \zihao{4}{ \uline{\quad \ $name3$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class3$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number3$\quad \ }}
+$endif$
+
+\begin{figure}[b]
+\begin{center}
+{\bfseries  \song \zihao{4} 成都工业学院}
+\vspace{4ex}\\
+{\bfseries  \song \zihao{4} $time$}
+\end{center}
+\end{figure}
+$endif$
+
+% Abstract--------------------------------
+\newpage
+
+$if(title)$
+\begin{center}
+{\zihao{3} \heiti $title$}
+\vspace{3ex}
+$endif$
+
+{{\heiti \zihao{4} 摘\quad 要}}
+\end{center}
+
+$if(abstract)$
+$abstract$
+$endif$
+
+{\vspace{4ex}\noindent{\heiti 关键词:}}
+$keyword$
+
+% Main Body-------------------------------
+\newpage
+$body$
+
+\end{document}
+```
