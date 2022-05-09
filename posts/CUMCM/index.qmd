@@ -557,11 +557,11 @@ plt.show()
 2. 下载你的编辑器所对应文件格式：
 
 ::: {.callout-note appearance="minimal"}
-<i class="bi bi-journal-code"></i> [Download Jupyter-Demo](_Jupyter-Demo.ipynb){download="Jupyter-Demo"}
+<i class="bi bi-journal-code"></i> [Download Jupyter-Demo](_Jupyter-Demo.ipynb){download="Jupyter-Demo.ipynb"}
 :::
 
 ::: {.callout-note appearance="minimal"}
-<i class="bi bi-journal-code"></i> [Download RStudio-Demo](_RStudio-Demo.qmd){download="RStudio-Demo"}
+<i class="bi bi-journal-code"></i> [Download RStudio-Demo](_RStudio-Demo.qmd){download="RStudio-Demo.qmd"}
 :::
 
 3. 将下载的三个文件放入同一文件夹中，编译对应文件查看结果。
