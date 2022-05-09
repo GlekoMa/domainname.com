@@ -1,0 +1,51 @@
+---
+title: "Quarto For Jupyter"
+---
+
+Last updated: May 9 2022
+
+## 概览
+
+1. 下载范例笔记本``hello.ipynb``：
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download hello.ipynb](_hello.ipynb){download="hello.ipynb"}
+:::
+
+2. 在Jupyter Lab中打开``hello.ipynb``：
+
+![](images/hello-ipynb.jpeg)
+
+3. 在Jupyter Lab中创建一个Terminal以执行Quarto命令：
+
+![](images/jupyter-terminal.png)
+
+4. 逐条输入以下指令编译该笔记本（三条指令代表三种对应的格式）：
+
+``` bash
+quarto render hello.ipynb --to html
+quarto render hello.ipynb --to docx
+quarto render hello.ipynb --to pdf
+```
+
+上述操作需确保该笔记本位于Jupyter Lab当前工作目录下。编译非当前工作目录笔记本的流程见附录 @sec-jupyter0。
+
+5. 进入该笔记本所在文件（工作目录）查看所生成文档。
+
+
+### 附录
+
+#### - Jupyter运行非当前工作目录笔记本 {#sec-jupyter0}
+
+在Terminal中运行非当前工作目录笔记本只需人工指定路径（绝对路径）即可：
+
+1. 复制图中选中部分。
+
+![](images/select-jupyter-path.png)
+
+2. 进入Terminal，运行命令：
+
+``` bash
+# "."不能少
+quarto render .粘贴内容 --to html
+```

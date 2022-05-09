@@ -1,20 +1,17 @@
 ---
 title: "Quarto Template for CUMCM"
-author: "Gleko Ma"
 date: "2022/4/18"
 categories: [news]
 page-layout: full
 image: "hello.jfif"
-smooth-scroll: true
-toc: true
 ---
 
-Last updated: May 8 2022
+Last updated: May 9 2022
 
 ## 概述
 
 ### 关于Quarto
-
+<br />
 [Quato](https://quarto.org/)是一个开源的科技出版系统，支持Jupyter、RStudio和VS Code等多种代码编辑器。其官方描述如下：
 
 - 创建代码与文本结合的可动态编译内容。支持Python、R、Julia和Observable。
@@ -26,7 +23,7 @@ Last updated: May 8 2022
 - 支持数学公式、引文、交叉引用、图表、标注、高级布局以及其他特性。
 
 ### 使用须知
-
+<br />
 本文主要介绍Quarto在数学建模论文排版上的应用。关于此数学建模论文模板的使用，需要声明以下几点：
 
 1. 该模板谨按照全国大学生数学建模竞赛的标准进行设计，不适用于美赛、深圳杯等其他数学建模赛事。
@@ -63,10 +60,10 @@ RStudio
 </ul>
 :::
 
-::: {style="width:900px;overflow:auto;"}
+::: {style="width:790px;overflow:auto;"}
 ::: {#hello-cumcm-tabcontent .tab-content}
 ::: {#jupyter .tab-pane .fade .show .active role="tabpanel" aria-labelledby="jupyter-tab"}
-::: {style="height:500px;width:880px;overflow:auto;"}
+::: {style="height:500px;width:770px;overflow:auto;"}
 
 在Jupyter中使用数学建模论文模板，只需为原Jupyter Notebook笔记本添加YAML头（raw模式），然后使用Quarto编译，即可渲染为指定论文格式。
 
@@ -87,6 +84,7 @@ format:
     keep-tex: true
   html:
     toc: true
+    toc-depth: 4
     code-fold: true
 #--队伍信息及摘要页--#
 NO: 一
@@ -199,7 +197,7 @@ plt.show()
 :::
 
 ::: {#rstudio .tab-pane .fade role="tabpanel" aria-labelledby="rstudio-tab"}
-::: {style="height:500px;width:880px;overflow:auto;"}
+::: {style="height:500px;width:770px;overflow:auto;"}
 RStudio为数学公式的输入提供了可视化。分为Source和Visual两种编辑模式，其中Visual模式提供了一些插件以便捷插入图表、代码块等。
 
 ::: grid
@@ -217,6 +215,7 @@ format:
     keep-tex: true
   html:
     toc: true
+    toc-depth: 4
     code-fold: true
 #--队伍信息及摘要页--#
 NO: 一
@@ -368,6 +367,7 @@ data[["a"]]
 ## 使用指南
 
 ### 准备工作
+<br />
 
 1. 从[Quato](https://quarto.org/)官网下载并安装软件
 
@@ -382,48 +382,189 @@ quarto tools install tinytex
 C:\Users\用户名\AppData\Roaming\TinyTeX\bin\win32
 ```
 
-### 选择工具
+### 选择编辑器
 
-#### Jupyter
+::: {.grid .step .column-page-left}
+::: {.tool .g-col-lg-12 .g-col-12}
 
-下载范例笔记本``hello.ipynb``并在Jupyter Lab中打开。
+　　　　　　
 
-::: {.callout-note appearance="minimal"}
-<i class="bi bi-journal-code"></i> [Download hello.ipynb](_hello.ipynb){download="hello.ipynb"}
+<a href="hello/jupyter.html" role="button" class="btn btn-outline-light">
+![](images/jupyter-logo.png){width="77"}Jupyter
+</a>
+
+<a href="hello/rstudio.html" role="button" class="btn btn-outline-light">
+![](images/rstudio-logo.png){width="77"}RStudio
+</a>
+
+<a href="hello/vscode.html" role="button" class="btn btn-outline-light">
+![](images/vscode-logo.png){width="77"}VS Code
+</a>
+
+:::
 :::
 
-显示如下：
+### 数学公式
 
-![](images/hello-ipynb.jpeg)
+Quarto使用LaTeX格式的数学公式。LaTeX数学公式是计算机中最为广泛使用的公式输入格式，大多数文字或文档编辑软件都对LaTeX数学公式提供支持，例如：Word、Jupyter、Matlab等。下面介绍Quarto中数学公式的输入。
 
-然后在Jupyter Lab中创建一个Terminal以便执行Quarto命令：
+LaTeX中数学公式的输入分两种模式：行内模式（\$ ... \$）与行间模式
+````markdown
+$$
+...
+$$
+````
+前者是在正文的行文中插入数学公式；后者单独成行，且自动居中。
 
-![](images/jupyter-terminal.png)
+例如``$E=mc^2$``显示为$E=mc^2$,而
+````markdown
+$$
+E=mc^2
+$$
+````
+则显示为：
+$$
+E=mc^2
+$$
 
-下一步，编译该笔记本（三条指令代表三种格式）：
+输入带自动编号的公式则需要使用Quarto的交叉引用功能，例如：
+````markdown
+$$
+E=mc^2
+$$ {#eq-einstein}
 
-``` bash
-quarto render hello.ipynb --to html
-quarto render hello.ipynb --to docx
-quarto render hello.ipynb --to pdf
+# 第二个$$和{}间的空格不能少
+````
+显示为：
+$$
+E=mc^2
+$$ {#eq-einstein}
+
+交叉引用功能留待后面小节进行介绍。
+
+### 图片与表格
+
+Quarto的图片及表格插入使用Markdown语法。
+
+#### 插入图片
+
+图片插入请使用'!+[图片名]+(路径/链接)'的形式，支持插入的图片格式包括JPG、PNG、PDF等（不支持SVG），例如：
+````markdown
+![MIT LOGO](images/mit.png){#fig-MIT}
+
+# “{#fig-MIT}”的用处将在后面进行说明
+````
+显示为：
+
+![MIT LOGO](images/mit.png){#fig-MIT}
+
+特别的，针对PDF输出，可在``![]()``后添加``{}``控制输出样式，例如：
+````{markdown}
+![](images/mit.png){fig.pos="H" width="50%" height="25%"}
+````
+代表禁止图片浮动（有时会失效）、图片宽度占PDF页面的50%，高度占页面的25%。
+
+#### 插入表格
+
+例如：
+````markdown
+| 符号  | 说明        | 单位 |
+|-------|-------------|------|
+| $x_i$ | 第$i$次相遇 | 毫厘 |
+| $y_j$ | 第$j$次错过 | 千里 |
+
+: 符号说明 {#tbl-符号说明}
+
+# “: 符号说明” 代表指定表格名称
+# “{#tbl-符号说明}”的用处将在后面进行说明,其与表名间的空格不可省略
+````
+显示为：
+
+| 符号  | 说明        | 单位 |
+|-------|-------------|------|
+| $x_i$ | 第$i$次相遇 | 毫厘 |
+| $y_j$ | 第$j$次错过 | 千里 |
+
+: 符号说明 {#tbl-符号说明}
+
+### 代码块输出
+
+例如：
+
+````markdown
+```{{python}}
+#| label: fig-螺旋
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
 ```
 
-上述操作需确保该笔记本位于Jupyter Lab当前工作目录下。编译非当前工作目录笔记本的流程如下：
+# “#| 参数”可以设置代码块运行和输出机制
+````
+显示为：
+```{python}
+#| echo: false
+#| label: fig-螺旋
+#| fig-cap: "螺旋图"
 
-1. 复制图中选中部分。
+import numpy as np
+import matplotlib.pyplot as plt
 
-![](images/select-jupyter-path.png)
-
-2. 进入Terminal，运行命令：
-
-最后，进入该笔记本所处的文件夹查看所生成文档。
-
-``` bash
-# "."不能少
-quarto render .粘贴内容 --to html
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
 ```
 
-#### RStudio
+### 交叉引用
+
+本节介绍Quarto的交叉引用，我们在先前小节的数学公式、图片和表格中分别标记了``{#eq-einstein}``、``{#fig-MIT}``和``{#tbl-符号说明}``，我们可以在文中任何地方引用他们，格式为``[-@...]``，例如：
+````markdown
+[-@tbl-符号说明]
+````
+显示为：[-@tbl-符号说明]
+
+由于我们在上一节中的代码段中添加了标签``#| label: fig-螺旋``，所以我们也可以引用螺旋图[-@fig-螺旋]。
+
+### 数学模板的使用
+
+1. 下载模板文件``cumcm.tex``和范例图片``mit_logo.png``：
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download cumcm.tex](_cumcm.tex){download="cumcm.tex"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-file-earmark-image"></i> [Download mit_logo.png](_mit_logo.png){download="mit_logo.png"}
+:::
+
+2. 下载你的编辑器所对应文件格式：
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download Jupyter-Demo](_Jupyter-Demo.ipynb){download="Jupyter-Demo"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download RStudio-Demo](_RStudio-Demo.qmd){download="RStudio-Demo"}
+:::
+
+3. 将下载的三个文件放入同一文件夹中，编译对应文件查看结果。
 
 ## 资料与工具
 
@@ -442,166 +583,3 @@ quarto render .粘贴内容 --to html
 [流程图：Draw.io](https://www.draw.io/index.html)
 
 [思维导图：XMind](https://www.xmind.cn/)
-
-## 附录
-
-### cumcm.tex
-
-``` tex
-\documentclass[zihao = -4]{ctexart}
-\pagestyle{plain}
-\setlength{\belowcaptionskip}{0.25cm}
-\setlength{\abovecaptionskip}{0.25cm}
-
-% Load Packages--------------------------
-\usepackage[a4paper,vmargin=2.5cm,hmargin=2.5cm]{geometry}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{titlesec}
-\usepackage{ulem}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{array}
-\usepackage{float}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{xcolor}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage{makecell}
-\usepackage[section]{placeins}
-\hypersetup{hidelinks}
-\setCJKfamilyfont{song}[AutoFakeBold]{SimSun}
-\newcommand*{\song}{\CJKfamily{song}}
-\floatstyle{plaintop}
-\restylefloat{table}
-
-% Pandoc Syntax Highlighting--------------
-$if(highlighting-macros)$
-$highlighting-macros$
-$endif$
-
-% Section Format--------------------------
-\titleformat{\section}
-  {\zihao{4} \heiti\centering}
-  {}{0em}
-  {}
-  []
-
-\titleformat{\subsection}
-  {\heiti}
-  {\bfseries\arabic{section}.\bfseries\arabic{subsection}}{1em}
-  {}
-  []
-  
-\titleformat{\subsubsection}
-  {\heiti}
-  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}}{1em}
-  {}
-  []
-  
-\titleformat{\subsubsubsection}
-  {\heiti}
-  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}}{1em}
-  {}
-  []
-
-\titleformat{\subsubsubsubsection}
-  {\heiti}
-  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}}{1em}
-  {}
-  []
-  
-\titleformat{\subsubsubsubsubsection}
-  {\heiti}
-  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsection}}{1em}
-  {}
-  []
-  
-\titleformat{\subsubsubsubsubsubsection}
-  {\heiti}
-  {\bfseries\arabic{section}.\bfseries\arabic{subsection}.\bfseries\arabic{subsubsection}.\bfseries\arabic{subsubsubsection}.\bfseries\arabic{subsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsection}.\bfseries\arabic{subsubsubsubsubsubsection}}{1em}
-  {}
-  []
-
-%=========================================%
-\begin{document}
-% Preface---------------------------------
-$if(preface)$
-\newpage
-\begin{figure}[h]
-\begin{center}
-{\bfseries  \song \zihao{2} 21-22-2数学建模与数学实验}
-\vspace{2ex}\\
-{\bfseries  \song \zihao{2} 课程论文$NO$}
-\end{center}
-\end{figure}
-
-\vspace{16ex}
-
-{\bfseries  \song \zihao{4} 题目：} \zihao{4} $title$
-\vspace{4ex}
-
-{\bfseries  \song \zihao{4} 组队编号：} \zihao{4} $group$
-\vspace{4ex}
-
-{\bfseries  \song \zihao{4} 学生1}
-\vspace{4ex}
-
-\song \zihao{4}{{\bfseries   姓名}\  \zihao{4}{ \uline{\quad \ $name1$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class1$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number1$\quad \ }}
-
-$if(name2)$
-\vspace{4ex}
-{\bfseries  \song \zihao{4} 学生2}
-\vspace{4ex}
-
-\song \zihao{4}{{\bfseries  姓名}\   \zihao{4}{ \uline{\quad \ $name2$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class2$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number2$\quad \ }}
-$endif$
-
-$if(name3)$
-\vspace{4ex}
-{\bfseries  \song \zihao{4} 学生3}
-\vspace{4ex}
-
-\song \zihao{4}{{\bfseries   姓名}\  \zihao{4}{ \uline{\quad \ $name3$\quad \quad \ }\ {\bfseries 班级}\ \uline{\quad \ $class3$ \quad \ }\ {\bfseries 学号}\ \uline{\quad \ $number3$\quad \ }}
-$endif$
-
-\begin{figure}[b]
-\begin{center}
-{\bfseries  \song \zihao{4} 成都工业学院}
-\vspace{4ex}\\
-{\bfseries  \song \zihao{4} $time$}
-\end{center}
-\end{figure}
-$endif$
-
-% Abstract--------------------------------
-\newpage
-
-$if(title)$
-\begin{center}
-{\zihao{3} \heiti $title$}
-\vspace{3ex}
-$endif$
-
-{{\heiti \zihao{4} 摘\quad 要}}
-\end{center}
-
-$if(abstract)$
-$abstract$
-$endif$
-
-{\vspace{4ex}\noindent{\heiti 关键词:}}
-$keyword$
-
-% Main Body-------------------------------
-\newpage
-$body$
-
-\end{document}
-```

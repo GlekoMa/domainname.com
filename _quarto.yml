@@ -9,9 +9,13 @@ website:
     background: light
     right:
       - about.qmd
-      - icon: github
-        href: https://github.com/
 format:
   html:
-    theme: cosmo
+    theme:
+      - cosmo
+      - custom.scss
     css: styles.css
+    fontsize: 1.05em
+    smooth-scroll: true
+    toc: true
+    toc-depth: 4
