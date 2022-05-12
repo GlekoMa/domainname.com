@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 9 2022\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 9 2022\n\n\n\n\n\n\nApr 18, 2022\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 9 2022\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 9 2022\n\n\n\n\n\n\nApr 18, 2022\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 12 2022\n\n\n\n\n\n\nApr 18, 2022\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/CUMCM/hello/jupyter.html",
@@ -61,5 +61,47 @@
     "title": "Quarto Template for CUMCM",
     "section": "资料与工具",
     "text": "资料与工具\n\n资料\nQuato官网\n一份其实很短的LaTeX入门文档\n使用knitr包输出各种类型的LaTeX表格\n\n\n工具\n在线LaTeX公式编辑器\n流程图：Draw.io\n思维导图：XMind"
+  },
+  {
+    "objectID": "posts/saikr/index.html",
+    "href": "posts/saikr/index.html",
+    "title": "Quarto Template for saikr",
+    "section": "",
+    "text": "Last updated: May 12 2022\nQuarto模板：全国大学生数据统计与分析竞赛"
+  },
+  {
+    "objectID": "posts/saikr/index.html#应用范例",
+    "href": "posts/saikr/index.html#应用范例",
+    "title": "Quarto Template for saikr",
+    "section": "应用范例",
+    "text": "应用范例\n\n\n\n\nJupyter\n\n\n\n\nRStudio\n\n\n\n\n\n\n\n\n\n\n=============raw代码块=============\n---\nformat: \n  pdf:\n    template: saikr.tex\n    toc: true\n    highlight-style: github\ngroup-id: A2-2B\nproblem-id: C3-4D\ntitle: \"基于理想解法的院校评价模型\"\nabstract: |-\n  摘要第一段\n\n  摘要第二段：$E=mc^2$\nkeyword: 别问 \\ 问就是一只猪\n---\n\n==========Markdown代码块===========\n# 一、问题重述\n\n## 问题背景\n\n为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。\n\n## 结构与思路\n\n本节结构与相关思路如图1所示。\n\n![模型建立与求解的逻辑图](bb.pdf){fig.pos=\"H\" width=\"95%\" height=\"25%\"}\n\n### 生师比的转换\n\n查阅相关资料\\[1\\]，国际一流大学的生师比所在区间一般为2到4，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料\\[1\\]也表明，生师比在10以内都可以接受。\n\n### 各指标的标准化\n\n由于本文所采用标准化方法与加权方法数量较多，故本文首先给出所用到的数据处理方法（两种标准化方法与三种客观赋权法）的公式与简单说明。\n\n## TOPSIS法求解\n\nTOPSIS法也称为理想解法，是一种有效的多指标评价方法。\n\n理想解法相关公式有以下：\n$$\nc_j^*=\\begin{cases}\n\\max c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\min c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-正理想解}\n\n· $c_j^*$为第$j$列的正理想解（向量）。\n\n$$\nc_j^0=\\begin{cases}\n\\min c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\max c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-负理想解}\n\n· $c_j^0$为第$j$列的负理想解。\n\n# 参考文献\n\n\\noindent [1].别问\n\n\\noindent [2].问就是一只猪\n\n# 附录\n\n\\subsection*{A.代码}\n\n\\small\n```{python}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\\normalsize \n\n\n\n\n\n\n\n\n\n\n\n---\nformat: \n  pdf:\n    template: saikr.tex\n    toc: true\n    highlight-style: github\ngroup-id: A2-2B\nproblem-id: C3-4D\ntitle: \"基于理想解法的院校评价模型\"\nabstract: |-\n  摘要第一段\n\n  摘要第二段：$E=mc^2$\nkeyword: 别问 \\ 问就是一只猪\n---\n\n# 一、问题重述\n\n## 问题背景\n\n为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。\n\n## 结构与思路\n\n本节结构与相关思路如图1所示。\n\n![模型建立与求解的逻辑图](bb.pdf){fig.pos=\"H\" width=\"95%\" height=\"25%\"}\n\n### 生师比的转换\n\n查阅相关资料\\[1\\]，国际一流大学的生师比所在区间一般为2到4，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料\\[1\\]也表明，生师比在10以内都可以接受。\n\n### 各指标的标准化\n\n由于本文所采用标准化方法与加权方法数量较多，故本文首先给出所用到的数据处理方法（两种标准化方法与三种客观赋权法）的公式与简单说明。\n\n## TOPSIS法求解\n\nTOPSIS法也称为理想解法，是一种有效的多指标评价方法。\n\n理想解法相关公式有以下：\n$$\nc_j^*=\\begin{cases}\n\\max c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\min c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-正理想解}\n\n· $c_j^*$为第$j$列的正理想解（向量）。\n\n$$\nc_j^0=\\begin{cases}\n\\min c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\max c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-负理想解}\n\n· $c_j^0$为第$j$列的负理想解。\n\n# 参考文献\n\n\\noindent [1].别问\n\n\\noindent [2].问就是一只猪\n\n# 附录\n\n\\subsection*{A.代码}\n\n\\small\n```{python}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\\normalsize"
+  },
+  {
+    "objectID": "posts/saikr/index.html#使用指南",
+    "href": "posts/saikr/index.html#使用指南",
+    "title": "Quarto Template for saikr",
+    "section": "使用指南",
+    "text": "使用指南"
+  },
+  {
+    "objectID": "posts/saikr/index.html#模板说明",
+    "href": "posts/saikr/index.html#模板说明",
+    "title": "Quarto Template for saikr",
+    "section": "模板说明",
+    "text": "模板说明\n按照2021年官方发布论文格式规范制定：\n\n标题三号黑体、一级标题四号黑体、正文小四号宋体、单倍行距。\n队伍信息表格内字体五号居中。A4版面、四周2cm页边距、论文题目和摘要独占一页、目录独占一页、从正文开始编写页码、从阿拉伯数字“1”开始连续编号。\n目录下标题宋体、一级标题小四加粗、二级标题11pt加粗、三级标题11pt。\n源代码字号五号需要单独在文中指定*。\n\n模板另设：表格标题在上，图片标题在下；Python、R代码高亮。"
+  },
+  {
+    "objectID": "posts/saikr/index.html#sec-应用范例",
+    "href": "posts/saikr/index.html#sec-应用范例",
+    "title": "Quarto Template for saikr",
+    "section": "应用范例",
+    "text": "应用范例\n\n\n\n\nJupyter\n\n\n\n\nRStudio\n\n\n\n\n\n\n\n\n\n\n=============raw代码块=============\n---\nformat: \n  pdf:\n    template: saikr.tex\n    toc: true\n    highlight-style: github\ngroup-id: A2-2B\nproblem-id: C3-4D\ntitle: \"基于理想解法的院校评价模型\"\nabstract: |-\n  摘要第一段\n\n  摘要第二段：$E=mc^2$\nkeyword: 别问 \\ 问就是一只猪\n---\n\n==========Markdown代码块===========\n# 一、问题重述\n\n## 问题背景\n\n为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。\n\n## 结构与思路\n\n本节结构与相关思路如图1所示。\n\n![模型建立与求解的逻辑图](bb.pdf){fig.pos=\"H\" width=\"95%\" height=\"25%\"}\n\n### 生师比的转换\n\n查阅相关资料\\[1\\]，国际一流大学的生师比所在区间一般为2到4，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料\\[1\\]也表明，生师比在10以内都可以接受。\n\n### 各指标的标准化\n\n由于本文所采用标准化方法与加权方法数量较多，故本文首先给出所用到的数据处理方法（两种标准化方法与三种客观赋权法）的公式与简单说明。\n\n## TOPSIS法求解\n\nTOPSIS法也称为理想解法，是一种有效的多指标评价方法。\n\n理想解法相关公式有以下：\n$$\nc_j^*=\\begin{cases}\n\\max c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\min c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-正理想解}\n\n· $c_j^*$为第$j$列的正理想解（向量）。\n\n$$\nc_j^0=\\begin{cases}\n\\min c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\max c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-负理想解}\n\n· $c_j^0$为第$j$列的负理想解。\n\n# 参考文献\n\n\\noindent [1].别问\n\n\\noindent [2].问就是一只猪\n\n# 附录\n\n\\subsection*{A.代码}\n\n\\small\n```{python}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\\normalsize \n\n\n\n\n\n\n\n\n\n\n\n---\nformat: \n  pdf:\n    template: saikr.tex\n    toc: true\n    highlight-style: github\ngroup-id: A2-2B\nproblem-id: C3-4D\ntitle: \"基于理想解法的院校评价模型\"\nabstract: |-\n  摘要第一段\n\n  摘要第二段：$E=mc^2$\nkeyword: 别问 \\ 问就是一只猪\n---\n\n# 一、问题重述\n\n## 问题背景\n\n为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。\n\n## 结构与思路\n\n本节结构与相关思路如图1所示。\n\n![模型建立与求解的逻辑图](bb.pdf){fig.pos=\"H\" width=\"95%\" height=\"25%\"}\n\n### 生师比的转换\n\n查阅相关资料\\[1\\]，国际一流大学的生师比所在区间一般为2到4，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料\\[1\\]也表明，生师比在10以内都可以接受。\n\n### 各指标的标准化\n\n由于本文所采用标准化方法与加权方法数量较多，故本文首先给出所用到的数据处理方法（两种标准化方法与三种客观赋权法）的公式与简单说明。\n\n## TOPSIS法求解\n\nTOPSIS法也称为理想解法，是一种有效的多指标评价方法。\n\n理想解法相关公式有以下：\n$$\nc_j^*=\\begin{cases}\n\\max c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\min c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-正理想解}\n\n· $c_j^*$为第$j$列的正理想解（向量）。\n\n$$\nc_j^0=\\begin{cases}\n\\min c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\max c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-负理想解}\n\n· $c_j^0$为第$j$列的负理想解。\n\n# 参考文献\n\n\\noindent [1].别问\n\n\\noindent [2].问就是一只猪\n\n# 附录\n\n\\subsection*{A.代码}\n\n\\small\n```{python}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\\normalsize"
+  },
+  {
+    "objectID": "posts/saikr/index.html#使用说明",
+    "href": "posts/saikr/index.html#使用说明",
+    "title": "Quarto Template for saikr",
+    "section": "使用说明",
+    "text": "使用说明\n\n由于模板中，每个段落会自动首行缩进，而参考文献部分不需要首行缩进，需要在每段前加“”设定。\n附录部分推荐使用“\n”而不是“## 标题”来设置标题。前者不会编号也不会进入目录，后者会自动编号并进入目录。若想得到不编号且进入的目录的标题，请使用“## 标题{.unnumbered}”。\n由于模板正文使用字号为小四，所以对于源代码字体需要使用“”指令缩小为五号，待源代码书写完毕后，需要使用“”将后文字体还原为小四。具体请参照应用范例 Section 1。"
   }
 ]
