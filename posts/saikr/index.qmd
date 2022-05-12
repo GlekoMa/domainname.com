@@ -38,11 +38,11 @@ RStudio
 </ul>
 :::
 
-::: {style="width:790px;overflow:auto;"}
+::: {style="width:920px;overflow:auto;"}
 ::: {#hello-cumcm-tabcontent .tab-content}
 
 ::: {#jupyter .tab-pane .fade .show .active role="tabpanel" aria-labelledby="jupyter-tab"}
-::: {style="height:500px;width:770px;overflow:auto;"}
+::: {style="height:500px;width:800px;overflow:auto;"}
 
 
 
@@ -147,7 +147,7 @@ plt.show()
 :::
 
 ::: {#rstudio .tab-pane .fade role="tabpanel" aria-labelledby="rstudio-tab"}
-::: {style="height:500px;width:770px;overflow:auto;"}
+::: {style="height:500px;width:800px;overflow:auto;"}
 
 
 
@@ -274,3 +274,14 @@ plt.show()
 
 3. 由于模板正文使用字号为小四，所以对于源代码字体需要使用“\small”指令缩小为五号，待源代码书写完毕后，需要使用“\normalsize”将后文字体还原为小四。具体请参照应用范例 @sec-应用范例。
 
+## 附录
+
+模板文件``cumcm.tex``和范例图片``mit_logo.png``：
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download saikr.tex](_saikr.tex){download="saikr.tex"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-file-earmark-image"></i> [Download bb.pdf](_bb.pdf){download="bb.pdf"}
+:::
