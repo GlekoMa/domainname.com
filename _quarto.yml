@@ -6,16 +6,15 @@ website:
   site-url: https://stulink.netlify.app/
   description: "Blogs of Stulink"
   navbar:
-    background: light
     right:
       - about.qmd
 format:
   html:
     theme:
-      - cosmo
+      - Litera
       - custom.scss
     css: styles.css
-    fontsize: 1.05em
+    fontsize: 1.1em
     smooth-scroll: true
     toc: true
     toc-depth: 4

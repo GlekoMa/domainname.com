@@ -11,90 +11,13 @@
     "href": "index.html",
     "title": "Blog",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 9 2022\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 12 2022\n\n\n\n\n\n\nMay 12, 2022\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nLast updated: May 9 2022\n\n\n\n\n\n\nApr 18, 2022\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n我已经老了，有一天，在一处公共场所的大厅里，有一个男人向我走来。他主动介绍自己，他对我说：“我认识你，永远记得你。那时候，你还很年轻，人人都说你美，现在，我是特为来告诉你，对我来说，我觉得现在你比年轻的时候更美，那时你是年轻女人，与你那时的面貌相比，我更爱你现在备受摧残的面容。”\n\n\n\n\n \n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/CUMCM/hello/jupyter.html",
-    "href": "posts/CUMCM/hello/jupyter.html",
-    "title": "Quarto For Jupyter",
+    "objectID": "posts/test/test.html",
+    "href": "posts/test/test.html",
+    "title": "测试",
     "section": "",
-    "text": "Last updated: May 9 2022"
-  },
-  {
-    "objectID": "posts/CUMCM/hello/jupyter.html#概览",
-    "href": "posts/CUMCM/hello/jupyter.html#概览",
-    "title": "Quarto For Jupyter",
-    "section": "概览",
-    "text": "概览\n\n下载范例笔记本hello.ipynb：\n\n\n\n\n\n\n\n Download hello.ipynb\n\n\n\n\n在Jupyter Lab中打开hello.ipynb：\n\n\n\n在Jupyter Lab中创建一个Terminal以执行Quarto命令：\n\n\n\n逐条输入以下指令编译该笔记本（三条指令代表三种对应的格式）：\n\nquarto render hello.ipynb --to html\nquarto render hello.ipynb --to docx\nquarto render hello.ipynb --to pdf\n上述操作需确保该笔记本位于Jupyter Lab当前工作目录下。编译非当前工作目录笔记本的流程见附录 Section 1.1.1。\n\n进入该笔记本所在文件（工作目录）查看所生成文档。\n\n\n附录\n\n- Jupyter运行非当前工作目录笔记本\n在Terminal中运行非当前工作目录笔记本只需人工指定路径（绝对路径）即可：\n\n复制图中选中部分。\n\n\n\n进入Terminal，运行命令：\n\n# \".\"不能少\nquarto render .粘贴内容 --to html"
-  },
-  {
-    "objectID": "posts/CUMCM/index.html",
-    "href": "posts/CUMCM/index.html",
-    "title": "Quarto Template for CUMCM",
-    "section": "",
-    "text": "Last updated: May 9 2022"
-  },
-  {
-    "objectID": "posts/CUMCM/index.html#概述",
-    "href": "posts/CUMCM/index.html#概述",
-    "title": "Quarto Template for CUMCM",
-    "section": "概述",
-    "text": "概述\n\n引文\n一个统计或数据分析的科研项目， 都会产生一个或多个研究报告。 因为使用统计与数据分析不可避免地有很多计算涉及在内， 这里假设使用R软件做了计算。 科研是一个不断改进的过程， 所以每一次重新做了计算， 研究报告中的汇总表格、图形都要更新。 这样的任务比较繁琐， 也容易出错。\n“文学式编程”(literate programming, (Knuth 1984))是这样一种思想， 把撰写报告与计算程序有机地结合在一起， 用一个源文件既包含报告内容， 又包含计算程序。 每次产生研究报告时， 先运行源文件中的计算程序得到计算结果， 这些结果包括文字性内容与图形， 然后利用适当软件自动地把这些原始文字、计算结果组合成最终的报告。 利用这样的思想， 可以自动生成重复的例行报告， 还可以作为“可重复科学研究”的载体。\n（引自：李东风 | R语言教程）\n\n\n关于Quarto\n Quato是一个开源的科技出版系统，支持Jupyter、RStudio和VS Code等多种代码编辑器。其官方描述如下：\n\n创建代码与文本结合的可动态编译内容。支持Python、R、Julia和Observable。\n使用markdown文本或Jupyter笔记本的形式进行编译。\n渲染高质量论文、报告、幻灯片、网站、博客和书籍，并以HTML、PDF、MS Word、ePub或其他格式输出。\n支持数学公式、引文、交叉引用、图表、标注、高级布局以及其他特性。\n\n\n\n使用须知\n 本文主要介绍Quarto在数学建模论文排版上的应用。关于此数学建模论文模板的使用，需要声明以下几点：\n\n该模板谨按照全国大学生数学建模竞赛的标准进行设计，不适用于美赛、深圳杯等其他数学建模赛事。\n本模板仅适合对排版要求不高的朋友采用。模板主要使用LaTeX编写，由于一篇论文的编译流程大致为：ipynb/qmd -> md -> Pandoc -> PDF，层层抽象过多，故自定义排版布局对使用者相关知识的要求较高，且一旦编写格式逾矩，排错难度较大。\n对模板的过度依赖会导致使用者个人的排版能力下降，即使理想的未来情况为内容创作者不再需要为各式样的排版劳心，但就目前来说，社会对于个人的排版能力仍然有一定要求。"
-  },
-  {
-    "objectID": "posts/CUMCM/index.html#应用范例",
-    "href": "posts/CUMCM/index.html#应用范例",
-    "title": "Quarto Template for CUMCM",
-    "section": "应用范例",
-    "text": "应用范例\n\n\n\n\nJupyter\n\n\n\n\nRStudio\n\n\n\n\n\n\n\n\n在Jupyter中使用数学建模论文模板，只需为原Jupyter Notebook笔记本添加YAML头（raw模式），然后使用Quarto编译，即可渲染为指定论文格式。\n\n\n=============raw代码块=============\n\n---\n#-----YAML文件-----#\ncrossref: \n  fig-prefix: 图   # 设置引用格式\n  tbl-prefix: 表\n  eq-prefix: \"\"\nformat: \n  pdf:\n    template: stulink.tex\n    keep-tex: true\n  html:\n    toc: true\n    toc-depth: 4\n    code-fold: true\n#--队伍信息及摘要页--#\nNO: 一\ngroup: 1707\nschool: stulink大学\n#-------------------\nname1: 蛋卷\nclass1: 成都1店\nnumber1: 1000000000\n#-------------------\nname2: 烤肉\nclass2: 成都2店\nnumber2: 1000000001\n#-------------------\nname3: 麻辣拌\nclass3: 成都3店\nnumber3: 1000000002\n#-------------------\ntime: 2022年3月\npreface: yes  # 是否显示组队信息\ntitle: \"暴雨将至\"\nabstract: |-\n  摘要第一段\n  \n  摘要第二段\nkeyword: 别问 \\ 问就是一只猪\n---\n\n==========Markdown代码块===========\n\n# Jupyter Demo\n\n## 基础\n\n### 数学公式\n\n#### 质能方程\n\n$$\nE = mc^2\n$$ {#eq-质能方程}\n\n#### 自动编号\n\n$$\nG = mg\n$$ {#eq-重力公式}\n\n#### 无编号公式\n\n$$\n\\text{s.t.} = \n\\begin{cases}\nx + y\\\\\nx - y\n\\end{cases}\n$$\n\n### 表格及图片\n\n#### 符号说明\n\n| 符号  | 说明        | 单位 |\n|-------|-------------|------|\n| $x_i$ | 第$i$次相遇 | 毫厘 |\n| $y_j$ | 第$j$次错过 | 千里 |\n\n: 符号说明 {#tbl-符号说明}\n\n#### MIT LOGO\n\n![麻省理工学院](mit_logo.png){fig.pos=\"H\" width=\"50%\" height=\"17.5%\"}\n\n\n#### 代码输出\n\n===========Python代码块============\n\n#| echo: false\n#| fig.pos: \"b\"\n#| label: fig-螺旋\n#| fig-cap: \"螺旋图\"\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n==========Markdown代码块===========\n\n## 引用\n\n引用质能方程([-@eq-质能方程])、符号说明[-@tbl-符号说明]、螺旋图[-@fig-螺旋]。\n\n\n\n\n\n\n\n\n\nRStudio为数学公式的输入提供了可视化。分为Source和Visual两种编辑模式，其中Visual模式提供了一些插件以便捷插入图表、代码块等。\n\n\n---\n#------YAML文件------#\ncrossref: \n  fig-prefix: 图   # 设置引用格式\n  tbl-prefix: 表\n  eq-prefix: \"\"\nformat: \n  pdf:\n    template: stulink.tex\n    keep-tex: true\n  html:\n    toc: true\n    toc-depth: 4\n    code-fold: true\n#--队伍信息及摘要页--#\nNO: 一\ngroup: 1707\nschool: stulink大学\n#---------------------\nname1: 蛋卷\nclass1: 成都1店\nnumber1: 1000000000\n#---------------------\nname2: 烤肉\nclass2: 成都2店\nnumber2: 1000000001\n#---------------------\nname3: 麻辣拌\nclass3: 成都3店\nnumber3: 1000000002\n#---------------------\ntime: 2022年3月\npreface: yes  # 是否显示组队信息\ntitle: \"暴雨将至\"\nabstract: |-\n  摘要第一段\n  \n  摘要第二段\nkeyword: 别问 \\ 问就是一只猪\n---\n\n# Jupyter Demo\n\n## 基础\n\n### 数学公式\n\n#### 质能方程\n\n$$\nE = mc^2\n$$ {#eq-质能方程}\n\n#### 自动编号\n\n$$\nG = mg\n$$ {#eq-重力公式}\n\n#### 无编号公式\n\n$$\n\\text{s.t.} = \n\\begin{cases}\nx + y\\\\\nx - y\n\\end{cases}\n$$\n\n### 表格及图片\n\n#### 符号说明\n\n| 符号  | 说明        | 单位 |\n|-------|-------------|------|\n| $x_i$ | 第$i$次相遇 | 毫厘 |\n| $y_j$ | 第$j$次错过 | 千里 |\n\n: 符号说明 {#tbl-符号说明}\n\n#### MIT LOGO\n\n![麻省理工学院](mit_logo.png){fig.pos=\"H\" width=\"50%\" height=\"17.5%\"}\n\n#### R代码输出\n\n```{r}\n#| echo: false\n#| fig.pos: H\n#| label: fig-空气质量\n#| fig-cap: 温度与臭氧浓度\n#| warning: false\n\nlibrary(ggplot2)\n\nggplot(airquality, aes(Temp, Ozone)) + \n  geom_point() + \n  geom_smooth(method = \"loess\"\n)\n```\n\n#### Python代码输出\n\n```{python}\n#| echo: false\n#| fig.pos: H\n#| label: fig-螺旋\n#| fig-cap: \"螺旋图\"\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr0 = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r0\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r0)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\n\\newpage\n\n#### Python与R的相互调用\n\n\\indent\n\n```{r}\n# R代码\ndf = data.frame(\n  \"a\" = 1:3,\n  \"b\" = 4:6\n)\ndf[[\"a\"]]\n```\n\n```{python}\n# Python代码\nimport numpy as np\ndata = r.df\ndata[[\"a\"]]\n```\n\n## 引用\n\n引用质能方程([-@eq-质能方程])、符号说明[-@tbl-符号说明]、空气质量图[-@fig-空气质量]。"
-  },
-  {
-    "objectID": "posts/CUMCM/index.html#使用指南",
-    "href": "posts/CUMCM/index.html#使用指南",
-    "title": "Quarto Template for CUMCM",
-    "section": "使用指南",
-    "text": "使用指南\n\n准备工作\n\n\n从Quato官网下载并安装软件\n使用终端（Terminal）执行命令：\n\nquarto tools install tinytex\n\n把以下路径加入环境变量：\n\n# 注意改成你的用户名\nC:\\Users\\用户名\\AppData\\Roaming\\TinyTeX\\bin\\win32\n\n\n选择编辑器\n\n\n　　　　　　\n Jupyter \n RStudio \n VS Code \n\n\n\n\n数学公式\nQuarto使用LaTeX格式的数学公式。LaTeX数学公式是计算机中最为广泛使用的公式输入格式，大多数文字或文档编辑软件都对LaTeX数学公式提供支持，例如：Word、Jupyter、Matlab等。下面介绍Quarto中数学公式的输入。\nLaTeX中数学公式的输入分两种模式：行内模式（$ … $）与行间模式\n$$\n...\n$$\n前者是在正文的行文中插入数学公式；后者单独成行，且自动居中。\n例如$E=mc^2$显示为\\(E=mc^2\\),而\n$$\nE=mc^2\n$$\n则显示为： \\[\nE=mc^2\n\\]\n输入带自动编号的公式则需要使用Quarto的交叉引用功能，例如：\n$$\nE=mc^2\n$$ {#eq-einstein}\n\n# 第二个$$和{}间的空格不能少\n显示为： \\[\nE=mc^2\n\\qquad(1)\\]\n交叉引用功能留待后面小节进行介绍。\n\n\n图片与表格\nQuarto的图片及表格插入使用Markdown语法。\n\n插入图片\n图片插入请使用’!+[图片名]+(路径/链接)’的形式，支持插入的图片格式包括JPG、PNG、PDF等（不支持SVG），例如：\n![MIT LOGO](images/mit.png){#fig-MIT}\n\n# “{#fig-MIT}”的用处将在后面进行说明\n显示为：\n\n\n\nFigure 1: MIT LOGO\n\n\n特别的，针对PDF输出，可在![]()后添加{}控制输出样式，例如：\n![](images/mit.png){fig.pos=\"H\" width=\"50%\" height=\"25%\"}\n代表禁止图片浮动（有时会失效）、图片宽度占PDF页面的50%，高度占页面的25%。\n\n\n插入表格\n例如：\n| 符号  | 说明        | 单位 |\n|-------|-------------|------|\n| $x_i$ | 第$i$次相遇 | 毫厘 |\n| $y_j$ | 第$j$次错过 | 千里 |\n\n: 符号说明 {#tbl-符号说明}\n\n# “: 符号说明” 代表指定表格名称\n# “{#tbl-符号说明}”的用处将在后面进行说明,其与表名间的空格不可省略\n显示为：\n\n\nTable 1: 符号说明\n\n\n符号\n说明\n单位\n\n\n\n\n\\(x_i\\)\n第\\(i\\)次相遇\n毫厘\n\n\n\\(y_j\\)\n第\\(j\\)次错过\n千里\n\n\n\n\n\n\n\n代码块输出\n例如：\n```{python}\n#| label: fig-螺旋\n#| fig-cap: \"A line plot on a polar axis\"\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\n# “#| 参数”可以设置代码块运行和输出机制\n显示为：\n\n\n\n\n\nFigure 2: 螺旋图\n\n\n\n\n\n\n交叉引用\n本节介绍Quarto的交叉引用，我们在先前小节的数学公式、图片和表格中分别标记了{#eq-einstein}、{#fig-MIT}和{#tbl-符号说明}，我们可以在文中任何地方引用他们，格式为[-@...]，例如：\n[-@tbl-符号说明]\n显示为：1\n由于我们在上一节中的代码段中添加了标签#| label: fig-螺旋，所以我们也可以引用螺旋图2。\n\n\n数学模板的使用\n\n下载模板文件cumcm.tex和范例图片mit_logo.png：\n\n\n\n\n\n\n\n Download cumcm.tex\n\n\n\n\n\n\n\n\n\n Download mit_logo.png\n\n\n\n\n下载你的编辑器所对应文件格式：\n\n\n\n\n\n\n\n Download Jupyter-Demo\n\n\n\n\n\n\n\n\n\n Download RStudio-Demo\n\n\n\n\n将下载的三个文件放入同一文件夹中，编译对应文件查看结果。"
-  },
-  {
-    "objectID": "posts/CUMCM/index.html#资料与工具",
-    "href": "posts/CUMCM/index.html#资料与工具",
-    "title": "Quarto Template for CUMCM",
-    "section": "资料与工具",
-    "text": "资料与工具\n\n资料\nQuato官网\n一份其实很短的LaTeX入门文档\n使用knitr包输出各种类型的LaTeX表格\n\n\n工具\n在线LaTeX公式编辑器\n流程图：Draw.io\n思维导图：XMind"
-  },
-  {
-    "objectID": "posts/saikr/index.html",
-    "href": "posts/saikr/index.html",
-    "title": "Quarto Template for saikr",
-    "section": "",
-    "text": "Last updated: May 12 2022\nQuarto模板：全国大学生数据统计与分析竞赛"
-  },
-  {
-    "objectID": "posts/saikr/index.html#sec-应用范例",
-    "href": "posts/saikr/index.html#sec-应用范例",
-    "title": "Quarto Template for saikr",
-    "section": "应用范例",
-    "text": "应用范例\n\n\n\n\nJupyter\n\n\n\n\nRStudio\n\n\n\n\n\n\n\n\n\n\n=============raw代码块=============\n---\nformat: \n  pdf:\n    template: saikr.tex\n    toc: true\n    highlight-style: github\ngroup-id: A2-2B\nproblem-id: C3-4D\ntitle: \"基于理想解法的院校评价模型\"\nabstract: |-\n  摘要第一段\n\n  摘要第二段：$E=mc^2$\nkeyword: 别问 \\ 问就是一只猪\n---\n\n==========Markdown代码块===========\n# 一、问题重述\n\n## 问题背景\n\n为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。\n\n## 结构与思路\n\n本节结构与相关思路如图1所示。\n\n![模型建立与求解的逻辑图](bb.pdf){fig.pos=\"H\" width=\"95%\" height=\"25%\"}\n\n### 生师比的转换\n\n查阅相关资料\\[1\\]，国际一流大学的生师比所在区间一般为2到4，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料\\[1\\]也表明，生师比在10以内都可以接受。\n\n### 各指标的标准化\n\n由于本文所采用标准化方法与加权方法数量较多，故本文首先给出所用到的数据处理方法（两种标准化方法与三种客观赋权法）的公式与简单说明。\n\n## TOPSIS法求解\n\nTOPSIS法也称为理想解法，是一种有效的多指标评价方法。\n\n理想解法相关公式有以下：\n$$\nc_j^*=\\begin{cases}\n\\max c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\min c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-正理想解}\n\n· $c_j^*$为第$j$列的正理想解（向量）。\n\n$$\nc_j^0=\\begin{cases}\n\\min c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\max c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-负理想解}\n\n· $c_j^0$为第$j$列的负理想解。\n\n# 参考文献\n\n\\noindent [1].别问\n\n\\noindent [2].问就是一只猪\n\n# 附录\n\n\\subsection*{A.代码}\n\n\\small\n```{python}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\\normalsize \n\n\n\n\n\n\n\n\n\n\n\n---\nformat: \n  pdf:\n    template: saikr.tex\n    toc: true\n    highlight-style: github\ngroup-id: A2-2B\nproblem-id: C3-4D\ntitle: \"基于理想解法的院校评价模型\"\nabstract: |-\n  摘要第一段\n\n  摘要第二段：$E=mc^2$\nkeyword: 别问 \\ 问就是一只猪\n---\n\n# 一、问题重述\n\n## 问题背景\n\n为客观评价我国研究生教育实际状况与各研究生院教学质量，需要先抽取小样本进行试评估。\n\n## 结构与思路\n\n本节结构与相关思路如图1所示。\n\n![模型建立与求解的逻辑图](bb.pdf){fig.pos=\"H\" width=\"95%\" height=\"25%\"}\n\n### 生师比的转换\n\n查阅相关资料\\[1\\]，国际一流大学的生师比所在区间一般为2到4，就目前所剩数据（剔除第五行后）而言，无一达到。而该资料\\[1\\]也表明，生师比在10以内都可以接受。\n\n### 各指标的标准化\n\n由于本文所采用标准化方法与加权方法数量较多，故本文首先给出所用到的数据处理方法（两种标准化方法与三种客观赋权法）的公式与简单说明。\n\n## TOPSIS法求解\n\nTOPSIS法也称为理想解法，是一种有效的多指标评价方法。\n\n理想解法相关公式有以下：\n$$\nc_j^*=\\begin{cases}\n\\max c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\min c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-正理想解}\n\n· $c_j^*$为第$j$列的正理想解（向量）。\n\n$$\nc_j^0=\\begin{cases}\n\\min c_{ij},\\ \\ j\\text{为效益型属性}\\\\\n\\max c_{ij},\\ \\ j\\text{为成本型属性}.\n\\end{cases}\n$$ {#eq-负理想解}\n\n· $c_j^0$为第$j$列的负理想解。\n\n# 参考文献\n\n\\noindent [1].别问\n\n\\noindent [2].问就是一只猪\n\n# 附录\n\n\\subsection*{A.代码}\n\n\\small\n```{python}\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n```\n\\normalsize"
-  },
-  {
-    "objectID": "posts/saikr/index.html#模板说明",
-    "href": "posts/saikr/index.html#模板说明",
-    "title": "Quarto Template for saikr",
-    "section": "模板说明",
-    "text": "模板说明\n按照2021年官方发布论文格式规范制定：\n\n标题三号黑体、一级标题四号黑体、正文小四号宋体、单倍行距。\n队伍信息表格内字体五号居中。A4版面、四周2cm页边距、论文题目和摘要独占一页、目录独占一页、从正文开始编写页码、从阿拉伯数字“1”开始连续编号。\n目录下标题宋体、一级标题小四加粗、二级标题11pt加粗、三级标题11pt。\n源代码字号五号需要单独在文中指定*。\n\n模板另设：表格标题在上，图片标题在下；Python、R代码高亮。"
-  },
-  {
-    "objectID": "posts/saikr/index.html#使用说明",
-    "href": "posts/saikr/index.html#使用说明",
-    "title": "Quarto Template for saikr",
-    "section": "使用说明",
-    "text": "使用说明\n\n由于模板中，每个段落会自动首行缩进，而参考文献部分不需要首行缩进，需要在每段前加“”设定。\n附录部分推荐使用“\n”而不是“## 标题”来设置标题。前者不会编号也不会进入目录，后者会自动编号并进入目录。若想得到不编号且进入的目录的标题，请使用“## 标题{.unnumbered}”。\n由于模板正文使用字号为小四，所以对于源代码字体需要使用“”指令缩小为五号，待源代码书写完毕后，需要使用“”将后文字体还原为小四。具体请参照应用范例 Section 1。"
-  },
-  {
-    "objectID": "posts/saikr/index.html#附录",
-    "href": "posts/saikr/index.html#附录",
-    "title": "Quarto Template for saikr",
-    "section": "附录",
-    "text": "附录\n模板文件cumcm.tex和范例图片mit_logo.png：\n\n\n\n\n\n\n Download saikr.tex\n\n\n\n\n\n\n\n\n\n Download bb.pdf"
+    "text": "这个形象，我是时常想到的，这个形象，只有我一个人能看到，这个形象，我却从来不曾说起。它就在那里，在无声无息之中，永远使人为之惊叹。在所有的形象之中，只有它让我感到自悦自喜，只有在它那里，我才认识自己，感到心醉神迷。\n太晚了，太晚了，在我这一生中，这未免来得太早，也过于匆匆。才十八岁，就已经是太迟了。在十八岁和二十五岁之间，我原来的面貌早已不知去向。我在十八岁的时候就变老了。我不知道是不是所有的人都这样，我从来不曾问过什么人。好像有谁对我讲过时间转瞬即逝，在一生最年轻的岁月、最可赞叹的年华，在这样的时候，那时间来去匆匆，有时会突然让你感到震惊。衰老的过程是冷酷无情的。我眼看着衰老在我颜面上步步紧逼，一点点侵蚀，我的面容各有关部位也发生了变化，两眼变得越来越大，目光变得凄切无神，嘴变得更加固定僵化，额上刻满了深深的裂痕。我倒并没有被这一切吓倒，相反，我注意看那衰老如何在我的颜面上肆虐践踏，就好像我很有兴趣读一本书一样。我没有搞错，我知道；我知道衰老有一天也会减缓下来，按它通常的步伐徐徐前进。在我十七岁回到法国时认识我的人，两年后在我十九岁又见到我，一定会大为惊奇。这样的面貌，虽然已经成了新的模样，但我毕竟还是把它保持下来了。它毕竟曾经是我的面貌。它已经变老了，肯定是老了，不过，比起它本来应该变成的样子，相对来说，毕竟也没有变得老到那种地步。我的面容已经被深深的干枯的皱纹撕得四分五裂，皮肤也支离破碎了。它不像某些娟秀纤细的容颜那样，从此便告毁去，它原有的轮廓依然存在，不过，实质已经被摧毁了。我的容貌是被摧毁了。\n对你说什么好呢，我那时才十五岁半。\n那是在湄公河的轮渡上。\n在整个渡河过程中，那形象一直持续着。\n对你说什么好呢，我那时才十五岁半。那是在湄公河的轮渡上。在整个渡河过程中，那形象一直持续着。\n我那时住在西贡公立寄宿学校。食宿都在那里，在那个供食宿的寄宿学校，不过上课是在校外，在法国中学。我的母亲是小学教师，她希望她的小女儿进中学。你嘛，你应该进中学。对她来说，她是受过充分教育的，对她的小女儿来说，那就不够了。先读完中学，然后再正式通过中学数学教师资格会考。自从进了小学，开头几年，这样的老生常谈就不绝于耳。我从来不曾幻想我竟可以逃脱数学教师资格会考这一关，让她心里总怀着那样一份希望，我倒是深自庆幸的。我看我母亲每时每刻都在为她的儿女、为她自己的前途奔走操劳。终于有一天，她不需再为她的两个儿子的远大前程奔走了，他们成不了什么大气候，她也只好另谋出路，为他们谋求某些微不足道的未来生计，不过说起来，他们也算是尽到了他们的责任，他们把摆在他们面前的时机都一一给堵死了。我记得我的小哥哥学过会计课程。在函授学校，反正任何年龄任何年级都是可以学的。我母亲说，补课呀，追上去呀。只有三天热度，第四天就不行了。不干了。换了住地，函授学校的课程也只好放弃，于是另换学校，再从头开始。就像这样，我母亲坚持了整整十年，一事无成。我的小哥哥总算在西贡成了一个小小的会计。那时在殖民地机电学校是没有的，所以我们必须把大哥送回法国。他好几年留在法国机电学校读书。其实他并没有入学。我的母亲是不会受骗的。不过她也毫无选择余地，不得不让这个儿子和另外两个孩子分开。所以，几年之内，他并不在家中。正是他不在家的这几年时间，母亲购置下那块租让地。真是可怕的经历啊。不过，对我们这些留下没有出去的孩子来说，总比半夜面对虐杀小孩的凶手要好得多，不那么可怕。那真像是猎手之夜那样可怕。\n（节选自《情人》杜拉斯）"
   }
 ]

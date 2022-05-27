@@ -1,0 +1,14 @@
+{
+  "hash": "e737489f913cb1ee037a3f87f217e7f9",
+  "result": {
+    "markdown": "---\ntitle: \"Debug\"\ncategories: [news]\nimage: \"longdark.png\"\nfontsize: 11pt\n---\n\nExperience of Debug\n\n### Quarto编译Python代码块时无法导入模块\n\n1. 2022年5月14日晚 8：30-次日凌晨1：15\n2. Gleko着手修复Quarto无法混编Python和R的问题\n3. 报错为reticulate找不到模块\n4. 使用其他电脑编译，编译正常，无报错。\n5. 本机起初使用编辑器为VS Code，更换Rstudio后，仍报告该错误\n6. 重新安装该模块后，仍报告该错误\n7. 删除reticulate包并重新安装后，仍报告该错误\n8. 使用rmd编译，也同样报告该错误\n9. 删除knitr包并重新安装后，仍报告该错误\n10. 卸载本机的msys64与miniconda（包含本机全部两个python.exe）并重新安装Anaconda后，仍报告该错误\n11. 卸载本机全部R(包含R4.12、R4.13和近一年安装的全部包)并安装R4.2.0后，仍报告该错误\n12. 注意到在执行Sys.setenv(RETICULATE_PYTHON = \"C:/ProgramData/Anaconda3/python.exe\")后，将正常编译\n13. 于是在qmd与rmd文件开始加入r代码块，编译仍报告该错误（对此结果有两种猜测：1.rmd中r代码块环境与r交互环境不共享配置；2.rmd的r代码块执行只储存数据，不存储配置）\n14. 试图修改reticulate包默认配置，但这种方式在更新包后就将失效，非长久之计，遂作罢\n15. 在.Rprofile配置文件中加入Sys.setenv(RETICULATE_PYTHON = \"C:/ProgramData/Anaconda3/python.exe\")，终于成功\n16. 历时近5小时，颇难忘，今谨记于此。\n\n#### 附：\n\n1. 虽当时报告无法找到模块，但值得注意的是numpy可以找到，而其他模块都不行。查看reticulate配置如下\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(reticulate)\npy_config()\n```\n\n::: {.cell-output-stdout}\n```\npython:         C:/ProgramData/Anaconda3/python.exe\nlibpython:      C:/ProgramData/Anaconda3/python39.dll\npythonhome:     C:/ProgramData/Anaconda3\nversion:        3.9.7 (default, Sep 16 2021, 16:59:28) [MSC v.1916 64 bit (AMD64)]\nArchitecture:   64bit\nnumpy:          C:/ProgramData/Anaconda3/Lib/site-packages/numpy\nnumpy_version:  1.20.3\n\nNOTE: Python version was forced by RETICULATE_PYTHON\n```\n:::\n:::\n\n只显示了numpy。所以从这儿入手想了办法。现在排完错后，查看reticulate配置依旧只显示numpy，其大概就是这么设计的。\n\n2. 未排错时，单独运行python代码块可以出结果，但编译整个文件就不行，这点很有意思，仍未弄明白。\n\n3. 寻找路径方法\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(reticulate)\npypath = py_config()\nSys.setenv(RETICULATE_PYTHON = pypath[[1]])\n```\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": [],
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": null
+  }
+}
