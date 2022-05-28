@@ -17,7 +17,6 @@ format:
     smooth-scroll: true
     toc: true
 listing: 
-  type: table
   filter-ui: false
   fields: [date, author, title, description]
   

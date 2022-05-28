@@ -16,3 +16,4 @@ css: styles.css
 format:
   html:
     fontsize: 1.38em
+listing: false
