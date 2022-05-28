@@ -10,3 +10,10 @@ title-block-banner: false
 # Gleko add
 # include-after-body:
 #   - ../comments.html
+
+navbar: false
+css: styles.css
+format:
+  html:
+    theme: journal
+    fontsize: 1.38em
