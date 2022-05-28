@@ -1,20 +1,23 @@
 project:
   type: website
   
-website:
+website: 
   title: "Stulink"
-  site-url: https://stulink.netlify.app/
-  description: "Blogs of Stulink"
-  navbar:
-    right:
-      - about.qmd
+  navbar: 
+    title: " "
+    background: white
+    foreground: black
 format:
   html:
     theme: 
-      - Litera
+      - journal
       - custom.scss
     css: styles.css
     fontsize: 1.1em
     smooth-scroll: true
     toc: true
-    toc-depth: 4
+listing: 
+  type: table
+  filter-ui: false
+  fields: [date, author, title, description]
+  

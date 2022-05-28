@@ -21,3 +21,6 @@ p {
     line-height: 2;
     margin-bottom: 1em;
 }
+.quarto-title-meta-heading {display: none;}
+.quarto-title-authors{display: none;}
+.date {display: none;}

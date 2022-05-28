@@ -15,5 +15,4 @@ navbar: false
 css: styles.css
 format:
   html:
-    theme: journal
     fontsize: 1.38em

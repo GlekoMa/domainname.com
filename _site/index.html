@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.166">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Stulink - 文章</title>
+  <title>Stulink</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -60,9 +60,9 @@
       }
 
       const options = {
-        valueNames: ['listing-title','listing-author','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+        valueNames: ['listing-date','listing-author','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
         
-        searchColumns: ["listing-title","listing-author","listing-description"],
+        searchColumns: ["listing-date","listing-title","listing-author","listing-description"],
       };
 
       window['quarto-listings'] = window['quarto-listings'] || {};
@@ -84,19 +84,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Stulink</span>
+    <span class="navbar-title"></span>
   </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html">About</a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
+          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -106,10 +96,7 @@
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full column-page" id="quarto-document-content">
-<header id="title-block-header" class="quarto-title-block default page-columns page-full" data-sidebar-align="true">
-
-<div class="quarto-title-banner color-navbar page-columns page-full"><div class="quarto-title column-page"><h1 class="title display-7">文章</h1></div></div></header>
+<main class="content column-page" id="quarto-document-content">
 
 
 
@@ -124,22 +111,24 @@
          <option value="listing-title" data-direction="asc">
           Title
         </option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
          <option value="listing-author" data-direction="asc">
           Author
         </option>
      </select>
   </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1653739956454" data-listing-reading-time-sort="0.005">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1653580800000" data-listing-file-modified-sort="1653745267089" data-listing-reading-time-sort="0.005">
 <div class="body">
 <a href="./posts/test/test.html">
 <h3 class="no-anchor listing-title">
-测试
+情人
 </h3>
 <div class="listing-subtitle">
 
@@ -150,7 +139,14 @@
 </a>
 </div>
 <div class="metadata">
-<a href="./posts/test/test.html"> </a>
+<a href="./posts/test/test.html">
+<div class="listing-date">
+May 27, 2022
+</div>
+<div class="listing-author">
+Marguerite Duras
+</div>
+</a>
 </div>
 </div>
 </div>

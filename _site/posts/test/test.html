@@ -3,7 +3,8 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.166">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Stulink - 测试</title>
+  <meta name="author" content="Marguerite Duras">
+  <title>Stulink - 情人</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,8 @@
   <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="../../site_libs/quarto-search/fuse.min.js"></script>
   <script src="../../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../../site_libs/quarto-listing/list.min.js"></script>
+  <script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
   <script src="../../site_libs/quarto-html/quarto.js"></script>
   <script src="../../site_libs/quarto-html/popper.min.js"></script>
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -48,6 +51,29 @@
       "search-submit-button-title": "Submit"
     }
   }</script>
+  <script>
+
+    window.document.addEventListener("DOMContentLoaded", function (_event) {
+      const listingTargetEl = window.document.querySelector('#listing-listing .list');
+      if (!listingTargetEl) {
+        // No listing discovered, do not attach.
+        return; 
+      }
+
+      const options = {
+        valueNames: ['listing-date','listing-author','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+        
+        searchColumns: ["listing-date","listing-title","listing-author"],
+      };
+
+      window['quarto-listings'] = window['quarto-listings'] || {};
+      window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+      if (window['quarto-listing-loaded']) {
+        window['quarto-listing-loaded']();
+      }
+    });
+    </script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -65,7 +91,11 @@
 <main class="content" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title display-7">测试</h1></div></header>
+
+
+<div class="quarto-title"><h1 class="title display-7">情人</h1></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><div><div>
+<p>Marguerite Duras</p>
+</div></div></div></div></div><div><div class="quarto-title-meta-heading">Published</div><div class="quarto-title-meta-contents"><p class="date">May 27, 2022</p></div></div></div></header>
 <p>我已经老了，有一天，在一处公共场所的大厅里，有一个男人向我走来。他主动介绍自己，他对我说：“我认识你，永远记得你。那时候，你还很年轻，人人都说你美，现在，我是特为来告诉你，对我来说，我觉得现在你比年轻的时候更美，那时你是年轻女人，与你那时的面貌相比，我更爱你现在备受摧残的面容。”</p>
 <p>这个形象，我是时常想到的，这个形象，只有我一个人能看到，这个形象，我却从来不曾说起。它就在那里，在无声无息之中，永远使人为之惊叹。在所有的形象之中，只有它让我感到自悦自喜，只有在它那里，我才认识自己，感到心醉神迷。</p>
 <p>太晚了，太晚了，在我这一生中，这未免来得太早，也过于匆匆。才十八岁，就已经是太迟了。在十八岁和二十五岁之间，我原来的面貌早已不知去向。我在十八岁的时候就变老了。我不知道是不是所有的人都这样，我从来不曾问过什么人。好像有谁对我讲过时间转瞬即逝，在一生最年轻的岁月、最可赞叹的年华，在这样的时候，那时间来去匆匆，有时会突然让你感到震惊。衰老的过程是冷酷无情的。我眼看着衰老在我颜面上步步紧逼，一点点侵蚀，我的面容各有关部位也发生了变化，两眼变得越来越大，目光变得凄切无神，嘴变得更加固定僵化，额上刻满了深深的裂痕。我倒并没有被这一切吓倒，相反，我注意看那衰老如何在我的颜面上肆虐践踏，就好像我很有兴趣读一本书一样。我没有搞错，我知道；我知道衰老有一天也会减缓下来，按它通常的步伐徐徐前进。在我十七岁回到法国时认识我的人，两年后在我十九岁又见到我，一定会大为惊奇。这样的面貌，虽然已经成了新的模样，但我毕竟还是把它保持下来了。它毕竟曾经是我的面貌。它已经变老了，肯定是老了，不过，比起它本来应该变成的样子，相对来说，毕竟也没有变得老到那种地步。我的面容已经被深深的干枯的皱纹撕得四分五裂，皮肤也支离破碎了。它不像某些娟秀纤细的容颜那样，从此便告毁去，它原有的轮廓依然存在，不过，实质已经被摧毁了。我的容貌是被摧毁了。</p>
@@ -78,7 +108,67 @@
 
 
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
+         <option value="listing-title-sort" data-direction="asc">
+          Title
+        </option>
+         <option value="listing-author" data-direction="asc">
+          Author
+        </option>
+     </select>
+  </div>
+</div>
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
+</th>
+<th>
+<a class="sort" data-sort="listing-author" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Author</a>
+</th>
+<th>
+<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-date-sort="1653580800000" data-listing-file-modified-sort="1653745267089" data-listing-reading-time-sort="0.005" data-listing-title-sort="情人" data-listing-filename-sort="test.md">
+<td class="listing-date">
+May 27, 2022
+</td>
+<td class="listing-author">
+Marguerite Duras
+</td>
+<td class="listing-title">
+<a href="../../posts/test/test.html" class="title">情人</a>
+</td>
+<td class="listing-description">
+我已经老了，有一天，在一处公共场所的大厅里，有一个男人向我走来。他主动介绍自己，他对我说：“我认识你，永远记得你。那时候，你还很年轻，人人都说你美，现在，我是特为来告诉你，对我来说，我觉得现在你比年轻的时候更美，那时你是年轻女人，与你那时的面貌相比，我更爱你现在备受摧残的面容。”
+</td>
+</tr>
+</tbody>
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
