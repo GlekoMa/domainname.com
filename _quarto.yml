@@ -18,5 +18,6 @@ format:
     toc: true
 listing: 
   filter-ui: false
+  max-description-length: 75
   fields: [date, author, title, description]
   
