@@ -153,7 +153,7 @@ $$ {#eq-einstein}
 2. 下载文档示例与示例图片：
 
 ::: {.callout-note appearance="minimal"}
-<i class="bi bi-journal-code"></i> [Download Demo](_Demo.qmd){download="Demo.md"}
+<i class="bi bi-journal-code"></i> [Download Demo](_Demo.md){download="Demo.md"}
 :::
 
 ::: {.callout-note appearance="minimal"}
