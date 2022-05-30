@@ -1,0 +1,26 @@
+/* css styles */ 
+body {background-color: #f4f5f2;}
+main {
+    margin-top: 3em;
+    margin-bottom: 3.5em;
+    margin-left: -4.75em;
+    margin-right: -4.75em;
+    padding: 4.5em;
+    border-top: 10px solid #e6cdc2;
+    box-shadow: 0 0 8px #ccc;
+    background: #fff;
+  }
+.title {
+    font-size: 1.6em;
+    margin-top: 40px;
+    line-height: 1.2;
+    text-align: center;
+    text-indent: 0;
+}
+p {
+    line-height: 2;
+    margin-bottom: 1em;
+}
+.quarto-title-meta-heading {display: none;}
+.quarto-title-authors{display: none;}
+.date {display: none;}

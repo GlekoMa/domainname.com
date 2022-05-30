@@ -13,7 +13,7 @@ format:
       - journal
       - custom.scss
     css: styles.css
-    fontsize: 1.1em
+    fontsize: 1.2em
     smooth-scroll: true
     toc: true
 listing: 

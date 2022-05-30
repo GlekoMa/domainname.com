@@ -9,7 +9,7 @@ title-block-banner: false
 
 # Gleko add
 # include-after-body:
-#   - ../comments.html
+#  - ../comments.html
 
 navbar: false
 css: styles.css
