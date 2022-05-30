@@ -166,9 +166,13 @@ $$ {#eq-einstein}
 quarto preview 你的.md文档路径
 ```
 
-## 资料与工具
+### 资料与工具
 
-### 资料
+#### 演示视频
+
+[测试](https://www.bilibili.com/video/BV1YS4y1q7Qy/)
+
+#### 相关资料
 
 [Quato官网](quarto.org)
 
@@ -176,7 +180,7 @@ quarto preview 你的.md文档路径
 
 [使用knitr包输出各种类型的LaTeX表格](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
 
-### 工具
+#### 工具
 
 [在线LaTeX公式编辑器](https://latexlive.com/home)
 
