@@ -5,7 +5,7 @@ crossref:
   eq-prefix: ""
 format: 
   pdf:
-    template: _cumcm.tex
+    template: cumcm.tex
     highlight-style: github
 #--队伍信息及摘要页--#
 NO: 一 # 第几次论文
