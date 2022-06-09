@@ -1,0 +1,47 @@
+---
+title: 测试
+toc: false
+---
+
+### 构造数据
+
+```{python}
+import numpy as np
+import pandas as pd
+data = pd.DataFrame({'性别': ['男', '男', '女', '男', '女'],
+                     '年龄': [18, 30, 45, 3, 78],
+                     '年龄区间': ['10-20', '30-40', '40-50', '0-10', '大于70'],
+                     '化验项目：ALP': [10.0, 12.3, np.NaN, 0.6, 8.9],
+                     '化验项目：AT': [11.2, 3.3, np.NaN, 4.1, np.NaN]})
+data
+```
+
+### 更改列名
+
+```{python}
+data.columns=['性别', '年龄', '年龄区间', 'ALP', 'AT']
+data
+```
+
+### 删除年龄区间列
+
+```{python}
+del data['年龄区间']
+data
+```
+
+### 将性别列替换为1和0
+
+```{python}
+data.loc[data.性别 == '男', '性别'] = 1
+data.loc[data.性别 == '女', '性别'] = 0
+data
+```
+
+### 选出ALP和AT皆不为NA的列
+
+```{python}
+data = data[~data.ALP.isna() & ~data.AT.isna()]
+data
+```
+
