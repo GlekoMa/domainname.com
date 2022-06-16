@@ -1,6 +1,7 @@
 /* css styles */ 
 body {background-color: #f4f5f2;}
 main {
+    font-size: 1.1em;
     margin-top: 3em;
     margin-bottom: 3.5em;
     margin-left: -4.75em;
@@ -11,6 +12,7 @@ main {
     background: #fff;
   }
 .title {
+    font-size: 1.6em;
     margin-top: 40px;
     line-height: 1.2;
     text-align: center;
