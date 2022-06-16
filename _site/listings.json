@@ -2,6 +2,13 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Quarto/CUMCM.html",
+      "/posts/regression/xt2.14.html",
+      "/posts/regression/xt3.11.html",
+      "/posts/regression/xt4.9.html",
+      "/posts/regression/xt5.9.html",
+      "/posts/regression/xt7.6.html",
+      "/posts/regression/xt8.3.html",
       "/posts/test/test.html"
     ]
   }

@@ -1,0 +1,86 @@
+---
+title: 习题4.9
+fig-height: 3
+fig-width: 5
+---
+
+> **下表是用电高峰每小时用电量$y$与每月总用电量$x$的数据。**
+
+```{r}
+library(haven)
+data = read_sav("data/xt4.9.sav")
+head(data)
+```
+
+#### 1. 用普通最小二乘法建立$y$与$x$的回归方程，并画出残差散点图
+
+```{r}
+model0 = lm(y ~ x, data)
+model0
+```
+
+```{r}
+library(ggplot2)
+ggplot(model0, aes(x=x, y=.resid)) + 
+    geom_point() + 
+    geom_hline(yintercept = 0) + 
+    labs(y="Residuals")
+```
+
+#### 2. 诊断该问题是否存在异方差性
+
+*答：是。*
+
+```{r}
+# 等级相关系数法（Spearman检验）
+# 因为数据中有相同数字，其会产生结（tie）
+# 导致触发警告（Warning），但能够计算出结果
+# 为避免警告，可进行修正，如添加随机扰动等
+# 设置参数exact=FALSE即可
+cor.test(data$x, data$y, 
+         method="spearman", 
+         exact=FALSE)
+```
+
+
+#### 3. 如果存在异方差性，用幂指数型的权函数建立加权最小二乘回归方程
+
+```{r}
+# 编写寻找最优权函数
+# 特定于幂指型权函数的一元回归
+best_weight_1d = function(data, left=-2, right=2){
+    the_seq = seq(left, right, 0.5)
+    vec = rep(NA, length(the_seq))
+    j = 1
+    for (m in the_seq){
+        model1 = lm(y ~ x,
+                    weights=1/x^m,
+                    data=data)
+        vec[j] = logLik(model1) # logLik函数计算模型的对数似然值
+        j = j + 1
+    }
+    best_local = which.max(vec)
+    if(best_local != left & best_local != right){
+        cat("幂指数最优取值为:", the_seq[best_local])
+    }else if(best_local == left){
+        cat("最优值在边界达到，请扩充范围（left）")
+    }else{
+        cat("最优值在边界达到，请扩充范围（right）")
+    }
+}
+best_weight_1d(data)
+```
+
+```{r}
+# 令m=1.5
+model1 = lm(y ~ x, weights=1/x^1.5, data=data)
+model1
+```
+
+#### 4. 用方差稳定变换$y'=\sqrt{y}$消除异方差性
+
+```{r}
+data$y = sqrt(data$y)
+model2 = lm(y ~ x, data)
+model2
+```

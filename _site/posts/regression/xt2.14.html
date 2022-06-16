@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.166">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Stulink - 习题2.14</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../">
+  <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="fullcontent">
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+<div class="quarto-title"><h1 class="title display-7">习题2.14</h1></div></header>
+<blockquote class="blockquote">
+<p><strong>题目：为了调查某广告对销售收入的影响，某商店记录了5个月的销售收入<span class="math inline">\(y\)</span>（万元）和广告费用<span class="math inline">\(x\)</span>（万元），数据如下表所示。</strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read_sav</span>(<span class="st">"data/xt2.14.sav"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+      x     y
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1    10
+2     2    10
+3     3    20
+4     4    20
+5     5    40</code></pre>
+</div>
+</div>
+<section id="画散点图" class="level4">
+<h4 class="anchored" data-anchor-id="画散点图">1. 画散点图</h4>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>data, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="xt2.14_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="x与y之间是否大致呈线性关系" class="level4">
+<h4 class="anchored" data-anchor-id="x与y之间是否大致呈线性关系">2. <span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>之间是否大致呈线性关系</h4>
+<p><em>答：是。</em></p>
+</section>
+<section id="用最小二乘估计求出回归方程" class="level4">
+<h4 class="anchored" data-anchor-id="用最小二乘估计求出回归方程">3. 用最小二乘估计求出回归方程</h4>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 最小二乘法拟合回归模型</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>data)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x, data = data)
+
+Coefficients:
+(Intercept)            x  
+         -1            7  </code></pre>
+</div>
+</div>
+</section>
+<section id="求回归标准误差barsigma" class="level4">
+<h4 class="anchored" data-anchor-id="求回归标准误差barsigma">4. 求回归标准误差<span class="math inline">\(\bar{\sigma}\)</span></h4>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看summary结果</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中Residual standard error即为Se（或称SEE）</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Summary <span class="ot">=</span> <span class="fu">summary</span>(model)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Summary<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 6.055301</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 附：对lm对象使用summary函数将直接输出模型大部分信息</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x, data = data)
+
+Residuals:
+         1          2          3          4          5 
+ 4.000e+00 -3.000e+00 -3.775e-15 -7.000e+00  6.000e+00 
+attr(,"format.spss")
+[1] "F8.2"
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)   -1.000      6.351  -0.157   0.8849  
+x              7.000      1.915   3.656   0.0354 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.055 on 3 degrees of freedom
+Multiple R-squared:  0.8167,    Adjusted R-squared:  0.7556 
+F-statistic: 13.36 on 1 and 3 DF,  p-value: 0.03535</code></pre>
+</div>
+</div>
+</section>
+<section id="给出hatbeta_0与hatbeta_1的置信度为95的区间估计" class="level4">
+<h4 class="anchored" data-anchor-id="给出hatbeta_0与hatbeta_1的置信度为95的区间估计">5. 给出<span class="math inline">\(\hat{\beta}_0\)</span>与<span class="math inline">\(\hat{\beta}_1\)</span>的置信度为95%的区间估计</h4>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>                  2.5 %   97.5 %
+(Intercept) -21.2112485 19.21125
+x             0.9060793 13.09392</code></pre>
+</div>
+</div>
+</section>
+<section id="计算x与y的决定系数" class="level4">
+<h4 class="anchored" data-anchor-id="计算x与y的决定系数">6. 计算<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>的决定系数</h4>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Summary<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.8166667</code></pre>
+</div>
+</div>
+</section>
+<section id="对回归方程做方差分析" class="level4">
+<h4 class="anchored" data-anchor-id="对回归方程做方差分析">7. 对回归方程做方差分析</h4>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: y
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+x          1    490  490.00  13.364 0.03535 *
+Residuals  3    110   36.67                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="做回归方差beta_1的显著性检验" class="level4">
+<h4 class="anchored" data-anchor-id="做回归方差beta_1的显著性检验">8. 做回归方差<span class="math inline">\(\beta_1\)</span>的显著性检验</h4>
+<p><em>答：由（7）中方差分析表，P值0.0354 &lt; 0.05，显著性水平为5%的情况下拒绝原假设<span class="math inline">\(H_0:\beta_1 = 0\)</span>，即判定<span class="math inline">\(\beta_1\)</span>显著不为0。</em></p>
+</section>
+<section id="做相关系数的显著性检验" class="level4">
+<h4 class="anchored" data-anchor-id="做相关系数的显著性检验">9. 做相关系数的显著性检验</h4>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>x, data<span class="sc">$</span>y, <span class="at">method=</span><span class="st">'pearson'</span>)<span class="sc">$</span>estimate[[<span class="st">'cor'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0.9036961</code></pre>
+</div>
+</div>
+</section>
+<section id="对回归方程作残差图并作相关分析" class="level4">
+<h4 class="anchored" data-anchor-id="对回归方程作残差图并作相关分析">10. 对回归方程作残差图并作相关分析</h4>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 残差图</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(model, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>.resid)) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="xt2.14_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算内部学生化残差，然后检验异常值</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>estd <span class="ot">=</span> <span class="fu">rstandard</span>(model)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">abs</span>(estd) <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="co"># 大于3Sigma的数量，若为0则判定无异常值</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 附：当传入一个线性回归模型作为data时，ggplot会默认对其进行加工</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 藏而未现的真实数据框为fortify(model)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fortify</span>(model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>   y x .hat   .sigma      .cooksd .fitted        .resid  .stdresid
+1 10 1  0.6 5.916080 8.181818e-01       6  4.000000e+00  1.0444659
+2 10 2  0.3 6.969321 7.513915e-02      13 -3.000000e+00 -0.5921565
+3 20 3  0.2 7.416198 6.071932e-32      20 -3.774758e-15  0.0000000
+4 20 4  0.3 4.472136 4.090909e-01      27 -7.000000e+00 -1.3816986
+5 40 5  0.6 3.162278 1.840909e+00      34  6.000000e+00  1.5666989</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 附：对lm对象使用plot函数将直接画出四幅图像</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 详细解释参考：《R语言教程》李东风 回归诊断一节</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Residuals vs Fitted</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Normal QQ</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Scale-Location</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Residuals vs Leverage</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="xt2.14_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="480"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="xt2.14_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="480"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="xt2.14_files/figure-html/unnamed-chunk-13-3.png" class="img-fluid" width="480"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="xt2.14_files/figure-html/unnamed-chunk-13-4.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section>
+<section id="求当广告费用为4.2万元时销售收入将达到多少并给出置信度为95的置信区间" class="level4">
+<h4 class="anchored" data-anchor-id="求当广告费用为4.2万元时销售收入将达到多少并给出置信度为95的置信区间">11. 求当广告费用为4.2万元时，销售收入将达到多少，并给出置信度为95%的置信区间</h4>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interval="predict"计算因变量新值的区间预测</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># interval="confidence"计算因变量新值的平均值的区间预测</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fl">4.2</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">se.fit=</span><span class="cn">TRUE</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval=</span><span class="st">"predict"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">level=</span>.<span class="dv">95</span>)<span class="sc">$</span>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>   fit      lwr      upr
+1 28.4 6.059318 50.74068</code></pre>
+</div>
+</div>
+
+
+
+</section>
+</main> <!-- /main -->
+
+    <!-- ... -->
+    <script src="https://cdn.jsdelivr.net/npm/@waline/client"></script>
+    <!-- ... -->
+  
+  
+    <!-- ... -->
+    <div id="waline"></div>
+    <script>
+      Waline({
+        el: '#waline',
+        serverURL: 'https://waline-gwzx-dk13l03mk-glekoma.vercel.app/',
+        emoji: [
+          'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tw-emoji',
+          ],
+
+      });
+    </script>
+  
+  
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+</body></html>

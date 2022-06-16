@@ -1,0 +1,171 @@
+---
+title: 习题7.6
+fig-height: 3
+fig-width: 5
+---
+
+> **一家大型商业银行有多家分行，近年来，该银行的贷款额平稳增长，但不良贷款额也有较大比例的提高。为弄清楚不良贷款形成的原因，希望利用银行业务的有关数据做些定量分析，以便找出控制不良贷款的办法。下表是该银行所属25家分行2002年的有关业务数据。**
+
+```{r}
+library(haven)
+data = read_sav("data/xt7.6.sav", encoding="gbk")
+head(data)
+```
+
+#### 1. 计算$y$与其余4个变量的简单相关系数
+
+```{r}
+data = data[, -1] # 删去分行编号
+cor(data)
+```
+
+#### 2. 建立不良贷款$y$对4个自变量的线性回归方程，所得的回归系数是否合理？
+
+```{r}
+model = lm(y ~., data)
+model
+```
+
+#### 3. 分析回归模型的共线性
+
+```{r}
+#| message: false
+library(car)
+vif(model)
+```
+
+#### 4. 采用后退法和逐步回归法选择变量，所得回归方程的回归系数是否合理，是否还存在共线性？
+
+```{r}
+# 后退法
+model_back = step(model, direction="backward", trace=0)
+model_back
+```
+
+```{r}
+# 逐步回归法
+model_both = step(model, direction="both", trace=0)
+model_both
+```
+
+```{r}
+summary(model_both)
+```
+
+```{r}
+model2 = lm(y ~ x1 + x4, data)
+summary(model2)
+```
+
+
+#### 5. 建立不良贷款$y$对4个自变量的岭回归
+
+```{r}
+library(MASS)
+# 与课本所言不同，lm.ridge函数会自动对变量进行标准化
+# 但又如课本所言，lm.ridge的岭参数 == k*n
+# 下面计算k属于(0, 0.2)时的岭回归
+n = nrow(data)
+ridge = lm.ridge(y ~., 
+                 data, 
+                 lambda=seq(0, 0.2*n, 0.1)*nrow(data))
+```
+
+```{r}
+# 岭迹图
+# 注：x轴刻度除以n为k值
+plot(ridge)
+```
+
+```{r}
+# 附：编写函数，输入原始数据，返回ggplot岭迹图
+ggplot_ridge = function(data){
+    # 标准化与岭回归
+    library(MASS)
+    data_scaled = as.data.frame(scale(data))
+    ridge = lm.ridge(y ~., data_scaled, lambda=seq(0, 2, 0.1))
+
+    coef_ridge = as.data.frame(coef(ridge))
+    coef_ridge[, 1] = row.names(coef_ridge)
+    nrow_cr = nrow(coef_ridge)
+    ncol_cr = ncol(coef_ridge)
+
+    # 宽列表转换为长列表
+    library(tidyr)
+    coef_ridge_long = pivot_longer(coef_ridge, 
+                                  cols=2:all_of(ncol_cr),
+                                  names_to = "beta", 
+                                  values_to = "value")
+
+    # 岭迹图
+    library(ggplot2)
+    p = ggplot(coef_ridge_long, aes(x=V1, y=value, group=beta, color=beta)) + 
+        geom_smooth(se=FALSE) + 
+        labs(x="k") +  
+        theme_minimal()
+
+    # 岭迹图修饰
+    library(latex2exp)
+    df = coef_ridge[nrow_cr, ]
+    pos = as.numeric(df[, -1])
+    p = p + 
+          guides(color="none") + 
+          labs(y=TeX(r"($\bar{\beta}_j(k)$)")) + 
+          theme(axis.title.x=element_text(hjust=1),
+                axis.title.y=element_text(hjust=1, angle=1))
+    for (i in 1:length(pos)){
+      p = p + annotate(geom="text", 
+                       x=df[, 1], 
+                       y=pos[i], 
+                       label=as.character(i),
+                       vjust=-1)
+    }
+
+    return(p)
+}
+ggplot_ridge(data)
+```
+
+#### 6. 对第（4）步剔除变量后的回归方程再做岭回归
+
+```{r}
+# 编写函数，将标准化回归方程参数转化未标准化方程参数
+# 数据必须为tibble类型，变量顺序必须为y, x1, x2...
+unscale = function(data, coef){
+    my_sd = \(x) (mean((x-mean(x))^2))^0.5 # 定义计算总体标准差函数my_sd
+    coef_sd = apply(data[, -1], 2, my_sd)
+    coef_mean = apply(data[, -1], 2, mean)
+    beta_j = coef / coef_sd
+    beta_0 = sum(beta_j * -coef_mean) + apply(data[, 1], 2, mean)
+    names(beta_0) = "Intercept"
+    return(c(beta_0, beta_j))
+}
+```
+
+```{r}
+data0 = data[, c("y", "x1", "x4")]
+ridge = lm.ridge(y ~ ., data0, lambda=seq(0, 2*n, 0.1))
+plot(ridge)
+
+# 计算岭参数为0.4时的未标准化岭回归方程
+ridge = lm.ridge(y ~ ., data0, lambda=0.4*n)
+unscale(data0, ridge$coef)
+```
+
+#### 7. 某研究人员希望做$y$对各项贷款余额、本年累计应收贷款、贷款项目个数这3个自变量的回归，你认为这样做是否可行？如果可行应该如何做？
+
+```{r}
+data1 = data[, c("y", "x1", "x2", "x3")]
+ridge = lm.ridge(y ~ ., data1, lambda=seq(0, 2*n, 0.1))
+plot(ridge)
+unscale(data1, 0.4)
+```
+
+
+
+
+
+
+
+
+

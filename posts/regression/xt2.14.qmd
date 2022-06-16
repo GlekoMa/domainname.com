@@ -1,0 +1,121 @@
+---
+title: 习题2.14
+fig-height: 3
+fig-width: 5
+---
+
+> **题目：为了调查某广告对销售收入的影响，某商店记录了5个月的销售收入$y$（万元）和广告费用$x$（万元），数据如下表所示。**
+
+```{r}
+# 读取数据
+library(haven)
+data = read_sav("data/xt2.14.sav")
+head(data)
+```
+
+#### 1. 画散点图
+
+```{r}
+library(ggplot2)
+ggplot(data=data, mapping=aes(x=x, y=y)) +
+    geom_point()
+```
+
+#### 2. $x$与$y$之间是否大致呈线性关系
+
+*答：是。*
+
+#### 3. 用最小二乘估计求出回归方程
+
+```{r}
+# 最小二乘法拟合回归模型
+model = lm(y ~ x, data=data)
+model
+```
+
+#### 4. 求回归标准误差$\bar{\sigma}$
+
+```{r}
+# 查看summary结果
+# 其中Residual standard error即为Se（或称SEE）
+Summary = summary(model)
+Summary$sigma
+```
+
+```{r}
+# 附：对lm对象使用summary函数将直接输出模型大部分信息
+summary(model)
+```
+
+#### 5. 给出$\hat{\beta}_0$与$\hat{\beta}_1$的置信度为95%的区间估计
+
+```{r}
+confint(model)
+```
+
+#### 6. 计算$x$与$y$的决定系数
+
+```{r}
+Summary$r.squared
+```
+
+#### 7. 对回归方程做方差分析
+
+```{r}
+anova(model)
+```
+
+#### 8. 做回归方差$\beta_1$的显著性检验
+
+*答：由（7）中方差分析表，P值0.0354 < 0.05，显著性水平为5%的情况下拒绝原假设$H_0:\beta_1 = 0$，即判定$\beta_1$显著不为0。*
+
+#### 9. 做相关系数的显著性检验
+
+```{r}
+cor.test(data$x, data$y, method='pearson')$estimate[['cor']]
+```
+
+#### 10. 对回归方程作残差图并作相关分析
+
+```{r}
+# 残差图
+ggplot(model, aes(x=x, y=.resid)) + 
+    geom_point() + 
+    geom_hline(yintercept = 0) + 
+    labs(y="Residuals")
+```
+
+```{r}
+# 计算内部学生化残差，然后检验异常值
+estd = rstandard(model)
+sum(abs(estd) > 3) # 大于3Sigma的数量，若为0则判定无异常值
+```
+
+```{r}
+# 附：当传入一个线性回归模型作为data时，ggplot会默认对其进行加工
+# 藏而未现的真实数据框为fortify(model)
+head(fortify(model))
+```
+
+```{r}
+# 附：对lm对象使用plot函数将直接画出四幅图像
+# 详细解释参考：《R语言教程》李东风 回归诊断一节
+# 1. Residuals vs Fitted
+# 2. Normal QQ
+# 3. Scale-Location
+# 4. Residuals vs Leverage
+plot(model)
+```
+
+#### 11. 求当广告费用为4.2万元时，销售收入将达到多少，并给出置信度为95%的置信区间
+
+```{r}
+# interval="predict"计算因变量新值的区间预测
+# interval="confidence"计算因变量新值的平均值的区间预测
+predict(model, 
+        newdata=data.frame(x = 4.2),
+        se.fit=TRUE,
+        interval="predict",
+        level=.95)$fit
+```
+

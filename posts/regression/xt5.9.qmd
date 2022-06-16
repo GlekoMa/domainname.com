@@ -1,0 +1,32 @@
+---
+title: 习题5.9
+fig-height: 3
+fig-width: 5
+---
+
+> **数据如下表。由定性分析知。所选自变量都与因变量$y$由较强的相关性，分别用后退法和逐步回归法做自变量选元。**
+
+```{r}
+library(haven)
+data = read_sav("data/xt5.9.sav")
+head(data)
+```
+
+
+```{r}
+# 建立模型
+model = lm(y ~., data[, -1])
+model
+```
+
+```{r}
+# 后退法
+model_back = step(model, direction="backward", trace=0)
+model_back
+```
+
+```{r}
+# 逐步回归法
+model_both = step(model, direction="both", trace=0)
+model_both
+```
