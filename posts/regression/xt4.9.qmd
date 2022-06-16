@@ -2,6 +2,7 @@
 title: 习题4.9
 fig-height: 3
 fig-width: 5
+description: 违背基本假设的情况
 ---
 
 > **下表是用电高峰每小时用电量$y$与每月总用电量$x$的数据。**
