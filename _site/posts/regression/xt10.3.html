@@ -3,8 +3,8 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.166">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="description" content="自变量选择与逐步回归">
-  <title>Stulink - 习题5.9</title>
+  <meta name="description" content="含定性变量的回归模型">
+  <title>Stulink - 习题10.3</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -130,72 +130,35 @@
 <main class="content" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title display-7">习题5.9</h1><div class="quarto-description"><p>自变量选择与逐步回归</p></div></div></header>
+<div class="quarto-title"><h1 class="title display-7">习题10.3</h1><div class="quarto-description"><p>含定性变量的回归模型</p></div></div></header>
 <blockquote class="blockquote">
-<p><strong>数据如下表。由定性分析知。所选自变量都与因变量<span class="math inline">\(y\)</span>由较强的相关性，分别用后退法和逐步回归法做自变量选元。</strong></p>
+<p><strong>研究者想研究采取某项保险革新措施的速度<span class="math inline">\(y\)</span>与保险公司的规模<span class="math inline">\(x_1\)</span>和保险公司类型的关系。因变量的计量是第一个公司采纳这项革新和给定公司采纳这项革新在时间上先后间隔的月数。第一个自变量公司的规模是数量型的，用公司的总资产额（百万美元）来计量；第二个自变量公司的类型是定性变量，由两种类型构成，即股份公司和互助公司。数据如下表，试建立<span class="math inline">\(y\)</span>对公司规模和公司类型的回归。</strong></p>
 </blockquote>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read_sav</span>(<span class="st">"data/xt5.9.sav"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read_sav</span>(<span class="st">"data</span><span class="sc">\\</span><span class="st">xt10.3.sav"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">as.data.frame</span>(data)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-   年份    x1    x2    x3     x4    x5    x6     y
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  1978 1018. 1607   138.  96259 2239. 50760 1132.
-2  1979 1259. 1770.  144.  97542 2619. 39370 1146.
-3  1980 1359. 1996.  196.  98705 2976. 44530 1160.
-4  1981 1546. 2048.  207. 100072 3309. 39790 1176.
-5  1982 1762. 2162.  221. 101654 3638. 33130 1212.
-6  1983 1961. 2376.  271. 103008 4020. 34710 1367.</code></pre>
+<pre><code>   y  x1 公司类型 x2
+1 17 151     互助  0
+2 26  92     互助  0
+3 21 175     互助  0
+4 30  31     互助  0
+5 22 104     互助  0
+6  0 277     互助  0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 建立模型</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span>., data[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将公司类型“互助”、“股份”赋值为1和0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data[data<span class="sc">$</span>公司类型 <span class="sc">==</span> <span class="st">"互助"</span>, <span class="st">'公司类型'</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data[data<span class="sc">$</span>公司类型 <span class="sc">==</span> <span class="st">"股份"</span>, <span class="st">'公司类型'</span>] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(data<span class="sc">$</span>公司类型)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = y ~ ., data = data[, -1])
-
-Coefficients:
-(Intercept)           x1           x2           x3           x4           x5  
-  1.348e+03   -6.410e-01   -3.170e-01   -4.127e-01   -2.110e-03    6.711e-01  
-         x6  
- -7.541e-03  </code></pre>
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
+Levels: 0 1</code></pre>
 </div>
 </div>
-<p><strong>后退法</strong></p>
-<div class="cell">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_back <span class="ot">=</span> <span class="fu">step</span>(model, <span class="at">direction=</span><span class="st">"backward"</span>, <span class="at">trace=</span><span class="dv">0</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>model_back</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = y ~ x1 + x2 + x5, data = data[, -1])
-
-Coefficients:
-(Intercept)           x1           x2           x5  
-   874.5863      -0.6112      -0.3530       0.6367  </code></pre>
-</div>
-</div>
-<p><strong>逐步回归法</strong></p>
-<div class="cell">
-<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 逐步回归法</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model_both <span class="ot">=</span> <span class="fu">step</span>(model, <span class="at">direction=</span><span class="st">"both"</span>, <span class="at">trace=</span><span class="dv">0</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>model_both</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = y ~ x1 + x2 + x5, data = data[, -1])
-
-Coefficients:
-(Intercept)           x1           x2           x5  
-   874.5863      -0.6112      -0.3530       0.6367  </code></pre>
-</div>
-</div>
-<p>答：后退法与逐步回归法所保留的变量相同。最终都得到回归方程：<span class="math inline">\(y=874.6-0.611x_1-0.353x_2+0.637x_5\)</span>。但是回归系数的解释不合理。</p>
 
 
 

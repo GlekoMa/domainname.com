@@ -20,6 +20,8 @@ model0 = lm(y ~ x, data)
 model0
 ```
 
+答：回归方程为：$\hat{y} = -0.8313 + 0.0037x$。
+
 ```{r}
 library(ggplot2)
 ggplot(model0, aes(x=x, y=.resid)) + 
@@ -30,19 +32,16 @@ ggplot(model0, aes(x=x, y=.resid)) +
 
 #### 2. 诊断该问题是否存在异方差性
 
-*答：是。*
-
 ```{r}
 # 等级相关系数法（Spearman检验）
-# 因为数据中有相同数字，其会产生结（tie）
-# 导致触发警告（Warning），但能够计算出结果
-# 为避免警告，可进行修正，如添加随机扰动等
-# 设置参数exact=FALSE即可
-cor.test(data$x, data$y, 
+cor.test(data$x, 
+         abs(resid(model0)), 
+         alternative='two.sided',
          method="spearman", 
-         exact=FALSE)
+         conf.level=0.95)
 ```
 
+答：$|e_i|$与$x_i$的等级相关系数=0.318，P值=0.021，存在异方差性。
 
 #### 3. 如果存在异方差性，用幂指数型的权函数建立加权最小二乘回归方程
 
@@ -78,6 +77,8 @@ model1 = lm(y ~ x, weights=1/x^1.5, data=data)
 model1
 ```
 
+答：加权最小二乘回归方程为：$\hat{y} = -0.683 + 0.00356x$。等级相关系数为-0.076，P值为0.591，异方差性已消除。因$R^2=0.659$，小于普通最小二乘的0.705，说明加权最小二乘的效果不好。
+
 #### 4. 用方差稳定变换$y'=\sqrt{y}$消除异方差性
 
 ```{r}
@@ -85,3 +86,5 @@ data$y = sqrt(data$y)
 model2 = lm(y ~ x, data)
 model2
 ```
+
+答：经过方差稳定性变换后的回归方程为：$\hat{y}^{'} = 0.5822 + 0.0009529x$。等级相关系数为0.160，P值为0.254，异方差性已消除。因$R^2=0.710$，优于普通最小二乘的效果。

@@ -20,6 +20,7 @@ model = lm(y ~ ., data)
 summary(model)
 ```
 
+*回归方程为：$\hat{y}=62.4054+1.551x_1+0.510x_2+0.102x_3-0.144x_4$，回归系数大多不显著。*
 
 **逐步回归法**
 
@@ -34,6 +35,8 @@ summary(model_step)
 summary(lm(y ~ x1 + x2, data))
 ```
 
+*回归方程为：$\hat{y}=52.5774+1.468x_1+0.6623x_2$，虽回归系数皆显著，但剔除变量过多。*
+
 **主成分回归**
 
 ```{r}
@@ -42,7 +45,7 @@ pr = princomp(~ x1 + x2 + x3 + x4, data_scaled)
 summary(pr)
 ```
 
-*对前两个主成分做普通最小二乘回归*
+*前两个主成分的方差累计贡献率已达95.29%，遂对前两个主成分做普通最小二乘回归*
 
 ```{r}
 data_scaled$z1 = pr$scores[, 1]
@@ -70,6 +73,7 @@ unscale = function(data, coef){
 ```
 
 ```{r}
+#| message: false
 library(dplyr)
 data = tibble(data[, c(5, 1:4)])
 unscale(data, the_coef) # 结果与课本不同，待解决

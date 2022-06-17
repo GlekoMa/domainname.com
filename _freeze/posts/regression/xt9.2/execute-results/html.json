@@ -1,0 +1,16 @@
+{
+  "hash": "ca4b6c8680fb4dee819aed8e84bc081c",
+  "result": {
+    "markdown": "---\ntitle: 习题9.2\nfig-height: 3\nfig-width: 5\ndescription: 非线性回归\n---\n\n> **为了研究生产率与废料率之间的关系，记录数据如下表。请画出散点图，并根据散点图的趋势拟合适当的回归模型。**\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(haven)\ndata = read_sav(\"data\\\\xt9.2.sav\")\nhead(data)\n```\n\n::: {.cell-output-stdout}\n```\n# A tibble: 6 × 2\n      X     Y\n  <dbl> <dbl>\n1  1000   5.2\n2  2000   6.5\n3  3000   6.8\n4  3500   8.1\n5  4000  10.2\n6  4500  10.3\n```\n:::\n:::\n\n**画散点图**\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(ggplot2)\n(p = ggplot(data, aes(X, Y)) + \n        geom_point())\n```\n\n::: {.cell-output-display}\n![](xt9.2_files/figure-html/unnamed-chunk-2-1.png){width=480}\n:::\n:::\n\n**拟合二次曲线**\n\n::: {.cell}\n\n```{.r .cell-code}\nmodel = lm(Y ~ I(X^2), data)\nsummary(model)\n```\n\n::: {.cell-output-stdout}\n```\n\nCall:\nlm(formula = Y ~ I(X^2), data = data)\n\nResiduals:\n      1       2       3       4       5       6       7 \n 0.1556  0.5318 -0.7079 -0.4087  0.5365 -0.6723  0.5650 \nattr(,\"format.spss\")\n[1] \"F8.2\"\n\nCoefficients:\n             Estimate Std. Error t value Pr(>|t|)    \n(Intercept) 4.736e+00  4.482e-01   10.57 0.000131 ***\nI(X^2)      3.079e-07  3.022e-08   10.19 0.000156 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.6378 on 5 degrees of freedom\nMultiple R-squared:  0.954,\tAdjusted R-squared:  0.9449 \nF-statistic: 103.8 on 1 and 5 DF,  p-value: 0.0001563\n```\n:::\n:::\n\n模型$R^2=0.954$，F检验的P值=0.0001563<0.05，回归方程显著，回归系数全部t检验通过。拟合效果较好。\n\n**拟合效果展示**\n\n::: {.cell}\n\n```{.r .cell-code}\np + geom_smooth(method='lm',\n                formula=y ~ I(x^2),\n                se=FALSE)\n```\n\n::: {.cell-output-display}\n![](xt9.2_files/figure-html/unnamed-chunk-4-1.png){width=480}\n:::\n:::\n\n\n",
+    "supporting": [
+      "xt9.2_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": [],
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": null
+  }
+}

@@ -179,6 +179,7 @@ Coefficients:
    -348.280        3.754        7.101       12.447  </code></pre>
 </div>
 </div>
+<p>答：回归方程为：<span class="math inline">\(y=-348.28+3.754x_1 + 7.101x_2 + 12.447x_3\)</span>。</p>
 </section>
 <section id="对所求得的方程做拟合优度检验" class="level4">
 <h4 class="anchored" data-anchor-id="对所求得的方程做拟合优度检验">3. 对所求得的方程做拟合优度检验</h4>
@@ -189,6 +190,7 @@ Coefficients:
 <pre><code>[1] 0.8055077</code></pre>
 </div>
 </div>
+<p>答：<span class="math inline">\(R^2=0.8055\)</span>，接近1，说明方程拟合程度较好。</p>
 </section>
 <section id="对回归方程做显著性检验" class="level4">
 <h4 class="anchored" data-anchor-id="对回归方程做显著性检验">4. 对回归方程做显著性检验</h4>
@@ -219,6 +221,7 @@ Multiple R-squared:  0.8055,    Adjusted R-squared:  0.7083
 F-statistic: 8.283 on 3 and 6 DF,  p-value: 0.01487</code></pre>
 </div>
 </div>
+<p>答：F检验的P值=0.01487&lt;0.05，说明回归方程显著。</p>
 </section>
 <section id="对每一个回归系数做显著性检验" class="level4">
 <h4 class="anchored" data-anchor-id="对每一个回归系数做显著性检验">5. 对每一个回归系数做显著性检验</h4>
@@ -232,11 +235,12 @@ X2             7.100712   2.880281  2.465284 0.04876860
 X3            12.447470  10.569330  1.177697 0.28350986</code></pre>
 </div>
 </div>
+<p>答：对各回归系数t检验中，<span class="math inline">\(x_1\)</span>、<span class="math inline">\(x_3\)</span>相应P值&lt;0.5。在显著性水平5%情况下拒绝原假设，说明<span class="math inline">\(x_1\)</span>、<span class="math inline">\(x_3\)</span>对预测值<span class="math inline">\(y\)</span>没有显著影响。</p>
 </section>
 <section id="如果有的回归系数没通过显著性检验将其剔除重新建立回归方程再做方程的显著性检验和回归系数的显著性检验" class="level4">
 <h4 class="anchored" data-anchor-id="如果有的回归系数没通过显著性检验将其剔除重新建立回归方程再做方程的显著性检验和回归系数的显著性检验">6. 如果有的回归系数没通过显著性检验，将其剔除，重新建立回归方程，再做方程的显著性检验和回归系数的显著性检验</h4>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 由上题结果P值，剔除X3</span></span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 由上题结果P值大小，剔除X3</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">=</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, data)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Sm1 <span class="ot">=</span> <span class="fu">summary</span>(model1)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>Sm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -262,6 +266,7 @@ Multiple R-squared:  0.7605,    Adjusted R-squared:  0.6921
 F-statistic: 11.12 on 2 and 7 DF,  p-value: 0.006718</code></pre>
 </div>
 </div>
+<p>答：剔除<span class="math inline">\(x_3\)</span>后，重新建立的回归方程为：<span class="math inline">\(y=-459.624+4.676+8.971\)</span>。各回归系数相应P值皆小于0.05，即都通过显著性检验。</p>
 </section>
 <section id="求出每一个回归系数的置信水平为95的置信区间" class="level4">
 <h4 class="anchored" data-anchor-id="求出每一个回归系数的置信水平为95的置信区间">7. 求出每一个回归系数的置信水平为95%的置信区间</h4>
@@ -274,6 +279,7 @@ X1             0.3813047   8.969956
 X2             3.1339785  14.807944</code></pre>
 </div>
 </div>
+<p>答：<span class="math inline">\(\hat{\beta}_0\)</span>、<span class="math inline">\(\hat{\beta}_1\)</span>、<span class="math inline">\(\hat{\beta}_2\)</span>的95%置信区间分别为：(-821.55, -97.70)、(0.38, 8.97)和(3.13,14.81)。</p>
 </section>
 <section id="求标准化回归方程" class="level4">
 <h4 class="anchored" data-anchor-id="求标准化回归方程">8. 求标准化回归方程</h4>
@@ -290,18 +296,19 @@ Coefficients:
  -7.552e-16    4.792e-01    6.765e-01  </code></pre>
 </div>
 </div>
+<p>答：标准化回归方程为：<span class="math inline">\(y=-7.552\times 10^{-16} + 0.4792x_1 + 0.6765x_2\)</span>。</p>
 </section>
 <section id="求当x_0175x_0242x_033.1时的haty_0给定置信水平为95计算精确置信区间" class="level4">
 <h4 class="anchored" data-anchor-id="求当x_0175x_0242x_033.1时的haty_0给定置信水平为95计算精确置信区间">9. 求当<span class="math inline">\(x_{01}=75\)</span>，<span class="math inline">\(x_{02}=42\)</span>，<span class="math inline">\(x_{03}=3.1\)</span>时的<span class="math inline">\(\hat{y}_0\)</span>，给定置信水平为95%，计算精确置信区间</h4>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model0, </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">X1 =</span> <span class="dv">75</span>, <span class="at">X2 =</span> <span class="dv">42</span>, <span class="at">X3 =</span> <span class="fl">3.1</span>),</span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model1, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">X1 =</span> <span class="dv">75</span>, <span class="at">X2 =</span> <span class="dv">42</span>),</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">se.fit=</span><span class="cn">TRUE</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval=</span><span class="st">"predict"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval=</span><span class="st">"confidence"</span>,</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">level=</span>.<span class="dv">95</span>)<span class="sc">$</span>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>       fit     lwr      upr
-1 270.0897 206.059 334.1204</code></pre>
+<pre><code>      fit      lwr      upr
+1 267.829 239.9677 295.6903</code></pre>
 </div>
 </div>
 

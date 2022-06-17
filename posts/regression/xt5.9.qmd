@@ -13,21 +13,25 @@ data = read_sav("data/xt5.9.sav")
 head(data)
 ```
 
-
 ```{r}
 # 建立模型
 model = lm(y ~., data[, -1])
-model
+summary(model)
 ```
 
+**后退法**
+
 ```{r}
-# 后退法
 model_back = step(model, direction="backward", trace=0)
-model_back
+summary(model_back)
 ```
+
+**逐步回归法**
 
 ```{r}
 # 逐步回归法
 model_both = step(model, direction="both", trace=0)
-model_both
+summary(model_both)
 ```
+
+答：后退法与逐步回归法所保留的变量相同。最终都得到回归方程：$\hat{y}=874.6-0.611x_1-0.353x_2+0.637x_5$。但是回归系数的解释不合理。

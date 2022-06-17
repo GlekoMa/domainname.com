@@ -165,6 +165,7 @@ Coefficients:
   -0.831304     0.003683  </code></pre>
 </div>
 </div>
+<p>答：回归方程为：<span class="math inline">\(\hat{y} = -0.8313 + 0.0037x\)</span>。</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(model0, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>.resid)) <span class="sc">+</span> </span>
@@ -178,28 +179,26 @@ Coefficients:
 </section>
 <section id="诊断该问题是否存在异方差性" class="level4">
 <h4 class="anchored" data-anchor-id="诊断该问题是否存在异方差性">2. 诊断该问题是否存在异方差性</h4>
-<p><em>答：是。</em></p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 等级相关系数法（Spearman检验）</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 因为数据中有相同数字，其会产生结（tie）</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 导致触发警告（Warning），但能够计算出结果</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 为避免警告，可进行修正，如添加随机扰动等</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置参数exact=FALSE即可</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>x, data<span class="sc">$</span>y, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">method=</span><span class="st">"spearman"</span>, </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">exact=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>x, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">abs</span>(<span class="fu">resid</span>(model0)), </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">alternative=</span><span class="st">'two.sided'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">method=</span><span class="st">"spearman"</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>
     Spearman's rank correlation rho
 
-data:  data$x and data$y
-S = 5501.1, p-value = 7.005e-12
+data:  data$x and abs(resid(model0))
+S = 16928, p-value = 0.02091
 alternative hypothesis: true rho is not equal to 0
 sample estimates:
       rho 
-0.7782191 </code></pre>
+0.3175294 </code></pre>
 </div>
 </div>
+<p>答：<span class="math inline">\(|e_i|\)</span>与<span class="math inline">\(x_i\)</span>的等级相关系数=0.318，P值=0.021，存在异方差性。</p>
 </section>
 <section id="如果存在异方差性用幂指数型的权函数建立加权最小二乘回归方程" class="level4">
 <h4 class="anchored" data-anchor-id="如果存在异方差性用幂指数型的权函数建立加权最小二乘回归方程">3. 如果存在异方差性，用幂指数型的权函数建立加权最小二乘回归方程</h4>
@@ -234,34 +233,78 @@ sample estimates:
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 令m=1.5</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">weights=</span><span class="dv">1</span><span class="sc">/</span>x<span class="sc">^</span><span class="fl">1.5</span>, <span class="at">data=</span>data)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>model1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>
 Call:
 lm(formula = y ~ x, data = data, weights = 1/x^1.5)
 
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.017626 -0.005384 -0.002158  0.006423  0.015820 
+
 Coefficients:
-(Intercept)            x  
-  -0.683463     0.003557  </code></pre>
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.6834635  0.2976891  -2.296   0.0258 *  
+x            0.0035571  0.0003582   9.930 1.64e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.007914 on 51 degrees of freedom
+Multiple R-squared:  0.6591,    Adjusted R-squared:  0.6524 
+F-statistic:  98.6 on 1 and 51 DF,  p-value: 1.638e-13</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 等级相关系数法（Spearman检验）</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>x, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">abs</span>(<span class="fu">resid</span>(model1)), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">alternative=</span><span class="st">'two.sided'</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">method=</span><span class="st">"spearman"</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">conf.level=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  data$x and abs(resid(model1))
+S = 16848, p-value = 0.01959
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.3207547 </code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>         <span class="co"># 问题待续</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>答：加权最小二乘回归方程为：<span class="math inline">\(\hat{y} = -0.683 + 0.00356x\)</span>。因<span class="math inline">\(R^2=0.659\)</span>，小于普通最小二乘的0.705，说明加权最小二乘的效果不好。</p>
 </section>
 <section id="用方差稳定变换ysqrty消除异方差性" class="level4">
 <h4 class="anchored" data-anchor-id="用方差稳定变换ysqrty消除异方差性">4. 用方差稳定变换<span class="math inline">\(y'=\sqrt{y}\)</span>消除异方差性</h4>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y <span class="ot">=</span> <span class="fu">sqrt</span>(data<span class="sc">$</span>y)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, data)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y <span class="ot">=</span> <span class="fu">sqrt</span>(data<span class="sc">$</span>y)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, data)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>
 Call:
 lm(formula = y ~ x, data = data)
 
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.39185 -0.30576 -0.03875  0.25378  0.81027 
+
 Coefficients:
-(Intercept)            x  
-  0.5822259    0.0009529  </code></pre>
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 5.822e-01  1.299e-01   4.481 4.22e-05 ***
+x           9.529e-04  9.824e-05   9.699 3.61e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.464 on 51 degrees of freedom
+Multiple R-squared:  0.6485,    Adjusted R-squared:  0.6416 
+F-statistic: 94.08 on 1 and 51 DF,  p-value: 3.614e-13</code></pre>
 </div>
 </div>
+<p>答：经过方差稳定性变换后的回归方程为：<span class="math inline">\(\hat{y}^{'} = 0.5822 + 0.0009529x\)</span>。</p>
 
 
 

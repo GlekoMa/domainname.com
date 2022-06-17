@@ -163,7 +163,7 @@
 </section>
 <section id="x与y之间是否大致呈线性关系" class="level4">
 <h4 class="anchored" data-anchor-id="x与y之间是否大致呈线性关系">2. <span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>之间是否大致呈线性关系</h4>
-<p><em>答：是。</em></p>
+<p>答：是，由散点图即可看出。</p>
 </section>
 <section id="用最小二乘估计求出回归方程" class="level4">
 <h4 class="anchored" data-anchor-id="用最小二乘估计求出回归方程">3. 用最小二乘估计求出回归方程</h4>
@@ -181,9 +181,10 @@ Coefficients:
          -1            7  </code></pre>
 </div>
 </div>
+<p>答：回归方程为：<span class="math inline">\(y = -1 + 7x\)</span>。</p>
 </section>
-<section id="求回归标准误差barsigma" class="level4">
-<h4 class="anchored" data-anchor-id="求回归标准误差barsigma">4. 求回归标准误差<span class="math inline">\(\bar{\sigma}\)</span></h4>
+<section id="求回归标准误差hatsigma" class="level4">
+<h4 class="anchored" data-anchor-id="求回归标准误差hatsigma">4. 求回归标准误差<span class="math inline">\(\hat{\sigma}\)</span></h4>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看summary结果</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中Residual standard error即为Se（或称SEE）</span></span>
@@ -193,6 +194,7 @@ Coefficients:
 <pre><code>[1] 6.055301</code></pre>
 </div>
 </div>
+<p>答：回归标准误差<span class="math inline">\(\hat{\sigma}\)</span>为：6.055301。</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 附：对lm对象使用summary函数将直接输出模型大部分信息</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -230,6 +232,7 @@ F-statistic: 13.36 on 1 and 3 DF,  p-value: 0.03535</code></pre>
 x             0.9060793 13.09392</code></pre>
 </div>
 </div>
+<p>答：<span class="math inline">\(\hat{\beta}_0\)</span>和<span class="math inline">\(\hat{\beta}_1\)</span>的95%置信区间分别为：(-21.21, 19.21)和(0.91, 13.09)。</p>
 </section>
 <section id="计算x与y的决定系数" class="level4">
 <h4 class="anchored" data-anchor-id="计算x与y的决定系数">6. 计算<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>的决定系数</h4>
@@ -239,6 +242,7 @@ x             0.9060793 13.09392</code></pre>
 <pre><code>[1] 0.8166667</code></pre>
 </div>
 </div>
+<p>答：<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>的决定系数为：0.8167。</p>
 </section>
 <section id="对回归方程做方差分析" class="level4">
 <h4 class="anchored" data-anchor-id="对回归方程做方差分析">7. 对回归方程做方差分析</h4>
@@ -255,17 +259,28 @@ Residuals  3    110   36.67
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<p>答：P值=0.03535&lt;0.05，说明回归方程显著。</p>
 </section>
 <section id="做回归方差beta_1的显著性检验" class="level4">
 <h4 class="anchored" data-anchor-id="做回归方差beta_1的显著性检验">8. 做回归方差<span class="math inline">\(\beta_1\)</span>的显著性检验</h4>
-<p><em>答：由（7）中方差分析表，P值0.0354 &lt; 0.05，显著性水平为5%的情况下拒绝原假设<span class="math inline">\(H_0:\beta_1 = 0\)</span>，即判定<span class="math inline">\(\beta_1\)</span>显著不为0。</em></p>
+<p>答：由方差分析表，P值0.0354&lt;0.05，显著性水平为5%的情况下拒绝原假设<span class="math inline">\(H_0:\beta_1 = 0\)</span>，即判定<span class="math inline">\(\beta_1\)</span>显著不为0。</p>
 </section>
 <section id="做相关系数的显著性检验" class="level4">
 <h4 class="anchored" data-anchor-id="做相关系数的显著性检验">9. 做相关系数的显著性检验</h4>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>x, data<span class="sc">$</span>y, <span class="at">method=</span><span class="st">'pearson'</span>)<span class="sc">$</span>estimate[[<span class="st">'cor'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>x, data<span class="sc">$</span>y, <span class="at">method=</span><span class="st">'pearson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
-<pre><code>[1] 0.9036961</code></pre>
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  data$x and data$y
+t = 3.6556, df = 3, p-value = 0.03535
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.1057216 0.9936915
+sample estimates:
+      cor 
+0.9036961 </code></pre>
 </div>
 </div>
 </section>
