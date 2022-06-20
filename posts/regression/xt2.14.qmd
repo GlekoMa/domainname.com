@@ -132,8 +132,8 @@ plot(model)
 predict(model, 
         newdata=data.frame(x = 4.2),
         se.fit=TRUE,
-        interval="predict",
+        interval="confidence",
         level=.95)$fit
 ```
 
-答：销售收入将达28.4万元，预测值的95%置信区间为(6.06,50.74)。因为数据样本量只有5个，所以该区间估计的误差较大。
+答：销售收入将达28.4万元，预测值的95%置信区间为(17.10,39.70)。因为数据样本量只有5个，所以该区间估计的误差较大。

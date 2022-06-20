@@ -187,3 +187,32 @@ quarto preview 你的.md文档路径
 [流程图：Draw.io](https://www.draw.io/index.html)
 
 [思维导图：XMind](https://www.xmind.cn/)
+
+### BUG
+
+```
+updating tlmgr
+
+updating existing packages
+
+compilation failed- error
+LaTeX3 Error: Mismatched LaTeX support files detected.
+(LaTeX3)        Loading 'expl3.sty' aborted!
+(LaTeX3)
+(LaTeX3)        The L3 programming layer in the LaTeX format
+(LaTeX3)        is dated 2022-06-02, but in your TeX tree the files require
+(LaTeX3)        at least 2022-06-16.
+
+For immediate help type H <return>.
+ ...
+
+l.77      \ExplLoaderFileDate{expl3.sty}}
+                                         %
+```
+
+终端输入：
+
+```
+fmtutil-sys --all
+```
+

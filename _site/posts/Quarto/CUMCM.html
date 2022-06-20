@@ -311,10 +311,32 @@ E=mc^2
 <p><a href="https://latexlive.com/home">在线LaTeX公式编辑器</a></p>
 <p><a href="https://www.draw.io/index.html">流程图：Draw.io</a></p>
 <p><a href="https://www.xmind.cn/">思维导图：XMind</a></p>
-
-
-
 </section>
+</section>
+<section id="bug" class="level3">
+<h3 class="anchored" data-anchor-id="bug">BUG</h3>
+<pre><code>updating tlmgr
+
+updating existing packages
+
+compilation failed- error
+LaTeX3 Error: Mismatched LaTeX support files detected.
+(LaTeX3)        Loading 'expl3.sty' aborted!
+(LaTeX3)
+(LaTeX3)        The L3 programming layer in the LaTeX format
+(LaTeX3)        is dated 2022-06-02, but in your TeX tree the files require
+(LaTeX3)        at least 2022-06-16.
+
+For immediate help type H &lt;return&gt;.
+ ...
+
+l.77      \ExplLoaderFileDate{expl3.sty}}
+                                         %</code></pre>
+<p>终端输入：</p>
+<pre><code>fmtutil-sys --all</code></pre>
+
+
+
 </section>
 </main> <!-- /main -->
 
