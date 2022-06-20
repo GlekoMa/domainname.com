@@ -1,0 +1,34 @@
+---
+title: 习题数据
+description: 回归分析习题配套数据
+---
+
+> 新建文件夹，命名为"data"。将以下所有数据文件放入该文件夹即可。
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt2.14.sav](data/xt2.14.sav){download="xt2.14.sav"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt3.11.sav](data/xt3.11.sav){download="xt3.11.sav"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt4.9.sav](data/xt4.9.sav){download="xt4.9.sav"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt5.9.sav](data/xt5.9.sav){download="xt5.9.sav"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt7.6.sav](data/xt7.6.sav){download="xt7.6.sav"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt9.2.sav](data/xt9.2.sav){download="xt9.2.sav"}
+:::
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download xt10.3.sav](data/xt10.3.sav){download="xt10.3.sav"}
+:::
