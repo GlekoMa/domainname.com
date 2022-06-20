@@ -3,7 +3,19 @@ title: 习题数据
 description: 回归分析习题配套数据
 ---
 
-> 新建文件夹，命名为"data"。将以下所有数据文件放入该文件夹即可。
+#### 如何运行示例代码
+
+在R中输入以下代码以获取当前工作路径
+
+```{r}
+getwd()
+```
+
+1. 新建文件夹，命名为"data"。
+2. 下载所有数据文件并放入"data"文件夹。
+3. 将"data"文件夹移动到当前工作路径下即可。
+
+#### 数据文件
 
 ::: {.callout-note appearance="minimal"}
 <i class="bi bi-journal-code"></i> [Download xt2.14.sav](data/xt2.14.sav){download="xt2.14.sav"}

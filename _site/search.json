@@ -32,7 +32,7 @@
     "href": "posts/regression/the_data.html",
     "title": "习题数据",
     "section": "",
-    "text": "Download xt2.14.sav\n\n\n\n\n\n\n\n\n\n Download xt3.11.sav\n\n\n\n\n\n\n\n\n\n Download xt4.9.sav\n\n\n\n\n\n\n\n\n\n Download xt5.9.sav\n\n\n\n\n\n\n\n\n\n Download xt7.6.sav\n\n\n\n\n\n\n\n\n\n Download xt9.2.sav\n\n\n\n\n\n\n\n\n\n Download xt10.3.sav"
+    "text": "在R中输入以下代码以获取当前工作路径\n\ngetwd()\n\n[1] \"C:/Users/Gleko/Documents/Code/R_rela/domainname.com/posts/regression\"\n\n\n\n新建文件夹，命名为”data”。\n下载所有数据文件并放入”data”文件夹。\n将”data”文件夹移动到当前工作路径下即可。\n\n\n\n\n\n\n\n Download xt2.14.sav\n\n\n\n\n\n\n\n\n\n Download xt3.11.sav\n\n\n\n\n\n\n\n\n\n Download xt4.9.sav\n\n\n\n\n\n\n\n\n\n Download xt5.9.sav\n\n\n\n\n\n\n\n\n\n Download xt7.6.sav\n\n\n\n\n\n\n\n\n\n Download xt9.2.sav\n\n\n\n\n\n\n\n\n\n Download xt10.3.sav"
   },
   {
     "objectID": "posts/regression/xt10.3.html",
