@@ -128,7 +128,7 @@ ggplot_ridge = function(data){
     p = p + 
           guides(color="none") + 
           labs(x=TeX(r"($k\times n$)"),
-               y=TeX(r"($\bar{\beta}_j(k)$)")) + 
+               y=TeX(r"($\hat{\beta}_j(k)$)")) + 
           theme(axis.title.x=element_text(hjust=1),
                 axis.title.y=element_text(hjust=1, angle=1)) + 
           theme_minimal()
@@ -150,20 +150,6 @@ ggplot_ridge(data)
 #### 6. 对第（4）步剔除变量后的回归方程再做岭回归
 
 ```{r}
-# 编写函数，将标准化回归方程参数转化未标准化方程参数
-# 数据必须为tibble类型，变量顺序必须为y, x1, x2...
-unscale = function(data, coef){
-    my_sd = \(x) (mean((x-mean(x))^2))^0.5 # 定义计算总体标准差函数my_sd
-    coef_sd = apply(data[, -1], 2, my_sd)
-    coef_mean = apply(data[, -1], 2, mean)
-    beta_j = coef / coef_sd
-    beta_0 = sum(beta_j * -coef_mean) + apply(data[, 1], 2, mean)
-    names(beta_0) = "Intercept"
-    return(c(beta_0, beta_j))
-}
-```
-
-```{r}
 data0 = data[, c("y", "x1", "x4")]
 ridge = lm.ridge(y ~ ., data0, lambda=seq(0, 2*n, 0.1))
 plot(ridge)
@@ -173,7 +159,7 @@ plot(ridge)
 
 ```{r}
 ridge = lm.ridge(y ~ ., data0, lambda=0.4*n)
-unscale(data0, ridge$coef)
+ridge
 ```
 
 答：回归方程为：$\hat{y}=0.357+0.0258x_1+0.0045x_2$。回归系数都能合理解释。
@@ -192,7 +178,7 @@ plot(ridge)
 
 ```{r}
 ridge = lm.ridge(y ~ ., data1, lambda=0.4*n)
-unscale(data1, ridge$coef)
+ridge
 ```
 
 答：回归方程为：$\hat{y}=-0.819+0.0167x_1+0.157x_2+0.0671x_3$，回归系数都能合理解释。

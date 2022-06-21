@@ -315,25 +315,25 @@ E=mc^2
 </section>
 <section id="bug" class="level3">
 <h3 class="anchored" data-anchor-id="bug">BUG</h3>
-<pre><code>updating tlmgr
-
-updating existing packages
-
-compilation failed- error
-LaTeX3 Error: Mismatched LaTeX support files detected.
-(LaTeX3)        Loading 'expl3.sty' aborted!
-(LaTeX3)
-(LaTeX3)        The L3 programming layer in the LaTeX format
-(LaTeX3)        is dated 2022-06-02, but in your TeX tree the files require
-(LaTeX3)        at least 2022-06-16.
-
-For immediate help type H &lt;return&gt;.
- ...
-
-l.77      \ExplLoaderFileDate{expl3.sty}}
-                                         %</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">updating</span> tlmgr</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">updating</span> existing packages</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">compilation</span> failed- error</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">LaTeX3</span> Error: Mismatched LaTeX support files detected.</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">LaTeX3</span><span class="kw">)</span>        <span class="ex">Loading</span> <span class="st">'expl3.sty'</span> aborted!</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">LaTeX3</span><span class="kw">)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">LaTeX3</span><span class="kw">)</span>        <span class="ex">The</span> L3 programming layer in the LaTeX format</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">LaTeX3</span><span class="kw">)</span>        <span class="ex">is</span> dated 2022-06-02, but in your TeX tree the files require</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">LaTeX3</span><span class="kw">)</span>        <span class="ex">at</span> least 2022-06-16.</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="ex">For</span> immediate help type H <span class="op">&lt;</span>return<span class="op">&gt;</span>.</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a> <span class="ex">...</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="ex">l.77</span>      <span class="dt">\E</span>xplLoaderFileDate{expl3.sty}}</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                                         <span class="ex">%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>终端输入：</p>
-<pre><code>fmtutil-sys --all</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fmtutil-sys</span> <span class="at">--all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 

@@ -190,7 +190,7 @@ quarto preview 你的.md文档路径
 
 ### BUG
 
-```
+```bash
 updating tlmgr
 
 updating existing packages
@@ -212,7 +212,7 @@ l.77      \ExplLoaderFileDate{expl3.sty}}
 
 终端输入：
 
-```
+```bash
 fmtutil-sys --all
 ```
 
