@@ -188,6 +188,14 @@ quarto preview 你的.md文档路径
 
 [思维导图：XMind](https://www.xmind.cn/)
 
+### 实际示例
+
+血管机器人的订购与生物学习（2022年五一杯数学建模竞赛A题）
+
+::: {.callout-note appearance="minimal"}
+<i class="bi bi-journal-code"></i> [Download 2022五一杯A题.zip](_2022五一杯A题.zip){download="2022五一杯A题.zip"}
+:::
+
 ### BUG
 
 ```bash
