@@ -8,8 +8,8 @@ freeze: true
 title-block-banner: false
 
 # Gleko add
-include-after-body:
-  - ../comments.html
+# include-after-body:
+#   - ../comments.html
 
 navbar: false
 css: styles.css
