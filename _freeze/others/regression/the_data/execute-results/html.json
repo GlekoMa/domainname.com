@@ -1,0 +1,14 @@
+{
+  "hash": "f10c5068b296afe52928538e49f73299",
+  "result": {
+    "markdown": "---\ntitle: 习题数据\ndescription: 回归分析习题配套数据\n---\n\n#### 如何运行示例代码\n\n在R中输入以下代码以获取当前工作路径\n\n::: {.cell}\n\n```{.r .cell-code}\ngetwd()\n```\n\n::: {.cell-output-stdout}\n```\n[1] \"C:/Users/Gleko/Documents/Code/R_rela/domainname.com/others/regression\"\n```\n:::\n:::\n\n1. 新建文件夹，命名为\"data\"。\n2. 下载所有数据文件并放入\"data\"文件夹。\n3. 将\"data\"文件夹移动到当前工作路径下即可。\n\n#### 数据文件\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt2.14.sav](data/xt2.14.sav){download=\"xt2.14.sav\"}\n:::\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt3.11.sav](data/xt3.11.sav){download=\"xt3.11.sav\"}\n:::\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt4.9.sav](data/xt4.9.sav){download=\"xt4.9.sav\"}\n:::\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt5.9.sav](data/xt5.9.sav){download=\"xt5.9.sav\"}\n:::\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt7.6.sav](data/xt7.6.sav){download=\"xt7.6.sav\"}\n:::\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt9.2.sav](data/xt9.2.sav){download=\"xt9.2.sav\"}\n:::\n\n::: {.callout-note appearance=\"minimal\"}\n<i class=\"bi bi-journal-code\"></i> [Download xt10.3.sav](data/xt10.3.sav){download=\"xt10.3.sav\"}\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": [],
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": null
+  }
+}

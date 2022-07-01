@@ -12,6 +12,7 @@ format:
     theme: 
       - journal
       - custom.scss
+    fontsize: 1.1em
     css: styles.css
     smooth-scroll: true
     toc: true

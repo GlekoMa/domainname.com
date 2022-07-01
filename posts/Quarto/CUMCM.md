@@ -1,9 +1,10 @@
 ---
 title: "Quarto Template for CUMCM"
+date: "2022/04/22"
 toc: false
 ---
 
-Last updated: May 9 2022
+Last updated: July 1 2022
 
 ### 关于Quarto
 
