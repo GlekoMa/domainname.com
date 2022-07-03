@@ -169,10 +169,6 @@ quarto preview 你的.md文档路径
 
 ### 资料与工具
 
-#### 演示视频
-
-[测试](https://www.bilibili.com/video/BV1YS4y1q7Qy/)
-
 #### 相关资料
 
 [Quato官网](quarto.org)
