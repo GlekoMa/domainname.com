@@ -22,5 +22,6 @@ p {
     margin-bottom: 1em;
 }
 .quarto-title-meta-heading {display: none;}
-.quarto-title-authors{display: none;}
+.quarto-title-authors {display: none;}
 .date {display: none;}
+.margin-sidebar {left: 100em;}
