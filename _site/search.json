@@ -96,5 +96,19 @@
     "title": "你好，测试",
     "section": "小标题",
     "text": "小标题\n哈哈\n\n\n\n小狗"
+  },
+  {
+    "objectID": "posts/cc/cc.html",
+    "href": "posts/cc/cc.html",
+    "title": "你好，测试",
+    "section": "",
+    "text": "111"
+  },
+  {
+    "objectID": "posts/cc/cc.html#小标题",
+    "href": "posts/cc/cc.html#小标题",
+    "title": "你好，测试",
+    "section": "小标题",
+    "text": "小标题\n哈哈\n\n小小标题\nabc\n\n\n你好，山药\noojjoopp"
   }
 ]
