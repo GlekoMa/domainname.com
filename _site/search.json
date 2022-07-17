@@ -82,5 +82,19 @@
     "title": "希腊字母表",
     "section": "",
     "text": "大写\n小写\n国际音标\n英文\n汉字注音\n\n\n\n\n\n1\nΑ\nα\n/’ælfə/\nalpha\n阿尔法\n\n\n2\nΒ\nβ\n/’bi:tə/ /’beɪtə/\nbeta\n贝塔/毕塔\n\n\n3\nΓ\nγ\n/’gæmə/\ngamma\n伽玛/甘玛\n\n\n4\nΔ\nδ\n/’deltə/\ndelta\n德尔塔/岱欧塔\n\n\n5\nΕ\nε\n/’epsɪlɒn/\nepsilon\n艾普西龙\n\n\n6\nΖ\nζ\n/’zi:tə/\nzeta\n泽塔\n\n\n7\nΗ\nη\n/’i:tə/\neta\n伊塔/诶塔\n\n\n8\nΘ\nθ\n/’θi:tə/\ntheta\n西塔\n\n\n9\nΙ\nι\n/aɪ’əʊtə/\niota\n埃欧塔\n\n\n10\nΚ\nκ\n/’kæpə/\nkappa\n堪帕\n\n\n11\n∧\nλ\n/’læmdə/\nlambda\n兰姆达\n\n\n12\nΜ\nμ\n/mju:/\nmu\n谬/穆\n\n\n13\nΝ\nν\n/nju:/\nnu\n拗/奴\n\n\n14\nΞ\nξ\n希腊: /ksi/ 英美: /ˈzaɪ/或/ˈksaɪ/\nxi\n可西/赛\n\n\n15\nΟ\nο\n/əuˈmaikrən/ /ˈɑmɪˌkrɑn/\nomicron\n欧 (阿~) 米可荣\n\n\n16\n∏\nπ\n/paɪ/\npi\n派\n\n\n17\nΡ\nρ\n/rəʊ/\nrho\n柔/若\n\n\n18\n∑\nσ\n/’sɪɡmə/\nsigma\n西格玛\n\n\n19\nΤ\nτ\n/tɔ:/ /taʊ/\ntau\n套/驼\n\n\n20\nΥ\nυ\n/ˈipsilon/ /ˈʌpsɨlɒn/\nupsilon\n宇 (阿~) 普西龙\n\n\n21\nΦ\nφ\n/faɪ/\nphi\n弗爱/弗忆\n\n\n22\nΧ\nχ\n/kaɪ/\nchi\n凯/柯义\n\n\n23\nΨ\nψ\n/psaɪ/\npsi\n赛/普赛/普西\n\n\n24\nΩ\nω\n/’əʊmɪɡə/ /oʊ’meɡə/\nomega\n欧米伽/欧枚嘎"
+  },
+  {
+    "objectID": "posts/tst/aa.html",
+    "href": "posts/tst/aa.html",
+    "title": "你好，测试",
+    "section": "",
+    "text": "111"
+  },
+  {
+    "objectID": "posts/tst/aa.html#小标题",
+    "href": "posts/tst/aa.html#小标题",
+    "title": "你好，测试",
+    "section": "小标题",
+    "text": "小标题\n哈哈\n\n\n\n小狗"
   }
 ]
