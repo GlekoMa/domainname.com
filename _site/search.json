@@ -110,5 +110,19 @@
     "title": "你好，测试",
     "section": "小标题",
     "text": "小标题\n哈哈\n\n小小标题\nabc\n\n\n你好，山药\noojjoopp"
+  },
+  {
+    "objectID": "posts/test/xx.html",
+    "href": "posts/test/xx.html",
+    "title": "测试",
+    "section": "",
+    "text": "你好"
+  },
+  {
+    "objectID": "posts/test/xx.html#黑",
+    "href": "posts/test/xx.html#黑",
+    "title": "测试",
+    "section": "黑",
+    "text": "黑"
   }
 ]
