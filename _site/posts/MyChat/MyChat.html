@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.349">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-07-18">
+
+<title>Stulink - LinuxC聊天程序：MyChat</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a>
+  <ul class="collapse">
+  <li><a href="#项目简介" id="toc-项目简介" class="nav-link" data-scroll-target="#项目简介">项目简介</a></li>
+  <li><a href="#运行环境" id="toc-运行环境" class="nav-link" data-scroll-target="#运行环境">运行环境</a></li>
+  <li><a href="#关于玩法" id="toc-关于玩法" class="nav-link" data-scroll-target="#关于玩法">关于玩法</a></li>
+  </ul></li>
+  <li><a href="#功能" id="toc-功能" class="nav-link" data-scroll-target="#功能">功能</a></li>
+  <li><a href="#总体设计" id="toc-总体设计" class="nav-link" data-scroll-target="#总体设计">总体设计</a></li>
+  <li><a href="#细节" id="toc-细节" class="nav-link" data-scroll-target="#细节">细节</a>
+  <ul class="collapse">
+  <li><a href="#登陆细节" id="toc-登陆细节" class="nav-link" data-scroll-target="#登陆细节">登陆细节</a></li>
+  <li><a href="#转发细节" id="toc-转发细节" class="nav-link" data-scroll-target="#转发细节">转发细节</a></li>
+  <li><a href="#下线细节" id="toc-下线细节" class="nav-link" data-scroll-target="#下线细节">下线细节</a></li>
+  <li><a href="#其他细节" id="toc-其他细节" class="nav-link" data-scroll-target="#其他细节">其他细节</a></li>
+  </ul></li>
+  <li><a href="#运行效果" id="toc-运行效果" class="nav-link" data-scroll-target="#运行效果">运行效果</a></li>
+  <li><a href="#后记" id="toc-后记" class="nav-link" data-scroll-target="#后记">后记</a></li>
+  <li><a href="#源代码" id="toc-源代码" class="nav-link" data-scroll-target="#源代码">源代码</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LinuxC聊天程序：MyChat</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 18, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>Last updated: July 18 2022</p>
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<section id="项目简介" class="level3">
+<h3 class="anchored" data-anchor-id="项目简介">项目简介</h3>
+<p>一个用LinuxC实现基于UDP协议的一个多人聊天小程序。网上java实现比较多，LinuxC的实现也有，但解说不够详细。所以在这里分享一下我自己的一些设计思路。一些设计不足之处，也恳请大家见谅，如果能提出宝贵意见，则不胜感激。</p>
+<p>完成这篇文章的主要目的是想分享一些关于简单的网络编程以及C/S架构编程的思路给学弟学妹，希望看到后能对你们有所帮助，希望让你们心动不仅仅是源码的复制粘贴。</p>
+<p>文章偏长，针对你所需要的浏览，希望你能找到你想要的内容。当然如果你对聊天程序没有任何思路，希望你能通篇浏览，这样更成体系一些。如果你已经有了一些思路，那就取其精华去其糟粕。</p>
+</section>
+<section id="运行环境" class="level3">
+<h3 class="anchored" data-anchor-id="运行环境">运行环境</h3>
+<p>操作系统：</p>
+<p>​ Linux内核版本：Linux version 5.13.0-52-generic</p>
+<p>​ Ubuntu版本：Ubuntu 9.4.0-1ubuntu1</p>
+<p>代码运行环境：</p>
+<p>​ VScode</p>
+<p>经测试，该程序仅能运行在Linux系统中，可通过连接同一局域网(同一热点或WIFI)进行通信；或者，将服务端程序部署到公网服务器，则可实现远距离通信。如果手机装有C语言编译器IDE，也可实现手机终端的通信。</p>
+</section>
+<section id="关于玩法" class="level3">
+<h3 class="anchored" data-anchor-id="关于玩法">关于玩法</h3>
+<p>这个小程序的玩法很简单！</p>
+<ol type="1">
+<li><p>使用服务器中预留的用户名+密码登陆</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>用户名</th>
+<th>密码</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>寂寞的忧伤</td>
+<td>123</td>
+</tr>
+<tr class="even">
+<td>暴龙战士</td>
+<td>12345</td>
+</tr>
+<tr class="odd">
+<td>阿龙</td>
+<td>qwer</td>
+</tr>
+<tr class="even">
+<td>仙女小樱</td>
+<td>yyy</td>
+</tr>
+<tr class="odd">
+<td>xiaozhang</td>
+<td>123</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>然后就可以通过使用指令<code>to + 用户名 + 消息</code>给这个用户发消息，中间用空格隔开。</p></li>
+<li><p>或者使用指令<code>toall + 消息</code>来群发消息，中间用空格隔开。</p></li>
+<li><p>最后使用指令<code>logout</code>来退出程序。</p></li>
+</ol>
+</section>
+</section>
+<section id="功能" class="level2">
+<h2 class="anchored" data-anchor-id="功能">功能</h2>
+<ol type="1">
+<li>登陆(login)：客户端输入用户名和密码登陆。</li>
+<li>私发(to &lt;用户名&gt; &lt;消息&gt;)：通过 to+用户名+消息指令给指定用户发送消息。</li>
+<li>群发(toall &lt;消息&gt;)：通过toall+消息群发所有在线用户。</li>
+<li>退出登陆(logout)：将用户状态置于下线。</li>
+</ol>
+</section>
+<section id="总体设计" class="level2">
+<h2 class="anchored" data-anchor-id="总体设计">总体设计</h2>
+<p>关于服务端和客户端的通信流程，想必大家早已掌握，这里不再多加赘述。</p>
+<p>下面是我程序的大体设计思路：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="设计流程图.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">设计流程图</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="细节" class="level2">
+<h2 class="anchored" data-anchor-id="细节">细节</h2>
+<section id="登陆细节" class="level3">
+<h3 class="anchored" data-anchor-id="登陆细节">登陆细节</h3>
+<p>在我设计的程序中，用户的信息以全局结构数组存储：</p>
+<p><strong>关于用户信息的结构体定义：</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span>                   <span class="co">//用户结构体</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>username<span class="op">;</span>              <span class="co">//用户名</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>password<span class="op">;</span>              <span class="co">//密码</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> mark<span class="op">;</span>                    <span class="co">//仅仅是用来判断用户是否存在，用于判断当前用户的数量</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> sockaddr_in useraddr<span class="op">;</span> <span class="co">//用户IP/端口地址,用户一般使用sockaddr_in来设置套接字地址，sockaddr一般是操作系统使用。</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> mode<span class="op">;</span>                    <span class="co">//记录用户状态 0~下线,1~上线</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> User<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>用户信息的存储方式：</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>User UserInfos<span class="op">[</span>USER_COUNT<span class="op">]</span> <span class="op">=</span> <span class="op">{{</span><span class="st">"寂寞的忧伤"</span><span class="op">,</span> <span class="st">"123"</span><span class="op">,</span> <span class="dv">1</span><span class="op">},</span> <span class="op">{</span><span class="st">"暴龙战士"</span><span class="op">,</span> <span class="st">"12345"</span><span class="op">,</span> <span class="dv">1</span><span class="op">},</span> <span class="op">{</span><span class="st">"阿龙"</span><span class="op">,</span> <span class="st">"qwer"</span><span class="op">,</span> <span class="dv">1</span><span class="op">},</span> <span class="op">{</span><span class="st">"仙女小樱"</span><span class="op">,</span> <span class="st">"yyy"</span><span class="op">,</span> <span class="dv">1</span><span class="op">},{</span><span class="st">"xiaozhang"</span><span class="op">,</span><span class="st">"123"</span><span class="op">,</span><span class="dv">1</span><span class="op">}};</span> <span class="co">//用户列表,最多20个用户</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>在用户的信息中指出了当前程序中预留的一些用户名以及密码，当然如果你想也可以自己加入一些你自己定义的用户名和密码。</p>
+<p>注意：格式要与上面列表保持一致。其中第三个成员mark要设置为1.</p>
+<p><strong>登陆验证：</strong></p>
+<ol type="1">
+<li><p>首先客户端将输入的用户名和密码组合在一起，并且在开头加上&lt;LOGIN&gt;标签，标识该字符串是一个登陆指令。中间均用空格隔开，然后将该字符串发送给服务端。</p>
+<p>显示效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="程序实例（2）.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">程序实例（2）</figcaption><p></p>
+</figure>
+</div>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> login_info<span class="op">[</span><span class="dv">60</span><span class="op">]</span> <span class="op">=</span> <span class="st">"&lt;LOGIN&gt; "</span><span class="op">;</span>                        <span class="co">//登陆标签</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> strcat<span class="op">(</span>login_info<span class="op">,</span>argv<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> strcat<span class="op">(</span>login_info<span class="op">,</span> <span class="st">" "</span><span class="op">);</span> <span class="co">//在用户名和密码之间插入一个间隔符号（空格）</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> strcat<span class="op">(</span>login_info<span class="op">,</span> password<span class="op">);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> <span class="co">//登陆验证</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> sendto<span class="op">(</span>sockfd<span class="op">,</span> login_info<span class="op">,</span> strlen<span class="op">(</span>login_info<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)&amp;</span>servaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>servaddr<span class="op">));</span> <span class="co">//向服务端请求登陆验证</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>服务端接收并进行验证，如果验证成功发送消息给客户端和其他在线用户。</p>
+<p>实现效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="程序实例（3）.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">程序实例（3）</figcaption><p></p>
+</figure>
+</div>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> LOGIN<span class="op">:</span> <span class="co">//处理登陆操作</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="co">//判定用户名是否存在，如果存在锁定该用户信息</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> user_current_count<span class="op">;</span> i<span class="op">++)</span>           <span class="co">//比对次单词是不是用户名</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="cf">if</span> <span class="op">(</span>strcmp<span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">,</span> pp<span class="op">[</span><span class="dv">1</span><span class="op">])</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="co">//通过用户名匹配登陆用户的信息</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="op">{</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>         <span class="op">}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>     <span class="co">//首先检验用户名是否存在？</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span><span class="op">(</span>i<span class="op">==</span>user_current_count<span class="op">)</span>           <span class="co">//如果不存在</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     <span class="op">{</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>         printf<span class="op">(</span><span class="st">"用户名:%s不存在</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> pp<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>         sendto<span class="op">(</span>sockfd<span class="op">,</span> <span class="st">"该用户名不存在.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="st">"该用户名不存在.</span><span class="sc">\n</span><span class="st">"</span><span class="op">),</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)</span>recvaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(*</span>recvaddr<span class="op">));</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>         <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>     <span class="co">//检验密码是否正确</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> <span class="op">(</span>strcmp<span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>password<span class="op">,</span> pp<span class="op">[</span><span class="dv">2</span><span class="op">])</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>     <span class="op">{</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>         printf<span class="op">(</span><span class="st">"用户:%s密码错误</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">);</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>         sendto<span class="op">(</span>sockfd<span class="op">,</span> <span class="st">"登陆失败，密码错误.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="st">"登陆失败，密码错误.</span><span class="sc">\n</span><span class="st">"</span><span class="op">),</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)</span>recvaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(*</span>recvaddr<span class="op">));</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>         <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span> str_ip<span class="op">[</span>INET_ADDRSTRLEN<span class="op">];</span> <span class="co">//长度正好是IPv4的字符串长度正好16.</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>     <span class="co">//如果密码错误，不会导致该用户下线。</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>     <span class="co">//异地登陆成功的话</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> <span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>mode <span class="op">==</span> <span class="dv">1</span><span class="op">)</span>         <span class="co">//如果用户已经在线，该版本支持用户异地登陆，所以一定要保护好密码哟～</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>     <span class="op">{</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>         sendto<span class="op">(</span>sockfd<span class="op">,</span><span class="st">"用户名被异地登陆，强制退出</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span><span class="st">"用户名被异地登陆，强制退出</span><span class="sc">\n</span><span class="st">"</span><span class="op">),</span><span class="dv">0</span><span class="op">,(</span><span class="kw">struct</span> sockaddr <span class="op">*)&amp;</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">));</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>         printf<span class="op">(</span><span class="st">"用户名:%s被IP地址:%s异地登陆，端口号为:%d.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span>UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">,</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>             inet_ntop<span class="op">(</span>AF_INET<span class="op">,&amp;</span>recvaddr<span class="op">-&gt;</span>sin_addr<span class="op">,</span>str_ip<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>str_ip<span class="op">)),</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>             ntohs<span class="op">(</span>recvaddr<span class="op">-&gt;</span>sin_port<span class="op">));</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>         <span class="co">//sendto(sockfd, "登陆成功.\n", sizeof("登陆成功.\n"), 0, (struct sockaddr *)recvaddr, sizeof(*recvaddr));</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>         <span class="co">//break;</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>     <span class="co">//将用户的地址存入结构体中</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>     UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr <span class="op">=</span> <span class="op">*</span>recvaddr<span class="op">;</span> <span class="co">//将用户的地址存入结构体中,再输出地址之前，必须先初始化UserInfos[i].useraddr.否则第一次输出的ip地址和端口号都是0</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span><span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>mode <span class="op">==</span> <span class="dv">0</span><span class="op">)</span>         <span class="co">//正常情况下的输入，防止异地登陆的二次输出，因为异地登陆的话，已经输出过。</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>     <span class="op">{</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>         printf<span class="op">(</span><span class="st">"用户:%s已登陆,IP地址:%s,端口号:%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">,</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>             inet_ntop<span class="op">(</span>AF_INET<span class="op">,</span> <span class="op">&amp;</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">.</span>sin_addr<span class="op">,</span> str_ip<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>str_ip<span class="op">)),</span> <span class="co">//导出客户端的IP地址</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>             ntohs<span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">.</span>sin_port<span class="op">));</span>                                      <span class="co">//导出客户端的端口号</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>     UserInfos<span class="op">[</span>i<span class="op">].</span>mode <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>             <span class="co">//标志用户已上线</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>     sendto<span class="op">(</span>sockfd<span class="op">,</span> <span class="st">"登陆成功.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="st">"登陆成功.</span><span class="sc">\n</span><span class="st">"</span><span class="op">),</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)</span>recvaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(*</span>recvaddr<span class="op">));</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>     <span class="co">//向其他在线用户发送该用户以上线</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span> online_reminder<span class="op">[</span>MAXSIZE<span class="op">];</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>     sprintf<span class="op">(</span>online_reminder<span class="op">,</span> <span class="st">"%s已上线,快和TA聊聊吧</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">);</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>     sendmessage_toall<span class="op">(</span>sockfd<span class="op">,</span>i<span class="op">,</span>online_reminder<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>上面的代码封装在函数<strong>process_instructions</strong>中，是该函数的登陆操作部分。</p>
+<p>在上面的验证操作中，包含了诸多情况分析：用户名错误、密码错误、用户名已在线（可以进行异地登陆）。</p>
+<p>验证成功后，用mode标志用户处于在线状态。并发送”登陆成功”给客户端，并给其他用户转发该用户的登陆消息。</p></li>
+<li><p>客户端接收到服务端的反馈，并进行显示。</p>
+<p>显示效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="程序实例（4）.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">程序实例（4）</figcaption><p></p>
+</figure>
+</div>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> printf<span class="op">(</span><span class="st">"%s"</span><span class="op">,</span> message_recv<span class="op">);</span> <span class="co">//服务端发送的信息中包含\n和\0.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span><span class="op">(</span>strcmp<span class="op">(</span>message_recv<span class="op">,</span><span class="st">"该用户名不存在.</span><span class="sc">\n</span><span class="st">"</span><span class="op">)==</span><span class="dv">0</span><span class="op">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     printf<span class="op">(</span><span class="st">"(已退出)</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     exit<span class="op">(-</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span><span class="op">(</span>strcmp<span class="op">(</span>message_recv<span class="op">,</span><span class="st">"登陆成功.</span><span class="sc">\n</span><span class="st">"</span><span class="op">)==</span><span class="dv">0</span><span class="op">)</span>       <span class="co">//如果登陆成功</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>     <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>首先显示服务端发送的消息：登陆成功/该用户不存在/登陆失败，密码错误。然后进行相应的处理。</p></li>
+</ol>
+</section>
+<section id="转发细节" class="level3">
+<h3 class="anchored" data-anchor-id="转发细节">转发细节</h3>
+<p>首先客户端发送消息到服务器，再由服务器转发到相应的用户。因为所有用户信息都存储在服务端，所以客户端不能直接转发消息，必须由服务器进行转发。<strong>以下操作均由服务端实现。</strong></p>
+<ol type="1">
+<li><p>首先通过发送者的ip地址和端口号解析出发送者的用户名，并以后缀的形式合并消息语句后面。如图，服务器解析出发送者姓名xiaozhang并将by xiaozhang合并在消息后面，转发时一并发送。</p>
+<p>显示效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="程序实例（1）.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">程序实例（1）</figcaption><p></p>
+</figure>
+</div>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> OPERATION<span class="op">:</span> <span class="co">//处理发送消息和下线的指令需求</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="co">//用源用户的IP地址+端口号求出发送者的用户名</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span> username<span class="op">[</span><span class="dv">20</span><span class="op">];</span>            <span class="co">//源用户名，即发送者的名字。</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span> sec_ip<span class="op">[</span>INET_ADDRSTRLEN<span class="op">];</span> <span class="co">//存放源用户信息中的ip地址</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span> det_ip<span class="op">[</span>INET_ADDRSTRLEN<span class="op">];</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>     inet_ntop<span class="op">(</span>AF_INET<span class="op">,</span> <span class="op">&amp;</span>recvaddr<span class="op">-&gt;</span>sin_addr<span class="op">,</span> sec_ip<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>sec_ip<span class="op">));</span> <span class="co">//将ip地址转化为字符串。</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>     <span class="dt">int</span> sec_port <span class="op">=</span> ntohs<span class="op">(</span>recvaddr<span class="op">-&gt;</span>sin_port<span class="op">);</span>                        <span class="co">//导出源用户信息中的端口号</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>     <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> user_current_count<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>         <span class="cf">if</span> <span class="op">(</span>ntohs<span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">.</span>sin_port<span class="op">)</span> <span class="op">==</span> sec_port <span class="op">&amp;&amp;</span> strcmp<span class="op">(</span>inet_ntop<span class="op">(</span>AF_INET<span class="op">,</span> <span class="op">&amp;</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">.</span>sin_addr<span class="op">,</span> det_ip<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>det_ip<span class="op">)),</span> sec_ip<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>         <span class="op">{</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>             strcpy<span class="op">(</span>username<span class="op">,</span> UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">);</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>             <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>         <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span> suffix<span class="op">[</span><span class="dv">40</span><span class="op">];</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>     sprintf<span class="op">(</span>suffix<span class="op">,</span> <span class="st">"  by %s</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> username<span class="op">);</span> <span class="co">//消息末尾的署名后缀</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>如果是to指令，则找出用户名即指令中的第二个字符串，并通过用户名锁定用户的信息（用户状态、sockaddr_in结构体，包含IP地址&amp;&amp;端口号），然后将目标用户的sockaddr_in结构体的地址传入sendto函数，最终将消息转发给目标用户。</p>
+<p>如果目标用户不存在，或者不在线，服务端会将转发异常反馈给客户端。如果目标用户处于在线状态，那么它的sockadrr_in结构体一定可以找到，然后便可按上述操作执行。</p>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="dv">0</span><span class="op">:</span> <span class="co">//关于指令"to",发送消息给指定用户</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>error_send<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="st">"用户不存在</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"用户不在线</span><span class="sc">\n</span><span class="st">"</span><span class="op">};</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> ii<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>ii <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> ii <span class="op">&lt;</span> user_current_count<span class="op">;</span> ii<span class="op">++)</span> <span class="co">//查找目标用户，UserInfos[ii]表示的目标用户的用户信息</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>strcmp<span class="op">(</span>UserInfos<span class="op">[</span>ii<span class="op">].</span>username<span class="op">,</span> pp<span class="op">[</span><span class="dv">1</span><span class="op">])</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>ii <span class="op">==</span> user_current_count<span class="op">)</span> <span class="co">//发送的用户不存在</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        sendto<span class="op">(</span>sockfd<span class="op">,</span> error_send<span class="op">[</span><span class="dv">0</span><span class="op">],</span> strlen<span class="op">(</span>error_send<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)</span>recvaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(*</span>recvaddr<span class="op">));</span> <span class="co">//发送错误信息到客户端</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UserInfos<span class="op">[</span>ii<span class="op">].</span>mode <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        sendto<span class="op">(</span>sockfd<span class="op">,</span> error_send<span class="op">[</span><span class="dv">1</span><span class="op">],</span> strlen<span class="op">(</span>error_send<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)</span>recvaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(*</span>recvaddr<span class="op">));</span> <span class="co">//发送错误信息到客户端</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">//用户在线,发送信息</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    strcat<span class="op">(</span>pp<span class="op">[</span><span class="dv">2</span><span class="op">],</span> suffix<span class="op">);</span>                                                                                                  <span class="co">//将后缀连接在消息后面</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    sendto<span class="op">(</span>sockfd<span class="op">,</span> pp<span class="op">[</span><span class="dv">2</span><span class="op">],</span> strlen<span class="op">(</span>pp<span class="op">[</span><span class="dv">2</span><span class="op">])</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)&amp;</span>UserInfos<span class="op">[</span>ii<span class="op">].</span>useraddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>UserInfos<span class="op">[</span>ii<span class="op">].</span>useraddr<span class="op">));</span> <span class="co">//给目标用户发送信息</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>如果是toall指令，则遍历所有的在线用户（除了本身），取出sockaddr_in结构体地址通过sendto函数将消息转发到各个客户端。</p>
+<p>如果用户在线，则一定能取到相应sockaddr_in结构体的地址。</p>
+<p>代码实现：</p>
+<pre><code>case 2: //关于指令"toall",发送消息给所有在线用户
+         strcat(pp[1], suffix);
+         sendmessage_toall(sockfd,i,pp[1]);//群发消息函数</code></pre>
+<p>sendmessage_toall函数实现：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> sendmessage_toall<span class="op">(</span><span class="dt">int</span> sockfd<span class="op">,</span><span class="dt">int</span> i<span class="op">,</span><span class="dt">const</span> <span class="dt">char</span><span class="op">*</span> mesg<span class="op">)</span><span class="co">//群发消息, i~标记，表示不给UserInfos[i]用户发消息，一般将i赋值为当前用户的i值。如果将i置为-1，则将消息发送给所有在线用户。     </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> user_current_count<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>k <span class="op">!=</span> i <span class="op">&amp;&amp;</span> UserInfos<span class="op">[</span>k<span class="op">].</span>mode <span class="op">==</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            sendto<span class="op">(</span>sockfd<span class="op">,</span> mesg<span class="op">,</span> strlen<span class="op">(</span>mesg<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)&amp;</span>UserInfos<span class="op">[</span>k<span class="op">].</span>useraddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>UserInfos<span class="op">[</span>k<span class="op">].</span>useraddr<span class="op">));</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="co">//发送消息到在线用户</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</section>
+<section id="下线细节" class="level3">
+<h3 class="anchored" data-anchor-id="下线细节">下线细节</h3>
+<ol type="1">
+<li><p>客户端发送下线请求”logout”给服务端。</p></li>
+<li><p>服务端接收，并给出相应的处理。如，将用户的状态置于下线状态、给客户端及其他在线用户发送该用户的下线消息，同时在服务端也打印一条该用户的下线消息。</p>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="dv">1</span><span class="op">:</span> <span class="co">//关于指令"logout",退出登陆</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"用户：%s已下线</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> username<span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    UserInfos<span class="op">[</span>i<span class="op">].</span>mode <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> str<span class="op">[</span><span class="dv">30</span><span class="op">];</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    sendto<span class="op">(</span>sockfd<span class="op">,</span> <span class="st">"拜拜，欢迎下次再来</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="st">"拜拜，欢迎下次再来</span><span class="sc">\n</span><span class="st">"</span><span class="op">),</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)</span>recvaddr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(*</span>recvaddr<span class="op">));</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> logout_mesg<span class="op">[</span><span class="dv">60</span><span class="op">];</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    sprintf<span class="op">(</span>logout_mesg<span class="op">,</span><span class="st">"%s已下线,下次再找TA聊吧</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span>username<span class="op">);</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    sendmessage_toall<span class="op">(</span>sockfd<span class="op">,</span>i<span class="op">,</span>logout_mesg<span class="op">);</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>客户端收到服务端的反馈消息后，打印消息。由于客户端是子进程接收消息，当子进程接收到下线信息后，杀死父进程，客户端程序结束。</p>
+<p>代码实现：</p>
+<pre><code>while(1)                                   //子进程
+{
+    recvfrom(sockfd, message_recv, sizeof(message_recv), 0, NULL, 0); //接受服务端发送的信息
+    printf("%s", message_recv);
+    if(strcmp(message_recv,"拜拜，欢迎下次再来\n")==0||strcmp(message_recv,"用户名被异地登陆，强制退出\n")==0)//程序唯一出口
+    break;
+}
+kill(getppid(),SIGKILL);//子进程直接发送2号信号给父进程，父进程直接终止</code></pre>
+<p>其中”拜拜，欢迎下次再来“就是服务端发送给客户端的下线消息。上述代码中除了下线外，还有异地登陆也会导致子进程杀死父进程导致客户端程序终止。关于异地登陆的情况我刚在其他细节中给大家讲述。</p></li>
+</ol>
+<p>下线操作的显示效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="下线效果显示.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">下线效果显示</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="其他细节" class="level3">
+<h3 class="anchored" data-anchor-id="其他细节">其他细节</h3>
+<ol type="1">
+<li><p>异地登陆 该程序允许异地登陆即当登陆用户名已在线时，如果密码输入正确可以登陆成功。异地登陆成功后服务端便会发送消息”用户名被异地登陆，强制退出“给之前的客户端，收到后客户端终止，同时也在服务端打印一条该用户的异地登陆消息。</p>
+<p>显示效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="异地登陆显示效果.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">异地登陆显示效果</figcaption><p></p>
+</figure>
+</div>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">//服务端</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>mode <span class="op">==</span> <span class="dv">1</span><span class="op">)</span>         <span class="co">//如果用户已经在线，该版本支持用户异地登陆，所以一定要保护好密码哟～</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        sendto<span class="op">(</span>sockfd<span class="op">,</span><span class="st">"用户名被异地登陆，强制退出</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span><span class="st">"用户名被异地登陆，强制退出</span><span class="sc">\n</span><span class="st">"</span><span class="op">),</span><span class="dv">0</span><span class="op">,(</span><span class="kw">struct</span> sockaddr <span class="op">*)&amp;</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>UserInfos<span class="op">[</span>i<span class="op">].</span>useraddr<span class="op">));</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"用户名:%s被IP地址:%s异地登陆，端口号为:%d.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span>UserInfos<span class="op">[</span>i<span class="op">].</span>username<span class="op">,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               inet_ntop<span class="op">(</span>AF_INET<span class="op">,&amp;</span>recvaddr<span class="op">-&gt;</span>sin_addr<span class="op">,</span>str_ip<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>str_ip<span class="op">)),</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>               ntohs<span class="op">(</span>recvaddr<span class="op">-&gt;</span>sin_port<span class="op">));</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">//sendto(sockfd, "登陆成功.\n", sizeof("登陆成功.\n"), 0, (struct sockaddr *)recvaddr, sizeof(*recvaddr));</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">//break;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>当客户端子进程收到”用户名被异地登陆，强制退出“后，便会杀死父进程，客户端终止。</p></li>
+<li><p>避免Ctrl+C异常退出</p>
+<p>异常退出客户端程序会导致很多问题，如客户端已退出，但服务端仍认为该用户在线。如果不允许异地登陆的话，那么就会导致给用户名失效。除非重启服务端程序。一般而言采用Ctri+C异常退出，所以该程序通过忽略该信号从而避免异常退出情况的发生。</p>
+<p>显示效果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="避免异常退出显示效果.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">避免异常退出显示效果</figcaption><p></p>
+</figure>
+</div>
+<p>代码实现：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> handler<span class="op">(</span><span class="dt">int</span> signo<span class="op">)</span>               <span class="co">//捕获信号后的处理程序</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a> <span class="cf">switch</span> <span class="op">(</span>signo<span class="op">)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a> <span class="op">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a> <span class="cf">case</span> SIGINT<span class="op">:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>     printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">检测到Ctrl+C，无法识别，如果要退出请输入logout.</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>     <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a> <span class="cf">case</span> SIGTSTP<span class="op">:</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>     printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">检测到Ctrl+Z，无法识别，如果要退出请输入logout.</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>     <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a> <span class="cf">case</span> SIGQUIT<span class="op">:</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>     printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">检测到Ctrl+</span><span class="sc">\\</span><span class="st">，无法识别，如果要退出请输入logout.</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>     <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a> <span class="op">}</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">//并且在父子进程中都包含上以下语句,因为父子进程都会收到该信号，并且都屏蔽它。</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>signal<span class="op">(</span>SIGINT<span class="op">,</span>SIG_IGN<span class="op">);</span> </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>signal<span class="op">(</span>SIGTSTP<span class="op">,</span>SIG_IGN<span class="op">);</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>signal<span class="op">(</span>SIGQUIT<span class="op">,</span>SIG_IGN<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>该实现通过调用Linux系统调用signal实现。并且从上述代码看客户端不仅屏蔽SIGINT(Ctrl+C)还屏蔽SIGTSTP(Ctrl+Z)以及SIGQUIT(Ctrl+\)。</p></li>
+</ol>
+</section>
+</section>
+<section id="运行效果" class="level2">
+<h2 class="anchored" data-anchor-id="运行效果">运行效果</h2>
+<p>一般情形下的运行结果：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="运行效果展示.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">运行效果展示</figcaption><p></p>
+</figure>
+</div>
+<p>关于异常情况的处理（异地登陆、登陆异常、向不存在的用户转发…）:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="异常操作处理.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">异常操作处理</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="后记" class="level2">
+<h2 class="anchored" data-anchor-id="后记">后记</h2>
+<p>第一次写博客，有一些地方处理的不是很好（照片不够清晰等等），请多多包涵。</p>
+<p>这本是Linux编程老师留的作业，改装之后又作为计网专周实验。当然这个程序还不是最终版本，有时间我会继续维护，比如连接上数据库再加上界面窗口这些。所以本文将保持不定时更新。</p>
+<p>最后感谢<a href="https://github.com/GlekoMa">Gleko</a>对我提供的一些技术方面的支持。</p>
+</section>
+<section id="源代码" class="level2">
+<h2 class="anchored" data-anchor-id="源代码">源代码</h2>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><i class="bi bi-journal-code"></i> <a href="MySocket-master.zip" download="MySocket.zip">Download MySocket.zip</a></p>
+</div>
+</div>
+</div>
+<hr>
+<div style="text-align:right;">
+<p><a href="https://github.com/programingWarrior-xiaohan">韩佳奇</a> &nbsp;2022.7.18</p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
