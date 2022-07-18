@@ -27,7 +27,9 @@ Last updated: July 18 2022
 
 代码运行环境：
 
-​		VScode
+​		编译器版本：gcc version 9.4.0
+
+​		编辑器版本：May 2022 (version 1.68)
 
 经测试，该程序仅能运行在Linux系统中，可通过连接同一局域网(同一热点或WIFI)进行通信；或者，将服务端程序部署到公网服务器，则可实现远距离通信。如果手机装有C语言编译器IDE，也可实现手机终端的通信。
 
@@ -64,17 +66,17 @@ Last updated: July 18 2022
 
 下面是我程序的大体设计思路：
 
-![设计流程图](设计流程图.jpg)
+![](设计流程图.jpg)
 
 ## 细节
 
 ### 登陆细节
 
-在我设计的程序中，用户的信息以全局结构数组存储：
+在我设计的程序中，用户的信息以全局结构数组存储在服务端。
 
 **关于用户信息的结构体定义：**
 
-```c
+```C
 typedef struct                   //用户结构体
 {
 	char *username;				 //用户名
@@ -101,7 +103,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    显示效果：
 
-   ![程序实例（2）](程序实例（2）.png)
+   ![](程序实例（2）.png)
 
    代码实现：
 
@@ -118,11 +120,11 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    实现效果：
 
-   ![程序实例（3）](程序实例（3）.png)
+   ![](程序实例（3）.png)
 
    代码实现：
 
-   ```c
+   ```C
    case LOGIN: //处理登陆操作
    		//判定用户名是否存在，如果存在锁定该用户信息
    		for (i = 0; i < user_current_count; i++)           //比对次单词是不是用户名
@@ -189,11 +191,11 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    显示效果：
 
-   ![程序实例（4）](程序实例（4）.png)
+   ![](程序实例（4）.png)
 
    代码实现：
 
-   ```c
+   ```C
    	printf("%s", message_recv); //服务端发送的信息中包含\n和\0.
    	if(strcmp(message_recv,"该用户名不存在.\n")==0)
    	{
@@ -206,7 +208,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
    	}
    ```
 
-   首先显示服务端发送的消息：登陆成功/该用户不存在/登陆失败，密码错误。然后进行相应的处理。
+   首先显示服务端发送的消息："登陆成功"/"该用户不存在"/"登陆失败，密码错误"，然后进行相应的处理。
 
 ### 转发细节
 
@@ -216,7 +218,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    显示效果：
 
-   ![程序实例（1）](程序实例（1）.png)
+   ![](程序实例（1）.png)
 
    代码实现：
 
@@ -281,7 +283,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    代码实现：
 
-   ```
+   ```C
    case 2: //关于指令"toall",发送消息给所有在线用户
    			strcat(pp[1], suffix);
    			sendmessage_toall(sockfd,i,pp[1]);//群发消息函数
@@ -289,7 +291,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    sendmessage_toall函数实现：
 
-   ```c
+   ```C
    void sendmessage_toall(int sockfd,int i,const char* mesg)//群发消息, i~标记，表示不给UserInfos[i]用户发消息，一般将i赋值为当前用户的i值。如果将i置为-1，则将消息发送给所有在线用户。     
    {
        for (int k = 0; k < user_current_count; k++)
@@ -311,7 +313,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    代码实现：
 
-   ```c
+   ```C
    case 1: //关于指令"logout",退出登陆
        printf("用户：%s已下线\n", username);
        UserInfos[i].mode = 0;
@@ -327,7 +329,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    代码实现：
 
-   ```
+   ```C
    while(1)                                   //子进程
    {
        recvfrom(sockfd, message_recv, sizeof(message_recv), 0, NULL, 0); //接受服务端发送的信息
@@ -342,7 +344,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
 下线操作的显示效果：
 
-![下线效果显示](下线效果显示.png)
+![](下线效果显示.png)
 
 ### 其他细节
 
@@ -351,7 +353,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    显示效果：
 
-   ![异地登陆显示效果](异地登陆显示效果.png)
+   ![](异地登陆显示效果.png)
 
    代码实现：
 
@@ -376,11 +378,11 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
    显示效果：
 
-   ![避免异常退出显示效果](避免异常退出显示效果.png)
+   ![](避免异常退出显示效果.png)
 
    代码实现：
 
-   ```c
+   ```C
    void handler(int signo)               //捕获信号后的处理程序
    {
    	switch (signo)
@@ -409,11 +411,11 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
 一般情形下的运行结果：
 
-![运行效果展示](运行效果展示.png)
+![](运行效果展示.png)
 
 关于异常情况的处理（异地登陆、登陆异常、向不存在的用户转发...）:
 
-![异常操作处理](异常操作处理.png)
+![](异常操作处理.png)
 
 ## 后记
 
@@ -432,5 +434,5 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 ---
 
 <div style="text-align:right;">
-[韩佳奇](https://github.com/programingWarrior-xiaohan) \ 2022.7.18
+[Joki](https://github.com/programingWarrior-xiaohan) \ 2022.7.18
 </div>
