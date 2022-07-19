@@ -151,6 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#其他细节" id="toc-其他细节" class="nav-link" data-scroll-target="#其他细节">其他细节</a></li>
   </ul></li>
   <li><a href="#运行效果" id="toc-运行效果" class="nav-link" data-scroll-target="#运行效果">运行效果</a></li>
+  <li><a href="#运行说明" id="toc-运行说明" class="nav-link" data-scroll-target="#运行说明">运行说明</a></li>
   <li><a href="#后记" id="toc-后记" class="nav-link" data-scroll-target="#后记">后记</a></li>
   <li><a href="#源代码" id="toc-源代码" class="nav-link" data-scroll-target="#源代码">源代码</a></li>
   </ul>
@@ -531,6 +532,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>关于异常情况的处理（异地登陆、登陆异常、向不存在的用户转发…）:</p>
 <p><img src="异常操作处理.png" class="img-fluid"></p>
 </section>
+<section id="运行说明" class="level2">
+<h2 class="anchored" data-anchor-id="运行说明">运行说明</h2>
+<p>如果服务端程序编译失败，不要慌，这是因为没有链接静态库pthread。由于服务端采用多线程处理，使用pthread头文件，所以服务端程序在编译需要链接上静态库pthread。</p>
+<ol type="1">
+<li><p>如果在Linux使用命令窗口编译程序的话</p>
+<p>编译服务端程序使用指令<code>gcc -o xxx xxx.c -lpthread</code>编译即可</p></li>
+<li><p>如果使用Linux环境下的VScode</p>
+<p>在VScode会显示如下错误： <img src="编译失败_vscode.png" class="img-fluid"></p>
+<p>解决方法：</p>
+<ol type="1">
+<li><p>将客户端和服务端程序放在文件夹里面，然后用VScode将其打开</p></li>
+<li><p>打开.vscode中的tasks.json文件，按如下修改即可。 <img src="编译异常处理.png" class="img-fluid"></p></li>
+</ol></li>
+</ol>
+</section>
 <section id="后记" class="level2">
 <h2 class="anchored" data-anchor-id="后记">后记</h2>
 <p>第一次写博客，有一些地方处理的不是很好（照片不够清晰等等），请多多包涵。</p>
@@ -545,7 +561,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><i class="bi bi-journal-code"></i> <a href="MySocket-master.zip" download="MySocket.zip">Download MySocket.zip</a></p>
+<p><i class="bi bi-journal-code"></i> <a href="MySocket.zip" download="MySocket.zip">Download MySocket.zip</a></p>
 </div>
 </div>
 </div>

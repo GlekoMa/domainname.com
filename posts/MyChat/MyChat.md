@@ -434,6 +434,25 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 
 ![](异常操作处理.png)
 
+## 运行说明
+如果服务端程序编译失败，不要慌，这是因为没有链接静态库pthread。由于服务端采用多线程处理，使用pthread头文件，所以服务端程序在编译需要链接上静态库pthread。
+
+1. 如果在Linux使用命令窗口编译程序的话
+
+   编译服务端程序使用指令`gcc -o xxx xxx.c -lpthread`编译即可
+
+2. 如果使用Linux环境下的VScode
+
+   在VScode会显示如下错误：
+   ![](编译失败_vscode.png)
+
+   解决方法：
+
+   1. 将客户端和服务端程序放在文件夹里面，然后用VScode将其打开
+
+   2. 打开.vscode中的tasks.json文件，按如下修改即可。
+   ![](编译异常处理.png)
+
 ## 后记
 
 第一次写博客，有一些地方处理的不是很好（照片不够清晰等等），请多多包涵。
@@ -445,7 +464,7 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 ## 源代码
 
 ::: {.callout-note appearance="minimal"}
-<i class="bi bi-journal-code"></i> [Download MySocket.zip](MySocket-master.zip){download="MySocket.zip"}
+<i class="bi bi-journal-code"></i> [Download MySocket.zip](MySocket.zip){download="MySocket.zip"}
 ::: 
 
 ---
@@ -453,3 +472,4 @@ User UserInfos[USER_COUNT] = {{"寂寞的忧伤", "123", 1}, {"暴龙战士", "1
 <div style="text-align:right;">
 [Joki](https://github.com/programingWarrior-xiaohan) \ 2022.7.18
 </div>
+

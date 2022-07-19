@@ -180,5 +180,12 @@
     "title": "LinuxC聊天程序：MyChat",
     "section": "源代码",
     "text": "源代码\n\n\n\n\n\n\n Download MySocket.zip\n\n\n\n\n\nJoki  2022.7.18"
+  },
+  {
+    "objectID": "posts/MyChat/MyChat.html#运行说明",
+    "href": "posts/MyChat/MyChat.html#运行说明",
+    "title": "LinuxC聊天程序：MyChat",
+    "section": "运行说明",
+    "text": "运行说明\n如果服务端程序编译失败，不要慌，这是因为没有链接静态库pthread。由于服务端采用多线程处理，使用pthread头文件，所以服务端程序在编译需要链接上静态库pthread。\n\n如果在Linux使用命令窗口编译程序的话\n编译服务端程序使用指令gcc -o xxx xxx.c -lpthread编译即可\n如果使用Linux环境下的VScode\n在VScode会显示如下错误： \n解决方法：\n\n将客户端和服务端程序放在文件夹里面，然后用VScode将其打开\n打开.vscode中的tasks.json文件，按如下修改即可。"
   }
 ]
