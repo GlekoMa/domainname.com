@@ -70,60 +70,11 @@
     "text": "关于Quarto\nQuato是一个开源的科技出版系统，支持Jupyter、RStudio和VS Code等多种代码编辑器。其官方描述如下：\n\n创建代码与文本结合的可动态编译内容。支持Python、R、Julia和Observable。\n使用markdown文本或Jupyter笔记本的形式进行编译。\n渲染高质量论文、报告、幻灯片、网站、博客和书籍，并以HTML、PDF、MS Word、ePub或其他格式输出。\n支持数学公式、引文、交叉引用、图表、标注、高级布局以及其他特性。\n\n\n\n使用须知\n本文主要介绍Quarto在数学建模论文排版上的应用。关于此数学建模论文模板的使用，需要声明以下几点：\n\n该模板谨按照全国大学生数学建模竞赛的标准进行设计，不适用于美赛、深圳杯等其他数学建模赛事。\n本模板仅适合对排版要求不高的朋友采用。模板主要使用LaTeX编写，由于一篇论文的编译流程大致为：ipynb/qmd -> md -> Pandoc -> PDF，层层抽象过多，故自定义排版布局对使用者相关知识的要求较高，且一旦编写格式逾矩，排错难度较大。\n对模板的过度依赖会导致使用者个人的排版能力下降，即使理想的未来情况为内容创作者不再需要为各式样的排版劳心，但就目前来说，社会对于个人的排版能力仍然有一定要求。\n\n\n\n准备工作\n\n从Quato官网下载并安装Quarto\n使用终端（Terminal）执行命令：\n\nquarto tools install tinytex\n\n安装Typora编辑器beta版\n\n\n\n数学公式\nQuarto使用LaTeX格式的数学公式。LaTeX数学公式是计算机中最为广泛使用的公式输入格式，大多数文字或文档编辑软件都对LaTeX数学公式提供支持，例如：Word、Jupyter、Matlab等。下面介绍Quarto中数学公式的输入。\nLaTeX中数学公式的输入分两种模式：行内模式（$ … $）与行间模式\n$$\n...\n$$\n\n前者是在正文的行文中插入数学公式；后者单独成行，且自动居中。\n例如$E=mc^2$显示为\\(E=mc^2\\),而\n$$\nE=mc^2\n$$\n\n则显示为：\n\\[\nE=mc^2\n\\]\n输入带自动编号的公式则需要使用Quarto的交叉引用功能，例如：\n$$\nE=mc^2\n$$ {#eq-einstein}\n\n\n\n# 第二个$$和{}间的空格不能少\n显示为：\n\\[\nE=mc^2\n\\qquad(1)\\]\n交叉引用功能留待后面小节进行介绍。\n\n\n图片与表格\n\n插入图片\n图片插入请使用’!+[图片名]+(路径/链接)’的形式，支持插入的图片格式包括JPG、PNG、PDF等（不支持SVG），例如：\n![MIT LOGO](_mit.png){#fig-mit}\n\n# “{#fig-MIT}”的用处将在后面进行说明\n显示为：\n\n\n\nFigure 1: MIT LOGO\n\n\n特别的，针对PDF输出，可在{}中添加参数控制输出样式，例如：\n![MIT LOGO](_mit.png){fig.pos=\"H\" width=\"50%\" height=\"25%\"}\n代表禁止图片浮动（有时会失效）、图片宽度占PDF页面的50%，高度占页面的25%。\n\n\n插入表格\n例如：\n| 符号  | 说明        | 单位 |\n|-------|-------------|------|\n| $x_i$ | 第$i$次相遇 | 毫厘 |\n| $y_j$ | 第$j$次错过 | 千里 |\n\n: 符号说明 {#tbl-符号说明}\n\n# “: 符号说明” 代表指定表格名称\n# “{#tbl-符号说明}”的用处将在后面进行说明,其与表名间的空格不可省略\n显示为：\n\n\nTable 1: 符号说明\n\n\n符号\n说明\n单位\n\n\n\n\n\\(x_i\\)\n第\\(i\\)次相遇\n毫厘\n\n\n\\(y_j\\)\n第\\(j\\)次错过\n千里\n\n\n\n\n\n\n\n交叉引用\n本节介绍Quarto的交叉引用，我们在先前小节的数学公式、图片和表格中分别标记了{#eq-einstein}、{#fig-mit}和{#tbl-符号说明}，我们可以在文中任何地方引用他们，格式为@...，例如：\n @eq-einstein 、 @fig-mit 和 @tbl-符号说明\n分别显示为： Equation 1 、 Figure 1 和 Table 1\n\n\n建模模板的使用\n\n下载模板文件cumcm.tex：\n\n\n\n\n\n\n\n Download cumcm.tex\n\n\n\n\n下载文档示例与示例图片：\n\n\n\n\n\n\n\n Download Demo\n\n\n\n\n\n\n\n\n\n Download mit.png\n\n\n\n\n将这三个文件放入同一文件夹，使用终端（Terminal）执行命令：\n\nquarto preview 你的.md文档路径\n\n\n资料与工具\n\n相关资料\nQuato官网\n一份其实很短的LaTeX入门文档\n使用knitr包输出各种类型的LaTeX表格\n\n\n工具\n在线LaTeX公式编辑器\n流程图：Draw.io\n思维导图：XMind\n\n\n\n实际示例\n血管机器人的订购与生物学习（2022年五一杯数学建模竞赛A题）\n\n\n\n\n\n\n Download 2022五一杯A题.zip\n\n\n\n\n\nBUG\nupdating tlmgr\n\nupdating existing packages\n\ncompilation failed- error\nLaTeX3 Error: Mismatched LaTeX support files detected.\n(LaTeX3)        Loading 'expl3.sty' aborted!\n(LaTeX3)\n(LaTeX3)        The L3 programming layer in the LaTeX format\n(LaTeX3)        is dated 2022-06-02, but in your TeX tree the files require\n(LaTeX3)        at least 2022-06-16.\n\nFor immediate help type H <return>.\n ...\n\nl.77      \\ExplLoaderFileDate{expl3.sty}}\n                                         %\n终端输入：\nfmtutil-sys --all"
   },
   {
-    "objectID": "posts/Hi/hi.html",
-    "href": "posts/Hi/hi.html",
-    "title": "Hi",
-    "section": "",
-    "text": "Is anybody in there?"
-  },
-  {
     "objectID": "posts/alpha/alpha.html",
     "href": "posts/alpha/alpha.html",
     "title": "希腊字母表",
     "section": "",
     "text": "大写\n小写\n国际音标\n英文\n汉字注音\n\n\n\n\n\n1\nΑ\nα\n/’ælfə/\nalpha\n阿尔法\n\n\n2\nΒ\nβ\n/’bi:tə/ /’beɪtə/\nbeta\n贝塔/毕塔\n\n\n3\nΓ\nγ\n/’gæmə/\ngamma\n伽玛/甘玛\n\n\n4\nΔ\nδ\n/’deltə/\ndelta\n德尔塔/岱欧塔\n\n\n5\nΕ\nε\n/’epsɪlɒn/\nepsilon\n艾普西龙\n\n\n6\nΖ\nζ\n/’zi:tə/\nzeta\n泽塔\n\n\n7\nΗ\nη\n/’i:tə/\neta\n伊塔/诶塔\n\n\n8\nΘ\nθ\n/’θi:tə/\ntheta\n西塔\n\n\n9\nΙ\nι\n/aɪ’əʊtə/\niota\n埃欧塔\n\n\n10\nΚ\nκ\n/’kæpə/\nkappa\n堪帕\n\n\n11\n∧\nλ\n/’læmdə/\nlambda\n兰姆达\n\n\n12\nΜ\nμ\n/mju:/\nmu\n谬/穆\n\n\n13\nΝ\nν\n/nju:/\nnu\n拗/奴\n\n\n14\nΞ\nξ\n希腊: /ksi/ 英美: /ˈzaɪ/或/ˈksaɪ/\nxi\n可西/赛\n\n\n15\nΟ\nο\n/əuˈmaikrən/ /ˈɑmɪˌkrɑn/\nomicron\n欧 (阿~) 米可荣\n\n\n16\n∏\nπ\n/paɪ/\npi\n派\n\n\n17\nΡ\nρ\n/rəʊ/\nrho\n柔/若\n\n\n18\n∑\nσ\n/’sɪɡmə/\nsigma\n西格玛\n\n\n19\nΤ\nτ\n/tɔ:/ /taʊ/\ntau\n套/驼\n\n\n20\nΥ\nυ\n/ˈipsilon/ /ˈʌpsɨlɒn/\nupsilon\n宇 (阿~) 普西龙\n\n\n21\nΦ\nφ\n/faɪ/\nphi\n弗爱/弗忆\n\n\n22\nΧ\nχ\n/kaɪ/\nchi\n凯/柯义\n\n\n23\nΨ\nψ\n/psaɪ/\npsi\n赛/普赛/普西\n\n\n24\nΩ\nω\n/’əʊmɪɡə/ /oʊ’meɡə/\nomega\n欧米伽/欧枚嘎"
-  },
-  {
-    "objectID": "posts/tst/aa.html",
-    "href": "posts/tst/aa.html",
-    "title": "你好，测试",
-    "section": "",
-    "text": "111"
-  },
-  {
-    "objectID": "posts/tst/aa.html#小标题",
-    "href": "posts/tst/aa.html#小标题",
-    "title": "你好，测试",
-    "section": "小标题",
-    "text": "小标题\n哈哈\n\n\n\n小狗"
-  },
-  {
-    "objectID": "posts/cc/cc.html",
-    "href": "posts/cc/cc.html",
-    "title": "你好，测试",
-    "section": "",
-    "text": "111"
-  },
-  {
-    "objectID": "posts/cc/cc.html#小标题",
-    "href": "posts/cc/cc.html#小标题",
-    "title": "你好，测试",
-    "section": "小标题",
-    "text": "小标题\n哈哈\n\n小小标题\nabc\n\n\n你好，山药\noojjoopp"
-  },
-  {
-    "objectID": "posts/test/xx.html",
-    "href": "posts/test/xx.html",
-    "title": "测试",
-    "section": "",
-    "text": "你好"
-  },
-  {
-    "objectID": "posts/test/xx.html#黑",
-    "href": "posts/test/xx.html#黑",
-    "title": "测试",
-    "section": "黑",
-    "text": "黑"
   },
   {
     "objectID": "posts/MyChat/MyChat.html",
@@ -168,6 +119,13 @@
     "text": "运行效果\n一般情形下的运行结果：\n\n关于异常情况的处理（异地登陆、登陆异常、向不存在的用户转发…）:"
   },
   {
+    "objectID": "posts/MyChat/MyChat.html#运行说明",
+    "href": "posts/MyChat/MyChat.html#运行说明",
+    "title": "LinuxC聊天程序：MyChat",
+    "section": "运行说明",
+    "text": "运行说明\n如果服务端程序编译失败，不要慌，这是因为没有链接静态库pthread。由于服务端采用多线程处理，使用pthread头文件，所以服务端程序在编译需要链接上静态库pthread。\n\n如果在Linux使用命令窗口编译程序的话\n编译服务端程序使用指令gcc -o xxx xxx.c -lpthread编译即可\n如果使用Linux环境下的VScode\n在VScode会显示如下错误： \n解决方法：\n\n将客户端和服务端程序放在文件夹里面，然后用VScode将其打开\n打开.vscode中的tasks.json文件，按如下修改即可。"
+  },
+  {
     "objectID": "posts/MyChat/MyChat.html#后记",
     "href": "posts/MyChat/MyChat.html#后记",
     "title": "LinuxC聊天程序：MyChat",
@@ -180,12 +138,5 @@
     "title": "LinuxC聊天程序：MyChat",
     "section": "源代码",
     "text": "源代码\n\n\n\n\n\n\n Download MySocket.zip\n\n\n\n\n\nJoki  2022.7.18"
-  },
-  {
-    "objectID": "posts/MyChat/MyChat.html#运行说明",
-    "href": "posts/MyChat/MyChat.html#运行说明",
-    "title": "LinuxC聊天程序：MyChat",
-    "section": "运行说明",
-    "text": "运行说明\n如果服务端程序编译失败，不要慌，这是因为没有链接静态库pthread。由于服务端采用多线程处理，使用pthread头文件，所以服务端程序在编译需要链接上静态库pthread。\n\n如果在Linux使用命令窗口编译程序的话\n编译服务端程序使用指令gcc -o xxx xxx.c -lpthread编译即可\n如果使用Linux环境下的VScode\n在VScode会显示如下错误： \n解决方法：\n\n将客户端和服务端程序放在文件夹里面，然后用VScode将其打开\n打开.vscode中的tasks.json文件，按如下修改即可。"
   }
 ]
