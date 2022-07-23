@@ -141,8 +141,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#运行环境" id="toc-运行环境" class="nav-link" data-scroll-target="#运行环境">运行环境</a></li>
   <li><a href="#关于玩法" id="toc-关于玩法" class="nav-link" data-scroll-target="#关于玩法">关于玩法</a></li>
   </ul></li>
-  <li><a href="#功能" id="toc-功能" class="nav-link" data-scroll-target="#功能">功能</a></li>
-  <li><a href="#总体设计" id="toc-总体设计" class="nav-link" data-scroll-target="#总体设计">总体设计</a></li>
+  <li><a href="#命令及实例" id="toc-命令及实例" class="nav-link" data-scroll-target="#命令及实例">命令及实例</a>
+  <ul class="collapse">
+  <li><a href="#相关命令" id="toc-相关命令" class="nav-link" data-scroll-target="#相关命令">相关命令</a></li>
+  <li><a href="#实例" id="toc-实例" class="nav-link" data-scroll-target="#实例">实例</a></li>
+  </ul></li>
+  <li><a href="#设计思路及细节" id="toc-设计思路及细节" class="nav-link" data-scroll-target="#设计思路及细节">设计思路及细节</a>
+  <ul class="collapse">
+  <li><a href="#思路图" id="toc-思路图" class="nav-link" data-scroll-target="#思路图">思路图</a></li>
   <li><a href="#细节" id="toc-细节" class="nav-link" data-scroll-target="#细节">细节</a>
   <ul class="collapse">
   <li><a href="#登陆细节" id="toc-登陆细节" class="nav-link" data-scroll-target="#登陆细节">登陆细节</a></li>
@@ -150,10 +156,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#下线细节" id="toc-下线细节" class="nav-link" data-scroll-target="#下线细节">下线细节</a></li>
   <li><a href="#其他细节" id="toc-其他细节" class="nav-link" data-scroll-target="#其他细节">其他细节</a></li>
   </ul></li>
-  <li><a href="#运行效果" id="toc-运行效果" class="nav-link" data-scroll-target="#运行效果">运行效果</a></li>
-  <li><a href="#运行说明" id="toc-运行说明" class="nav-link" data-scroll-target="#运行说明">运行说明</a></li>
-  <li><a href="#后记" id="toc-后记" class="nav-link" data-scroll-target="#后记">后记</a></li>
+  </ul></li>
+  <li><a href="#运行效果及说明" id="toc-运行效果及说明" class="nav-link" data-scroll-target="#运行效果及说明">运行效果及说明</a>
+  <ul class="collapse">
+  <li><a href="#效果" id="toc-效果" class="nav-link" data-scroll-target="#效果">效果</a></li>
+  <li><a href="#说明" id="toc-说明" class="nav-link" data-scroll-target="#说明">说明</a></li>
+  </ul></li>
   <li><a href="#源代码" id="toc-源代码" class="nav-link" data-scroll-target="#源代码">源代码</a></li>
+  <li><a href="#后记" id="toc-后记" class="nav-link" data-scroll-target="#后记">后记</a></li>
   </ul>
 </nav>
     </div>
@@ -251,8 +261,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </section>
 </section>
-<section id="功能" class="level2">
-<h2 class="anchored" data-anchor-id="功能">功能</h2>
+<section id="命令及实例" class="level2">
+<h2 class="anchored" data-anchor-id="命令及实例">命令及实例</h2>
+<section id="相关命令" class="level3">
+<h3 class="anchored" data-anchor-id="相关命令">相关命令</h3>
 <ol type="1">
 <li><p>登陆(login)：客户端输入用户名和密码登陆。</p></li>
 <li><p>私发(to &lt;用户名&gt; &lt;消息&gt;)：通过 to+用户名+消息指令给指定用户发送消息。</p></li>
@@ -260,16 +272,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>退出登陆(logout)：将用户状态置于下线。</p></li>
 </ol>
 </section>
-<section id="总体设计" class="level2">
-<h2 class="anchored" data-anchor-id="总体设计">总体设计</h2>
+<section id="实例" class="level3">
+<h3 class="anchored" data-anchor-id="实例">实例</h3>
+<iframe src="http://114.116.110.230:1000" width="100%" style="border:none;display:block;height:50vh;">
+</iframe>
+</section>
+</section>
+<section id="设计思路及细节" class="level2">
+<h2 class="anchored" data-anchor-id="设计思路及细节">设计思路及细节</h2>
+<section id="思路图" class="level3">
+<h3 class="anchored" data-anchor-id="思路图">思路图</h3>
 <p>关于服务端和客户端的通信流程，想必大家早已掌握，这里不再多加赘述。</p>
 <p>下面是我程序的大体设计思路：</p>
 <p><img src="设计流程图.jpg" class="img-fluid"></p>
 </section>
-<section id="细节" class="level2">
-<h2 class="anchored" data-anchor-id="细节">细节</h2>
-<section id="登陆细节" class="level3">
-<h3 class="anchored" data-anchor-id="登陆细节">登陆细节</h3>
+<section id="细节" class="level3">
+<h3 class="anchored" data-anchor-id="细节">细节</h3>
+<section id="登陆细节" class="level4">
+<h4 class="anchored" data-anchor-id="登陆细节">登陆细节</h4>
 <p>在我设计的程序中，用户的信息以全局结构数组存储在服务端。</p>
 <p><strong>关于用户信息的结构体定义：</strong></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span>                   <span class="co">//用户结构体</span></span>
@@ -374,8 +394,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>首先显示服务端发送的消息：“登陆成功”/“该用户不存在”/“登陆失败，密码错误”，然后进行相应的处理。</p></li>
 </ol>
 </section>
-<section id="转发细节" class="level3">
-<h3 class="anchored" data-anchor-id="转发细节">转发细节</h3>
+<section id="转发细节" class="level4">
+<h4 class="anchored" data-anchor-id="转发细节">转发细节</h4>
 <p>首先客户端发送消息到服务器，再由服务器转发到相应的用户。因为所有用户信息都存储在服务端，所以客户端不能直接转发消息，必须由服务器进行转发。<strong>以下操作均由服务端实现。</strong></p>
 <ol type="1">
 <li><p>首先通过发送者的ip地址和端口号解析出发送者的用户名，并以后缀的形式合并消息语句后面。如图，服务器解析出发送者姓名xiaozhang并将by xiaozhang合并在消息后面，转发时一并发送。</p>
@@ -448,8 +468,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ol>
 </section>
-<section id="下线细节" class="level3">
-<h3 class="anchored" data-anchor-id="下线细节">下线细节</h3>
+<section id="下线细节" class="level4">
+<h4 class="anchored" data-anchor-id="下线细节">下线细节</h4>
 <ol type="1">
 <li><p>客户端发送下线请求”logout”给服务端。</p></li>
 <li><p>服务端接收，并给出相应的处理。如，将用户的状态置于下线状态、给客户端及其他在线用户发送该用户的下线消息，同时在服务端也打印一条该用户的下线消息。</p>
@@ -478,8 +498,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>下线操作的显示效果：</p>
 <p><img src="下线效果显示.png" class="img-fluid"></p>
 </section>
-<section id="其他细节" class="level3">
-<h3 class="anchored" data-anchor-id="其他细节">其他细节</h3>
+<section id="其他细节" class="level4">
+<h4 class="anchored" data-anchor-id="其他细节">其他细节</h4>
 <ol type="1">
 <li><p>异地登陆 该程序允许异地登陆即当登陆用户名已在线时，如果密码输入正确可以登陆成功。异地登陆成功后服务端便会发送消息”用户名被异地登陆，强制退出“给之前的客户端，收到后客户端终止，同时也在服务端打印一条该用户的异地登陆消息。</p>
 <p>显示效果：</p>
@@ -525,15 +545,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </section>
 </section>
-<section id="运行效果" class="level2">
-<h2 class="anchored" data-anchor-id="运行效果">运行效果</h2>
+</section>
+<section id="运行效果及说明" class="level2">
+<h2 class="anchored" data-anchor-id="运行效果及说明">运行效果及说明</h2>
+<section id="效果" class="level3">
+<h3 class="anchored" data-anchor-id="效果">效果</h3>
 <p>一般情形下的运行结果：</p>
 <p><img src="运行效果展示.png" class="img-fluid"></p>
 <p>关于异常情况的处理（异地登陆、登陆异常、向不存在的用户转发…）:</p>
 <p><img src="异常操作处理.png" class="img-fluid"></p>
 </section>
-<section id="运行说明" class="level2">
-<h2 class="anchored" data-anchor-id="运行说明">运行说明</h2>
+<section id="说明" class="level3">
+<h3 class="anchored" data-anchor-id="说明">说明</h3>
 <p>如果服务端程序编译失败，不要慌，这是因为没有链接静态库pthread。由于服务端采用多线程处理，使用pthread头文件，所以服务端程序在编译需要链接上静态库pthread。</p>
 <ol type="1">
 <li><p>如果在Linux使用命令窗口编译程序的话</p>
@@ -546,12 +569,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>打开.vscode中的tasks.json文件，按如下修改即可。 <img src="编译异常处理.png" class="img-fluid"></p></li>
 </ol></li>
 </ol>
-</section>
-<section id="后记" class="level2">
-<h2 class="anchored" data-anchor-id="后记">后记</h2>
-<p>第一次写博客，有一些地方处理的不是很好（照片不够清晰等等），请多多包涵。</p>
-<p>这本是Linux编程老师留的作业，改装之后又作为计网专周实验。当然这个程序还不是最终版本，有时间我会继续维护，比如连接上数据库再加上界面窗口这些。所以本文将保持不定时更新。</p>
 <p>最后感谢<a href="https://github.com/GlekoMa">Gleko</a>对我提供的一些技术方面的支持。</p>
+</section>
 </section>
 <section id="源代码" class="level2">
 <h2 class="anchored" data-anchor-id="源代码">源代码</h2>
@@ -565,6 +584,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+</section>
+<section id="后记" class="level2">
+<h2 class="anchored" data-anchor-id="后记">后记</h2>
+<p>第一次写博客，有一些地方处理的不是很好（照片不够清晰等等），请多多包涵。</p>
+<p>这本是Linux编程老师留的作业，改装之后又作为计网专周实验。当然这个程序还不是最终版本，有时间我会继续维护，比如连接上数据库再加上界面窗口这些。所以本文将保持不定时更新。</p>
 <hr>
 <div style="text-align:right;">
 <p><a href="https://github.com/programingWarrior-xiaohan">Joki</a> &nbsp;2022.7.18</p>
@@ -574,26 +598,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 
 </main> <!-- /main -->
-
-    <!-- ... -->
-    <script src="https://cdn.jsdelivr.net/npm/@waline/client"></script>
-    <!-- ... -->
-  
-  
-    <!-- ... -->
-    <div id="waline"></div>
-    <script>
-      Waline({
-        el: '#waline',
-        serverURL: 'https://waline-gwzx-dk13l03mk-glekoma.vercel.app/',
-        emoji: [
-          'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tw-emoji',
-          ],
-
-      });
-    </script>
-  
-  
 <script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

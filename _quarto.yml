@@ -15,9 +15,8 @@ format:
     fontsize: 1.1em
     css: styles.css
     smooth-scroll: true
-    toc: true
+    toc: false
 listing: 
   filter-ui: false
   max-description-length: 75
   fields: [date, author, title, description]
-  

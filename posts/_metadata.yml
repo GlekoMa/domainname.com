@@ -8,8 +8,9 @@ freeze: true
 title-block-banner: false
 
 # Gleko add
-include-after-body:
-  - ../comments.html
+# include-after-body:
+#   - ../forum-comments.html # Stulink论坛评论
+#   - ../comments.html # Waline评论（第三方）
 
 navbar: false
 css: styles.css
